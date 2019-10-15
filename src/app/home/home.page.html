@@ -1,14 +1,23 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Hands-on Reading
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+<div class="image">
+<img class="firstPageImage" src="../../assets/sampleImage.jpg" alt="First page">
+</div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-button (click)= feedbackClicked()>Feedback</ion-button>
+      <ion-button>Reset image</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+

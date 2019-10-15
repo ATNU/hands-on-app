@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { UUID } from 'angular2-uuid';
+// import { Screenshot } from '@ionic-native/screenshot/ngx';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,11 @@ export class HomePage implements OnInit {
   }
 
   feedbackClicked() {
-this.router.navigate(['/feedback/' + this.uniqueID]);
+    // this.saveScreenshot();
+    this.router.navigate(['/feedback/' + this.uniqueID]);
   }
 
+  // saveScreenshot() {
+  //   this.screenshot.save('jpg', 80, this.uniqueID).then();
+  // }
 }
