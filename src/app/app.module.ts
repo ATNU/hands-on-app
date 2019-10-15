@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {FeedbackComponent} from './feedback/feedback.component';
-import {Screenshot} from '@ionic-native/screenshot';
+import {Screenshot} from '@ionic-native/screenshot/ngx';
 
 
 // @ts-ignore
@@ -25,6 +25,7 @@ import {Screenshot} from '@ionic-native/screenshot';
   providers: [
     StatusBar,
     SplashScreen,
+      Screenshot,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
