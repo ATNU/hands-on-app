@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {FeedbackComponent} from './feedback/feedback.component';
 import {Screenshot} from '@ionic-native/screenshot/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 
 // @ts-ignore
@@ -26,6 +27,7 @@ import {Screenshot} from '@ionic-native/screenshot/ngx';
     StatusBar,
     SplashScreen,
       Screenshot,
+      File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

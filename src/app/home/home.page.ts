@@ -4,6 +4,7 @@ import { UUID } from 'angular2-uuid';
 import { Screenshot } from '@ionic-native/screenshot/ngx';
 import { Platform } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -20,13 +21,11 @@ export class HomePage implements OnInit {
       private platform: Platform) {}
 
   ngOnInit(): void {
-    this.uniqueID = UUID.UUID();
-    console.log(this.uniqueID);
+
   }
 
   feedbackClicked() {
-    // this.saveScreenshot();
-    this.router.navigate(['/feedback/' + this.uniqueID]);
+    this.saveScreenShot().then( () => this.router.navigate(['/feedback/' + this.uniqueID]));
   }
 
   screenshotCounter() {
@@ -36,27 +35,22 @@ export class HomePage implements OnInit {
     }, 1000);
   }
 
-  saveScreenShot() {
-    // only works if using the app on a mobile or tablet, not web browser
-if (this.platform.is('cordova')) {
-  this.screenshot.save('jpg', 80, this.uniqueID).then(res => {
+  async saveScreenShot() {
+    this.uniqueID = UUID.UUID();
+    console.log(this.uniqueID);
+    await this.screenshot.save('jpg', 80, this.uniqueID).then(res => {
     this.screen = res.filePath;
     this.state = true;
     console.log(this.screen);
     console.log(this.state);
     this.screenshotCounter();
+    return this.uniqueID;
   });
-} else {
-      console.log('device not using cordova so no screenshot saved');
 }
-
-  }
 
   resetClicked() {
     // save screenshot
-    this.saveScreenShot();
-
-    // todo reset drawing
+    this.saveScreenShot().then( () => this.router.navigate(['/home']));
   }
 
 }

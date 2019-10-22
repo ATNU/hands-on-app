@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-feedback',
@@ -9,10 +10,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class FeedbackComponent implements OnInit {
 feedbackText: string;
 id: string;
-saveToFile: string;
 
   constructor(private route: ActivatedRoute,
-              private router: Router ) { }
+              private router: Router,
+              private file: File) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -20,11 +21,25 @@ saveToFile: string;
     });
   }
 
-  saveFeedback() {
+  async saveFeedback() {
     console.log(this.feedbackText + this.id);
-    this.saveToFile = this.id + ',' + this.feedbackText;
+    const data = [ { id: this.id, feedback: this.feedbackText} ];
+    const dataString = JSON.stringify(data);
+    this.save(dataString).then(() => this.router.navigate(['/home']));
 
-    // save feedback
+
+}
+  async directoryExists() {
+    return await this.file.checkDir(this.file.dataDirectory, 'Feedback');
+  }
+  async save(dataString: string) {
+    // check if file exists and create and write, or write only
+    if (this.directoryExists()) {
+      this.file.writeExistingFile(this.file.dataDirectory, 'Feedback', dataString)
+          .then(() => this.file.createFile(this.file.dataDirectory, 'Feedback', false));
+    } else {
+      await this.file.createFile(this.file.dataDirectory, 'Feedback', false);
+    }
   }
 
 }
