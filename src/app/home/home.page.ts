@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { UUID } from 'angular2-uuid';
 import { Screenshot } from '@ionic-native/screenshot/ngx';
 import { Platform } from '@ionic/angular';
-
+import { fabric } from 'fabric';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +11,7 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+  canvas: any;
   uniqueID: string;
   state: boolean;
   screen: any;
@@ -21,7 +22,31 @@ export class HomePage implements OnInit {
       private platform: Platform) {}
 
   ngOnInit(): void {
+    this.canvas = new fabric.Canvas('myCanvas');
+    this.canvas.setBackgroundImage('./assets/image.png', this.canvas.renderAll.bind(this.canvas));
+  }
 
+  clear() {
+    this.canvas.clear();
+    this.canvas.setBackgroundImage('./assets/image.png', this.canvas.renderAll.bind(this.canvas));
+  }
+
+  enableDraw() {
+    this.canvas.isDrawingMode = true;
+  }
+
+  changeColour(colour: string) {
+    this.canvas.freeDrawingBrush.color = colour;
+  }
+
+  increaseWidth() {
+    this.canvas.freeDrawingBrush.width ++;
+  }
+
+  decreaseWidth() {
+    if (this.canvas.freeDrawingBrush.width > 1) {
+      this.canvas.freeDrawingBrush.width --;
+    }
   }
 
   feedbackClicked() {

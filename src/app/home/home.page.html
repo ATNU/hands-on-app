@@ -7,12 +7,30 @@
 </ion-header>
 
 <ion-content [class.newBG]="state">
+  <!--
 <div class="image">
-<img class="firstPageImage" src="../../assets/sampleImage.jpg" alt="First page">
+  <img class="firstPageImage" src="../assets/sampleImage.jpg" alt="First page"> -->
+  <div>
+<div>
+  <canvas id="myCanvas" width="1000" height="900"></canvas>
+</div>
+<div>
+  <button>Submit</button>
+  <button (click)="clear()">Clear</button>
+  <button (click)="enableDraw()">Pencil</button>
+  <button>Text</button>
+  <button (click)="changeColour('red')">Red</button>
+  <button (click)="changeColour('blue')">Blue</button>
+  <button (click)="changeColour('green')">Green</button>
+  <button (click)="changeColour('black')">Black</button>
+  <button (click)="decreaseWidth()">width -</button>
+  {{canvas.freeDrawingBrush.width}}
+  <button (click)="increaseWidth()">width +</button>
+</div>
 </div>
 
 
-<img src="{{ screen }}" *ngIf="state">
+<!--<img src="{{ screen }}" *ngIf="state">-->
 </ion-content>
 <ion-footer>
   <ion-toolbar>

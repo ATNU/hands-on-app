@@ -30,15 +30,15 @@ id: string;
 
 }
   async directoryExists() {
-    return await this.file.checkDir(this.file.dataDirectory, 'Feedback');
+    return await this.file.checkDir(this.file.documentsDirectory, 'Feedback');
   }
   async save(dataString: string) {
     // check if file exists and create and write, or write only
     if (this.directoryExists()) {
-      this.file.writeExistingFile(this.file.dataDirectory, 'Feedback', dataString)
-          .then(() => this.file.createFile(this.file.dataDirectory, 'Feedback', false));
+      this.file.writeExistingFile(this.file.documentsDirectory, 'Feedback', dataString)
+          .then(() => this.file.createFile(this.file.documentsDirectory, 'Feedback', false));
     } else {
-      await this.file.createFile(this.file.dataDirectory, 'Feedback', false);
+      await this.file.createFile(this.file.documentsDirectory, 'Feedback', false);
     }
   }
 
