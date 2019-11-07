@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { fabric} from 'fabric';
@@ -14,12 +14,17 @@ export class HomePage implements OnInit {
   state: boolean;
   screen: any;
 
+  canvasID: string;
+
   constructor(
       private service: StorageService,
       private router: Router,
       private platform: Platform) {}
 
   ngOnInit(): void {
+    // temporary assign canvasID for testing
+    this.canvasID = '5dc3f9bd77e2961090c579f6';
+
     this.canvas = new fabric.Canvas('myCanvas');
  //   this.canvas.setBackgroundImage('./assets/image.png', this.canvas.renderAll.bind(this.canvas));
 
@@ -75,7 +80,11 @@ export class HomePage implements OnInit {
   }
 
 
+realFeedbackClicked() {
+    // todo save image and save canvasID returned
 
+    this.router.navigate(['/feedback/' + this.canvasID]);
+}
 
   saveSvg() {
     const toSVG = this.canvas.toSVG();

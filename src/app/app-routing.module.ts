@@ -5,7 +5,7 @@ import {FeedbackComponent} from './feedback/feedback.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
-  {path: 'feedback/:id', component: FeedbackComponent}
+  {path: 'feedback/:canvasId', component: FeedbackComponent}
 ];
 
 @NgModule({

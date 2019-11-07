@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {FeedbackComponent} from './feedback/feedback.component';
 import {Screenshot} from '@ionic-native/screenshot/ngx';
 import { File } from '@ionic-native/file/ngx';
+import {HttpClientModule} from '@angular/common/http';
 
 
 // @ts-ignore
@@ -22,12 +23,10 @@ import { File } from '@ionic-native/file/ngx';
     FeedbackComponent
   ],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
-      Screenshot,
-      File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
