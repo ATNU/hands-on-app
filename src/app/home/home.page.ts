@@ -1,7 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { UUID } from 'angular2-uuid';
-import { Screenshot } from '@ionic-native/screenshot/ngx';
 import { Platform } from '@ionic/angular';
 import { fabric} from 'fabric';
 import { StorageService } from '../storage.service';
@@ -13,14 +11,12 @@ import { StorageService } from '../storage.service';
 })
 export class HomePage implements OnInit {
   canvas: any;
-  uniqueID: string;
   state: boolean;
   screen: any;
 
   constructor(
       private service: StorageService,
       private router: Router,
-      @Inject(Screenshot) private screenshot: Screenshot,
       private platform: Platform) {}
 
   ngOnInit(): void {
@@ -74,31 +70,11 @@ export class HomePage implements OnInit {
   }
 
   feedbackClicked() {
-   // this.saveScreenShot().then( () => this.router.navigate(['/feedback/' + this.uniqueID]));
+
    this.saveSvg();
   }
 
-  screenshotCounter() {
-    const self = this;
-    setTimeout(() => {
-      self.state = false;
-    }, 1000);
-  }
 
-  async saveScreenShot() {
-      console.log('export image');
-
-      this.uniqueID = UUID.UUID();
-      console.log(this.uniqueID);
-      await this.screenshot.save('jpg', 80, this.uniqueID).then(res => {
-      this.screen = res.filePath;
-      this.state = true;
-      console.log(this.screen);
-      console.log(this.state);
-      this.screenshotCounter();
-      return this.uniqueID;
-    });
-}
 
 
   saveSvg() {
@@ -133,8 +109,7 @@ export class HomePage implements OnInit {
   }
 
   resetClicked() {
-    // save screenshot
-    //this.saveScreenShot().then( () => this.router.navigate(['/home']));
+
     this.saveJson();
   }
 
