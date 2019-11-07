@@ -6,37 +6,35 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [class.newBG]="state">
-  <!--
-<div class="image">
-  <img class="firstPageImage" src="../assets/sampleImage.jpg" alt="First page"> -->
+<ion-content [class.newBG]="state"
+[scrollX]="true"
+[scrollY]="true">
+    <!--
+  <div class="image">
+    <img class="firstPageImage" src="../assets/sampleImage.jpg" alt="First page"> -->
+
+  
   <div>
-<div>
-  <canvas id="myCanvas" width="1000" height="900"></canvas>
-</div>
-<div>
-  <button>Submit</button>
-  <button (click)="clear()">Clear</button>
-  <button (click)="enableDraw()">Pencil</button>
-  <button>Text</button>
-  <button (click)="changeColour('red')">Red</button>
-  <button (click)="changeColour('blue')">Blue</button>
-  <button (click)="changeColour('green')">Green</button>
-  <button (click)="changeColour('black')">Black</button>
-  <button (click)="decreaseWidth()">width -</button>
-  {{canvas.freeDrawingBrush.width}}
-  <button (click)="increaseWidth()">width +</button>
-</div>
-</div>
+    <canvas id="myCanvas" width="700" height="900"></canvas>
+  </div>
 
 
-<!--<img src="{{ screen }}" *ngIf="state">-->
+
+  <!--<img src="{{ screen }}" *ngIf="state">-->
 </ion-content>
 <ion-footer>
   <ion-toolbar>
     <ion-buttons>
       <ion-button (click)= feedbackClicked()>Feedback</ion-button>
       <ion-button (click)= resetClicked()>Reset</ion-button>
+      <ion-button (click)="clear()">Clear</ion-button>
+      <ion-button (click)="changeColour('red')">R</ion-button>
+      <ion-button (click)="changeColour('blue')">B</ion-button>
+      <ion-button (click)="changeColour('green')">G</ion-button>
+      <ion-button (click)="changeColour('black')">Bl</ion-button>
+      <ion-button (click)="decreaseWidth()">-</ion-button>
+      {{canvas.freeDrawingBrush.width}}
+      <ion-button (click)="increaseWidth()">+</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
