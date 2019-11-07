@@ -1,0 +1,6 @@
+<ion-content>
+<p>Saved canvas</p>
+  <div *ngFor="let ID of canvasIDList">
+    <p (click) = "canvasClicked(ID)">{{ID}}</p>
+  </div>
+</ion-content>
