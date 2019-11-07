@@ -1,6 +1,8 @@
 <ion-content>
+  <div *ngIf="allCanvas">
 <p>Saved canvas</p>
-  <div *ngFor="let ID of canvasIDList">
-    <p (click) = "canvasClicked(ID)">{{ID}}</p>
+  <div *ngFor="let canvas of allCanvas">
+    <p (click) = "canvasClicked(canvas._id)">{{canvas._id}}</p>
+  </div>
   </div>
 </ion-content>

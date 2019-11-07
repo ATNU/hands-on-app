@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {FeedbackComponent} from './feedback/feedback.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ResultsComponent} from './results/results.component';
+import {ViewResultComponent} from './view-result/view-result.component';
 
 
 // @ts-ignore
@@ -20,7 +21,8 @@ import {ResultsComponent} from './results/results.component';
   declarations: [
       AppComponent,
     FeedbackComponent,
-      ResultsComponent
+      ResultsComponent,
+ViewResultComponent
   ],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule],

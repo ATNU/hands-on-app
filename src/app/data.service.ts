@@ -34,4 +34,24 @@ export class DataService {
         .then((response) => JSON.parse(response.body))
         .catch(this.handleError);
   }
+
+  async getCanvas(canvasId: string) {
+        return this.http.get(environment.apiBaseURL + '/canvas/' + canvasId, {
+            headers: new HttpHeaders()
+                .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
+        })
+            .toPromise()
+            .then((response) => response.body)
+            .catch(this.handleError);
+    }
+
+    async getFeedbackForCanvasId(canvasId: string) {
+        return this.http.get(environment.apiBaseURL + '/feedback/canvas/' + canvasId, {
+            headers: new HttpHeaders()
+                .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
+        })
+            .toPromise()
+            .then((response) => response.body)
+            .catch(this.handleError);
+    }
 }

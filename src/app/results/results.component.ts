@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./results.component.scss'],
 })
 export class ResultsComponent implements OnInit {
-canvasIDList: any;
 allCanvas: any;
 
   constructor(
@@ -20,21 +19,12 @@ allCanvas: any;
   this.dataService.getAllCanvas().then((canvasList) => {
     this.allCanvas = canvasList;
     console.log(this.allCanvas);
-    this.setCanvasIdList();
-    console.log(this.canvasIDList);
   });
   }
 
-  setCanvasIdList() {
-    const list = [];
-    for (const canvas of this.allCanvas) {
-      list.push(canvas._id);
-    }
-    this.canvasIDList = list;
-  }
 
   canvasClicked(canvasID: string) {
-    this.router.navigate(['/viewResult/' + canvasID]);
+    this.router.navigate(['/admin/viewResult/' + canvasID]);
   }
 
 }
