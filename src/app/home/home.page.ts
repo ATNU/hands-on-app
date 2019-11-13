@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { fabric} from 'fabric';
-import { StorageService } from '../storage.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
   canvasID: string;
 
   constructor(
-      private service: StorageService,
+      private storage: Storage,
       private router: Router,
       private platform: Platform) {}
 
@@ -26,10 +26,6 @@ export class HomePage implements OnInit {
     this.canvasID = '5dc3f9bd77e2961090c579f6';
 
     this.canvas = new fabric.Canvas('myCanvas');
- //   this.canvas.setBackgroundImage('./assets/image.png', this.canvas.renderAll.bind(this.canvas));
-
-
-    console.log(this.canvas.width);
     this.clear();
     this.canvas.renderAll.bind(this.canvas);
   }
@@ -74,26 +70,18 @@ export class HomePage implements OnInit {
     }
   }
 
+
   feedbackClicked() {
-
-   this.saveSvg();
-  }
-
-
-realFeedbackClicked() {
-    // todo save image and save canvasID returned
-
-    this.router.navigate(['/feedback/' + this.canvasID]);
-}
-
-  saveSvg() {
-    const toSVG = this.canvas.toSVG();
-    this.service.sendSVG(toSVG);
-  }
-
-  saveJson() {
-    let json_data = JSON.stringify(this.canvas.toDatalessJSON());
-    this.service.sendJSON(json_data);
+      // todo save image to local storage to retrieve later
+      // naming probably needs improving e.g. key is canvasID + 'svg'
+      // might need to put these in seperate functions as they return promises
+      this.storage.ready().then(() => {
+        let SVG_data = this.canvas.toSVG();
+        this.storage.set('svg', SVG_data);
+        let json_data = JSON.stringify(this.canvas.toDatalessJSON());
+        this.storage.set('json', json_data);
+        this.router.navigate(['/feedback/' + this.canvasID]);
+      });
   }
 
   downLoadJpg() {
@@ -115,11 +103,6 @@ realFeedbackClicked() {
     link.click();
     }
 
-  }
-
-  resetClicked() {
-
-    this.saveJson();
   }
 
 }

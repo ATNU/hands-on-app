@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../environments/environment';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+    imgJson: string;
+    imgSvg: string;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(
+    private storage: Storage,
+    private http: HttpClient) { }
 
   private handleError(error: any): Promise<any> {
       console.error('An error occurred', error);
@@ -16,13 +20,21 @@ export class DataService {
   }
 
    async saveFeedback(canvasIdSupplied, textSupplied) {
-      const feedbackObject = {canvasId : canvasIdSupplied, text : textSupplied};
-      console.log(feedbackObject);
-      console.log('call to ' + environment.apiBaseURL + '/feedback/save' );
-      return this.http.post(environment.apiBaseURL + '/feedback/save', feedbackObject)
-          .toPromise()
-          .then((response) => console.log(response))
-          .catch(this.handleError);
+
+        await this.storage.get('svg').then((svg) => {
+            this.imgSvg = svg;
+        });
+        await this.storage.get('json').then((json) => {
+            this.imgJson = json;
+        });
+        const feedbackObject = {canvasId : canvasIdSupplied, text : textSupplied, svgImg: this.imgSvg, jsonImg: this.imgJson};
+        console.log(feedbackObject);
+
+        console.log('call to ' + environment.apiBaseURL + '/feedback/save' );
+        return this.http.post(environment.apiBaseURL + '/feedback/save', feedbackObject)
+            .toPromise()
+            .then((response) => console.log(response))
+            .catch(this.handleError);
     }
 
   async getAllCanvas() {

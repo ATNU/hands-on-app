@@ -12,10 +12,12 @@ import {DataService} from '../data.service';
 export class FeedbackComponent implements OnInit {
 feedbackText: string;
 canvasId: string;
+svg: string;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private dataService: DataService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private dataService: DataService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -26,7 +28,6 @@ canvasId: string;
   async saveFeedback() {
     console.log(this.feedbackText + this.canvasId);
     this.dataService.saveFeedback(this.canvasId, this.feedbackText).then(() => this.router.navigate(['/home']));
-
 
 }
 
