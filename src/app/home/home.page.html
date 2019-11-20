@@ -1,40 +1,36 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Hands-on Reading
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="container">
 
-<ion-content [class.newBG]="state"
-[scrollX]="true"
-[scrollY]="true">
+
+
+<div class="container canvas" [class.newBG]="state">
+<!--[scrollX]="true"-->
+<!--[scrollY]="true">-->
+
     <!--
   <div class="image">
     <img class="firstPageImage" src="../assets/sampleImage.jpg" alt="First page"> -->
 
-  
+
   <div>
     <canvas id="myCanvas" width="700" height="900"></canvas>
   </div>
 
-
+</div>
 
   <!--<img src="{{ screen }}" *ngIf="state">-->
-</ion-content>
-<ion-footer>
-  <ion-toolbar>
-    <ion-buttons>
-      <ion-button (click)= feedbackClicked()>Feedback</ion-button>
-      <ion-button (click)= clear()>Reset</ion-button>
-      <ion-button (click)="changeColour('red')">R</ion-button>
-      <ion-button (click)="changeColour('blue')">B</ion-button>
-      <ion-button (click)="changeColour('green')">G</ion-button>
-      <ion-button (click)="changeColour('black')">Bl</ion-button>
-      <ion-button (click)="decreaseWidth()">-</ion-button>
-      {{canvas.freeDrawingBrush.width}}
-      <ion-button (click)="increaseWidth()">+</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
 
+
+  <div class="btn-group" role="group">
+      <button class="btn btn-primary" type="button" (click)= feedbackClicked()>Feedback</button>
+      <button class="btn btn-primary" type="button" (click)= clear()>Reset</button>
+      <button class="btn btn-primary" type="button" (click)="changeColour('red')">R</button>
+      <button class="btn btn-primary" type="button" (click)="changeColour('blue')">B</button>
+      <button class="btn btn-primary" type="button"(click)="changeColour('green')">G</button>
+      <button class="btn btn-primary" type="button"(click)="changeColour('black')">Bl</button>
+      <button class="btn btn-primary" type="button"(click)="decreaseWidth()">-</button>
+      <button class="non-click" >{{canvas.freeDrawingBrush.width}}</button>
+      <button class="btn btn-primary" type="button"(click)="increaseWidth()">+</button>
+  </div>
+
+
+</div>

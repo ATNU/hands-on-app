@@ -8,9 +8,9 @@ import {ActivatedRoute} from '@angular/router';
     styleUrls: ['./view-result.component.scss'],
 })
 export class ViewResultComponent implements OnInit {
-    canvasId: string;
+    Id: string;
+    canvasObject: any;
     canvas: any;
-    feedback: any;
 
     constructor(
         private dataService: DataService,
@@ -19,30 +19,21 @@ export class ViewResultComponent implements OnInit {
 
     ngOnInit() {
         this.setCanvasId().then(() => {
-            this.getCanvas().then(() => {
-                console.log('canvas ' + this.canvas);
-                this.getFeedbackForCanvasId().then(() => {
-                    console.log('feedback ' + this.feedback);
+            this.getCanvasAndFeedback().then(() => {
                 });
             });
-        });
     }
 
     async setCanvasId() {
         await this.route.paramMap.subscribe(params => {
-            this.canvasId = params.get('canvasId');
+            this.Id = params.get('canvasId');
         });
     }
 
-    async getCanvas() {
-        await this.dataService.getCanvas(this.canvasId).then((canvas) => {
-            this.canvas = JSON.parse(canvas);
+    async getCanvasAndFeedback() {
+        await this.dataService.getFeedbackAndCanvas(this.Id).then((canvas) => {
+            this.canvasObject = JSON.parse(canvas);
         });
     }
 
-    async getFeedbackForCanvasId() {
-        await this.dataService.getFeedbackForCanvasId(this.canvasId).then((feedback) => {
-            this.feedback = JSON.parse(feedback);
-        });
-    }
 }

@@ -16,15 +16,14 @@ allCanvas: any;
 
   ngOnInit() {
     // get all canvas stored in db
-  this.dataService.getAllCanvas().then((canvasList) => {
+  this.dataService.getAllFeedbackAndCanvas().then((canvasList) => {
     this.allCanvas = canvasList;
-    console.log(this.allCanvas);
   });
   }
 
 
-  canvasClicked(canvasID: string) {
-    this.router.navigate(['/admin/viewResult/' + canvasID]);
+  canvasClicked(ID: string) {
+    this.router.navigate(['/admin/viewResult/' + ID]);
   }
 
 }

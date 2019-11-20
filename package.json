@@ -30,6 +30,7 @@
     "@ionic/storage": "^2.2.0",
     "@types/fabric": "^3.4.0",
     "angular2-uuid": "^1.1.1",
+    "bootstrap": "^4.3.1",
     "com.darktalker.cordova.screenshot": "^0.1.6",
     "cordova": "^9.0.0",
     "cordova-android": "8.1.0",

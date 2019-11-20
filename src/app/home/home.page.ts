@@ -72,16 +72,10 @@ export class HomePage implements OnInit {
 
 
   feedbackClicked() {
-      // todo save image to local storage to retrieve later
-      // naming probably needs improving e.g. key is canvasID + 'svg'
-      // might need to put these in seperate functions as they return promises
-      this.storage.ready().then(() => {
-        let SVG_data = this.canvas.toSVG();
-        this.storage.set('svg', SVG_data);
-        let json_data = JSON.stringify(this.canvas.toDatalessJSON());
-        this.storage.set('json', json_data);
-        this.router.navigate(['/feedback/' + this.canvasID]);
-      });
+     localStorage.setItem('svg', this.canvas.toSVG());
+     localStorage.setItem('json', JSON.stringify(this.canvas.toDatalessJSON()));
+
+     this.router.navigate(['/feedback/' + this.canvasID]);
   }
 
   downLoadJpg() {

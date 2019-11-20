@@ -1,8 +1,9 @@
 
-<ion-content>
-  <div class="feedback">
-    <p>Please provide your feedback here:</p>
-  <ion-input [(ngModel)]="feedbackText" placeholder="Enter Input"></ion-input>
-  <ion-button (click)=saveFeedback()>Submit</ion-button>
-  </div>
-</ion-content>
+<div class="container">
+<div class="form-group">
+    <label for="feedbackArea">Please enter feedback:</label>
+  <textarea class="form-control" id="feedbackArea" rows="3" name="textarea-field" required
+            [(ngModel)]="feedbackText"></textarea>
+  <button class="btn btn-primary" (click)=saveFeedback()>Submit</button>
+</div>
+</div>

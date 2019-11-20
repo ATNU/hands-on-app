@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../environments/environment';
-import { Storage } from '@ionic/storage';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-    imgJson: string;
-    imgSvg: string;
+    canvasJSON: string;
+    canvasSVG: string;
 
   constructor(
-    private storage: Storage,
     private http: HttpClient) { }
 
   private handleError(error: any): Promise<any> {
@@ -19,15 +18,13 @@ export class DataService {
       return Promise.reject(error.message || error);
   }
 
-   async saveFeedback(canvasIdSupplied, textSupplied) {
+   async saveFeedback(textSupplied) {
 
-        await this.storage.get('svg').then((svg) => {
-            this.imgSvg = svg;
-        });
-        await this.storage.get('json').then((json) => {
-            this.imgJson = json;
-        });
-        const feedbackObject = {canvasId : canvasIdSupplied, text : textSupplied, svgImg: this.imgSvg, jsonImg: this.imgJson};
+        this.canvasSVG = localStorage.getItem('svg');
+        this.canvasJSON = localStorage.getItem('json');
+        localStorage.removeItem('svg');
+        localStorage.removeItem('json');
+        const feedbackObject = {feedbackText : textSupplied, canvasSVG: this.canvasSVG, canvasJSON: this.canvasJSON};
         console.log(feedbackObject);
 
         console.log('call to ' + environment.apiBaseURL + '/feedback/save' );
@@ -37,8 +34,8 @@ export class DataService {
             .catch(this.handleError);
     }
 
-  async getAllCanvas() {
-    return await this.http.get(environment.apiBaseURL + '/canvas/all', {
+  async getAllFeedbackAndCanvas() {
+    return await this.http.get(environment.apiBaseURL + '/feedback/all', {
       headers: new HttpHeaders()
           .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
     })
@@ -47,8 +44,8 @@ export class DataService {
         .catch(this.handleError);
   }
 
-  async getCanvas(canvasId: string) {
-        return this.http.get(environment.apiBaseURL + '/canvas/' + canvasId, {
+  async getFeedbackAndCanvas(Id: string) {
+        return this.http.get(environment.apiBaseURL + '/feedback/' + Id, {
             headers: new HttpHeaders()
                 .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
         })
@@ -57,13 +54,5 @@ export class DataService {
             .catch(this.handleError);
     }
 
-    async getFeedbackForCanvasId(canvasId: string) {
-        return this.http.get(environment.apiBaseURL + '/feedback/canvas/' + canvasId, {
-            headers: new HttpHeaders()
-                .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
-        })
-            .toPromise()
-            .then((response) => response.body)
-            .catch(this.handleError);
-    }
+
 }

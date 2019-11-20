@@ -1,16 +1,9 @@
 
-.firstPageImage {
-  display: block;
-  margin: auto;
-  width: 1000%;
-}
 
-//render background image differently so you can see when a screenshot has been taken
-ion-content {
-  background:#233B3B !important;
-  text-align:center;
-  overflow: auto;
-}
 .newBG {
   background:#4C6E6E !important;
+}
+
+button.non-click {
+  cursor: default;
 }
