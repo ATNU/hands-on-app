@@ -1,7 +1,11 @@
 <div class="container">
   <div *ngIf="canvasObject">
     <p>ID: {{canvasObject._id}}</p>
-<!--    todo render image-->
     <p>Feedback: {{canvasObject.feedbackText}}</p>
+<!--    todo render image-->
+    <div>
+      <canvas id="myCanvas" width="700" height="900"></canvas>
+    </div>
+
   </div>
 </div>

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from '../data.service';
 import {ActivatedRoute} from '@angular/router';
+import {fabric} from 'fabric';
 
 @Component({
     selector: 'app-view-result',
@@ -20,9 +21,17 @@ export class ViewResultComponent implements OnInit {
     ngOnInit() {
         this.setCanvasId().then(() => {
             this.getCanvasAndFeedback().then(() => {
+                this.displayCanvas();
                 });
             });
     }
+displayCanvas() {
+    this.canvas = new fabric.Canvas('myCanvas');
+    this.canvas.loadFromJSON(this.canvasObject.canvasJSON, this.canvas.renderAll.bind(this.canvas), function(o, object) {
+        fabric.log(o, object);
+    });
+
+}
 
     async setCanvasId() {
         await this.route.paramMap.subscribe(params => {
