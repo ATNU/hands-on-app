@@ -19,6 +19,7 @@ export class ViewResultComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.setCanvasId().then(() => {
             this.getCanvasAndFeedback().then(() => {
                 this.displayCanvas();
@@ -26,10 +27,15 @@ export class ViewResultComponent implements OnInit {
             });
     }
 displayCanvas() {
-    this.canvas = new fabric.Canvas('myCanvas');
-    this.canvas.loadFromJSON(this.canvasObject.canvasJSON, this.canvas.renderAll.bind(this.canvas), function(o, object) {
-        fabric.log(o, object);
+        this.canvas = new fabric.Canvas('myCanvas');
+        console.log(this.canvasObject.canvasSVG);
+        fabric.loadSVGFromString(this.canvasObject.canvasSVG, (objects, options) => {
+        const obj = fabric.util.groupSVGElements(objects, options);
+        this.canvas.add(obj).renderAll();
     });
+    // this.canvas.loadFromJSON(this.canvasObject.canvasJSON, this.canvas.renderAll.bind(this.canvas), (o, object) => {
+    //     fabric.log(o, object);
+    // });
 
 }
 

@@ -23,7 +23,7 @@ allCanvas: any;
 
 
   canvasClicked(ID: string) {
-    this.router.navigate(['/admin/viewResult/' + ID]);
+    this.router.navigate(['admin/viewResult/' + ID]);
   }
 
 }

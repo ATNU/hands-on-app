@@ -10,6 +10,7 @@ import {FeedbackComponent} from './feedback/feedback.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ResultsComponent} from './results/results.component';
 import {ViewResultComponent} from './view-result/view-result.component';
+import {HomeComponent} from './home/home.component';
 
 
 // @ts-ignore
@@ -18,7 +19,8 @@ import {ViewResultComponent} from './view-result/view-result.component';
       AppComponent,
     FeedbackComponent,
       ResultsComponent,
-ViewResultComponent
+ViewResultComponent,
+      HomeComponent
   ],
   entryComponents: [],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],

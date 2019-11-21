@@ -2,6 +2,7 @@
   <div *ngIf="canvasObject">
     <p>ID: {{canvasObject._id}}</p>
     <p>Feedback: {{canvasObject.feedbackText}}</p>
+    <p>{{canvasObject.canvasJSON}}</p>
 <!--    todo render image-->
     <div>
       <canvas id="myCanvas" width="700" height="900"></canvas>

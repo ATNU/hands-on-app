@@ -4,13 +4,13 @@ import { fabric} from 'fabric';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  templateUrl: 'home.component.html',
+  styleUrls: ['home.component.scss'],
 })
-export class HomePage implements OnInit {
+export class HomeComponent implements OnInit {
   canvas: any;
   state: boolean;
-  screen: any;
+
 
   canvasID: string;
 
@@ -19,8 +19,6 @@ export class HomePage implements OnInit {
      ) {}
 
   ngOnInit(): void {
-    // temporary assign canvasID for testing
-    this.canvasID = '5dc3f9bd77e2961090c579f6';
 
     this.canvas = new fabric.Canvas('myCanvas');
     this.clear();
@@ -72,7 +70,7 @@ export class HomePage implements OnInit {
      localStorage.setItem('svg', this.canvas.toSVG());
      localStorage.setItem('json', JSON.stringify(this.canvas.toDatalessJSON()));
 
-     this.router.navigate(['/feedback/' + this.canvasID]);
+     this.router.navigate(['feedback/' + this.canvasID]);
   }
 
   downLoadJpg() {

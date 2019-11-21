@@ -23,7 +23,7 @@ svg: string;
 
   async saveFeedback() {
     console.log(this.feedbackText);
-    this.dataService.saveFeedback(this.feedbackText).then(() => this.router.navigate(['/home']));
+    this.dataService.saveFeedback(this.feedbackText).then(() => this.router.navigate(['home']));
 
 }
 
