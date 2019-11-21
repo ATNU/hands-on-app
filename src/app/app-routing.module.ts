@@ -3,10 +3,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {FeedbackComponent} from './feedback/feedback.component';
 import {ResultsComponent} from './results/results.component';
 import {ViewResultComponent} from './view-result/view-result.component';
+import {HomePage} from './home/home.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  { path: 'home', component: HomePage },
   {path: 'feedback/:canvasId', component: FeedbackComponent},
   {path: 'admin', component: ResultsComponent},
   {path: 'admin/viewResult/:canvasId' , component: ViewResultComponent}

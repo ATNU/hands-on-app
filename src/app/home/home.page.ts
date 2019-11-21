@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
 import { fabric} from 'fabric';
-import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-home',
@@ -17,9 +15,8 @@ export class HomePage implements OnInit {
   canvasID: string;
 
   constructor(
-      private storage: Storage,
       private router: Router,
-      private platform: Platform) {}
+     ) {}
 
   ngOnInit(): void {
     // temporary assign canvasID for testing
