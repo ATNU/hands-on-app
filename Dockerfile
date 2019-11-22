@@ -6,8 +6,9 @@ RUN npm install -g @angular/cli && npm install --force
 RUN npm rebuild node-sass
 RUN ng build --prod="true"
 
+
 FROM nginx:alpine
-COPY --from=builder /usr/local/app/dist/hands-on-app /usr/share/nginx/html
+COPY --from=builder /usr/local/app/dist/* /usr/share/nginx/html
 RUN ls /usr/share/nginx/html
 
 
