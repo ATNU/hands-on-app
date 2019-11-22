@@ -1,9 +1,17 @@
 
 <div class="container">
+
 <div class="form-group">
-    <label for="feedbackArea">Please enter feedback:</label>
+    <label for="feedbackArea">Q1 Text</label>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="q1Check">
+        <label class="form-check-label" for="q1Check">Yes</label>
+    </div>
   <textarea class="form-control" id="feedbackArea" rows="3" name="textarea-field" required
             [(ngModel)]="feedbackText"></textarea>
-  <button class="btn btn-primary" (click)=saveFeedback()>Submit</button>
+
 </div>
+
+    <button class="btn btn-primary" (click)=saveFeedback()>Submit image and feedback</button>
+
 </div>

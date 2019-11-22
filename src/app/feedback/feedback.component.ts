@@ -11,6 +11,7 @@ import {DataService} from '../data.service';
 export class FeedbackComponent implements OnInit {
 feedbackText: string;
 svg: string;
+q1Check: string;
 
   constructor(
     private route: ActivatedRoute,
