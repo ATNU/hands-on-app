@@ -19,36 +19,54 @@ export class ViewResultComponent implements OnInit {
     }
 
     ngOnInit() {
-
-        this.setCanvasId().then(() => {
-            this.getCanvasAndFeedback().then(() => {
-                this.displayCanvas();
-                });
-            });
+        this.canvas = new fabric.Canvas('viewCanvas');
+        this.canvas.renderAll.bind(this.canvas);
+        this.getCanvasAndFeedback();
     }
-displayCanvas() {
-        this.canvas = new fabric.Canvas('myCanvas');
-        console.log(this.canvasObject.canvasSVG);
+
+    displayCanvas() {
+
         fabric.loadSVGFromString(this.canvasObject.canvasSVG, (objects, options) => {
+
         const obj = fabric.util.groupSVGElements(objects, options);
-        this.canvas.add(obj).renderAll();
-    });
+        this.canvas.add(obj);
+        this.canvas.renderAll.bind(this.canvas);
+        this.canvas.isDrawingMode = true;
+
+        });
+
     // this.canvas.loadFromJSON(this.canvasObject.canvasJSON, this.canvas.renderAll.bind(this.canvas), (o, object) => {
     //     fabric.log(o, object);
     // });
 
-}
-
-    async setCanvasId() {
-        await this.route.paramMap.subscribe(params => {
-            this.Id = params.get('canvasId');
-        });
     }
 
     async getCanvasAndFeedback() {
-        await this.dataService.getFeedbackAndCanvas(this.Id).then((canvas) => {
-            this.canvasObject = JSON.parse(canvas);
-        });
-    }
 
+        this.route.paramMap.subscribe(params => {
+            this.Id = params.get('canvasId');
+            this.dataService.getFeedbackAndCanvas(this.Id).then((canvas) => {
+                this.canvasObject = JSON.parse(canvas);
+                console.log(canvas);
+                console.log(this.canvasObject);
+                this.displayCanvas();
+            });
+        });
+
+    /* preserve original server calls
+        async setCanvasId() {
+            await this.route.paramMap.subscribe(params => {
+                this.Id = params.get('canvasId');
+            });
+        }
+
+        async getCanvasAndFeedback() {
+            await this.dataService.getFeedbackAndCanvas(this.Id).then((canvas) => {
+                this.canvasObject = JSON.parse(canvas);
+                console.log(canvas);
+                console.log(this.canvasObject);
+            });
+        }
+        */
+        }
 }
