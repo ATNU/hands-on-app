@@ -2,16 +2,72 @@
 <div class="container">
 
 <div class="form-group">
-    <label for="feedbackArea">Q1 Text</label>
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="q1Check">
-        <label class="form-check-label" for="q1Check">Yes</label>
-    </div>
-  <textarea class="form-control" id="feedbackArea" rows="3" name="textarea-field" required
-            [(ngModel)]="feedbackText"></textarea>
 
+<div class="question">
+    <label for="q1Text">Question 1</label>
+    <div class="radio-btns">
+    <div class="form-check form-check-inline" >
+        <input class="form-check-input" type="radio" id="q1radioYes" name="q1Radio" value=true [(ngModel)]="q1Choice">
+        <label class="form-check-label" for="q1RadioYes">Yes</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="q1RadioNo" name="q1Radio" value=false [(ngModel)]="q1Choice">
+        <label class="form-check-label" for="q1RadioNo">No</label>
+    </div>
+    </div>
+    <p>Tell us more...</p>
+     <textarea class="form-control" id="q1text" rows="3" name="textarea-field" required
+            [(ngModel)]="q1Text"></textarea>
 </div>
 
-    <button class="btn btn-primary" (click)=saveFeedback()>Submit image and feedback</button>
+    <div class="question">
+        <label for="q1Text">Question 2</label>
+        <div class="radio-btns">
+        <div class="form-check form-check-inline" >
+            <input class="form-check-input" type="radio" id="q2radioYes" name="q2Radio" value=true [(ngModel)]="q2Choice">
+            <label class="form-check-label" for="q2RadioYes">Yes</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="q2RadioNo" name="q2Radio" value=false [(ngModel)]="q2Choice">
+            <label class="form-check-label" for="q2RadioNo">No</label>
+        </div>
+        </div>
+        <p>Tell us more...</p>
+        <textarea class="form-control" id="q2text" rows="3" name="textarea-field" required
+                  [(ngModel)]="q2Text"></textarea>
+    </div>
+
+    <div class="question">
+        <label for="q1Text">Question 3</label>
+        <div class="radio-btns">
+        <div class="form-check form-check-inline" >
+            <input class="form-check-input" type="radio" id="q3radioYes" name="q3Radio" value=true [(ngModel)]="q3Choice">
+            <label class="form-check-label" for="q3RadioYes">Yes</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="q3RadioNo" name="q3Radio" value=false [(ngModel)]="q3Choice">
+            <label class="form-check-label" for="q3RadioNo">No</label>
+        </div>
+        </div>
+        <p>Tell us more...</p>
+        <textarea class="form-control" id="q3text" rows="3" name="textarea-field" required
+                  [(ngModel)]="q3Text"></textarea>
+    </div>
+
+
+
+
+
+    <label for="device">Are you using a tablet or computer?</label>
+    <textarea class="form-control" id="device" rows="1" name="textarea-field" required
+              [(ngModel)]="device"></textarea>
+
+    <label for="device">What is your occupation?</label>
+    <textarea class="form-control" id="job" rows="1" name="textarea-field" required
+              [(ngModel)]="job"></textarea>
+
+
+
+</div>    <button class="btn btn-primary" (click)=saveFeedback()>Submit image and feedback</button>
 
 </div>

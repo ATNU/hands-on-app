@@ -18,16 +18,7 @@ export class DataService {
       return Promise.reject(error.message || error);
   }
 
-   async saveFeedback(textSupplied) {
-
-        this.canvasSVG = localStorage.getItem('svg');
-        this.canvasJSON = localStorage.getItem('json');
-        localStorage.removeItem('svg');
-        localStorage.removeItem('json');
-        const feedbackObject = {feedbackText : textSupplied, canvasSVG: this.canvasSVG, canvasJSON: this.canvasJSON};
-        console.log(feedbackObject);
-
-        console.log('call to ' + environment.apiBaseURL + '/feedback/save' );
+   async saveFeedback(feedbackObject) {
         return this.http.post(environment.apiBaseURL + '/feedback/save', feedbackObject)
             .toPromise()
             .then((response) => console.log(response))

@@ -13,6 +13,7 @@ export class ViewResultComponent implements OnInit {
     canvasObject: any;
     canvas: any;
 
+
     constructor(
         private dataService: DataService,
         private route: ActivatedRoute) {
@@ -22,6 +23,7 @@ export class ViewResultComponent implements OnInit {
         this.canvas = new fabric.Canvas('viewCanvas');
         this.canvas.renderAll.bind(this.canvas);
         this.getCanvasAndFeedback();
+
     }
 
     displayCanvas() {
@@ -34,11 +36,6 @@ export class ViewResultComponent implements OnInit {
         this.canvas.isDrawingMode = true;
 
         });
-
-    // this.canvas.loadFromJSON(this.canvasObject.canvasJSON, this.canvas.renderAll.bind(this.canvas), (o, object) => {
-    //     fabric.log(o, object);
-    // });
-
     }
 
     async getCanvasAndFeedback() {
@@ -47,8 +44,6 @@ export class ViewResultComponent implements OnInit {
             this.Id = params.get('canvasId');
             this.dataService.getFeedbackAndCanvas(this.Id).then((canvas) => {
                 this.canvasObject = JSON.parse(canvas);
-                console.log(canvas);
-                console.log(this.canvasObject);
                 this.displayCanvas();
             });
         });
