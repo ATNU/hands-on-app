@@ -12,7 +12,7 @@ export class ViewResultComponent implements OnInit {
     Id: string;
     canvasObject: any;
     canvas: any;
-
+    date: any;
 
     constructor(
         private dataService: DataService,
@@ -23,6 +23,7 @@ export class ViewResultComponent implements OnInit {
         this.canvas = new fabric.Canvas('viewCanvas');
         this.canvas.renderAll.bind(this.canvas);
         this.getCanvasAndFeedback();
+
 
     }
 

@@ -25,6 +25,8 @@ export class FeedbackComponent implements OnInit {
     device: string;
     job: string;
 
+    date: any;
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -56,7 +58,8 @@ export class FeedbackComponent implements OnInit {
             this.q3Check = false;
         }
 
-
+        this.date = new Date(Date.now()).toUTCString();
+        console.log(this.date);
 // create feedback
         const canvasSVGString = localStorage.getItem('svg');
         const canvasJSONString = localStorage.getItem('json');
@@ -74,8 +77,9 @@ export class FeedbackComponent implements OnInit {
             device: this.device,
             canvasSVG: canvasSVGString,
             canvasJSON: canvasJSONString,
+            createdAt: this.date,
         };
-
+console.log(feedbackObject);
 
         this.dataService.saveFeedback(feedbackObject).then(() => this.router.navigate(['home']));
 

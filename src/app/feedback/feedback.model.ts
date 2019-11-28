@@ -9,4 +9,5 @@ export class Feedback {
     readonly device: string;
     readonly canvasSVG: string;
     readonly canvasJSON: string;
+    readonly createdAt: string;
 }

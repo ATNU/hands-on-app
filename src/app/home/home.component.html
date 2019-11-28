@@ -1,21 +1,6 @@
 <div class="container">
 
 
-    <ng-template #modal let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Hands On Reading</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>Instructions........... If you want to clear your drawing click 'Reset'. This can't be undone so only click if you're sure! Once you're finished drawing click 'Feedback'.</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="modal.close('OK')">OK</button>
-        </div>
-    </ng-template>
-
 <div class="container canvas" [class.newBG]="state">
 <!--[scrollX]="true"-->
 <!--[scrollY]="true">-->

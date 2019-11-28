@@ -17,8 +17,7 @@ export class HomeComponent implements OnInit {
     canvasID: string;
 
     constructor(
-        private router: Router,
-        private modalService: NgbModal
+        private router: Router
     ) {
     }
 
@@ -28,7 +27,6 @@ export class HomeComponent implements OnInit {
         this.canvas = new fabric.Canvas('myCanvas');
         this.clear();
         this.canvas.renderAll.bind(this.canvas);
-        this.modalService.open(modal);
     }
 
     async clear() {
