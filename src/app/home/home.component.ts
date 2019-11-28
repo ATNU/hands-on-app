@@ -11,8 +11,8 @@ import { fabric} from 'fabric';
 export class HomeComponent implements OnInit {
   canvas: any;
   state: boolean;
-
-
+colour: string;
+message: string;
   canvasID: string;
 
   constructor(
@@ -20,8 +20,9 @@ export class HomeComponent implements OnInit {
      ) {}
 
   ngOnInit(): void {
-
-    this.canvas = new fabric.Canvas('myCanvas');
+this.message='Change pen colour';
+this.colour='gray';
+this.canvas = new fabric.Canvas('myCanvas');
     this.clear();
     this.canvas.renderAll.bind(this.canvas);
   }
@@ -43,7 +44,7 @@ export class HomeComponent implements OnInit {
 
     this.canvas.setBackgroundImage(bgImg, this.canvas.renderAll.bind(this.canvas));
     this.canvas.isDrawingMode = true;*/
-    this.canvas.setBackgroundImage('./assets/image4.png', this.canvas.renderAll.bind(this.canvas));
+    this.canvas.setBackgroundImage('./assets/image5.png', this.canvas.renderAll.bind(this.canvas));
     this.canvas.isDrawingMode = true;
   }
 

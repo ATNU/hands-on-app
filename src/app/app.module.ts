@@ -11,6 +11,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ResultsComponent} from './results/results.component';
 import {ViewResultComponent} from './view-result/view-result.component';
 import {HomeComponent} from './home/home.component';
+import {ColorPickerModule} from 'ngx-color-picker';
 
 
 // @ts-ignore
@@ -23,7 +24,7 @@ ViewResultComponent,
       HomeComponent
   ],
   entryComponents: [],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule, ColorPickerModule],
   providers: []  ,
   bootstrap: [AppComponent]
 })
