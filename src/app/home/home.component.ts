@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {fabric} from 'fabric';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
     selector: 'app-home',
@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit {
     canvasID: string;
 
     constructor(
-        private router: Router
+        private router: Router,
+        private dialog: MatDialog
     ) {
     }
 
@@ -27,10 +28,13 @@ export class HomeComponent implements OnInit {
         this.canvas = new fabric.Canvas('myCanvas');
         this.clear();
         this.canvas.renderAll.bind(this.canvas);
+        this.openDialog()
     }
 
     async clear() {
         this.canvas.clear();
+        this.canvas.setBackgroundImage('./assets/image5.png', this.canvas.renderAll.bind(this.canvas));
+        this.canvas.isDrawingMode = true;
         /*
         scales background image to the size of the div, but it doesn't load correctly, only when you attempt to draw
         const canvasHeight = this.canvas.height;
@@ -43,12 +47,22 @@ export class HomeComponent implements OnInit {
              });
 
          });
-     
-         this.canvas.setBackgroundImage(bgImg, this.canvas.renderAll.bind(this.canvas));
-         this.canvas.isDrawingMode = true;*/
-        this.canvas.setBackgroundImage('./assets/image5.png', this.canvas.renderAll.bind(this.canvas));
-        this.canvas.isDrawingMode = true;
+
+        this.canvas.setBackgroundImage(bgImg, this.canvas.renderAll.bind(this.canvas));
+        this.canvas.isDrawingMode = true;*/
+
     }
+
+    openDialog() {
+
+        const dialogConfig = new MatDialogConfig();
+
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+
+        this.dialog.open(DialogComponent, dialogConfig);
+    }
+
 
     // This is now default on as listed above in clear and oninit
     enableDraw() {

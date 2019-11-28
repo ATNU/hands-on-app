@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { FormsModule } from '@angular/forms';
-
+import { MatDialogModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {FeedbackComponent} from './feedback/feedback.component';
@@ -12,19 +12,30 @@ import {ResultsComponent} from './results/results.component';
 import {ViewResultComponent} from './view-result/view-result.component';
 import {HomeComponent} from './home/home.component';
 import {ColorPickerModule} from 'ngx-color-picker';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogComponent } from './dialog/dialog.component';
 
 
 // @ts-ignore
 @NgModule({
   declarations: [
-      AppComponent,
+    AppComponent,
     FeedbackComponent,
-      ResultsComponent,
-ViewResultComponent,
-      HomeComponent
+    ResultsComponent,
+    ViewResultComponent,
+    HomeComponent,
+    DialogComponent
   ],
-  entryComponents: [],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule, ColorPickerModule],
+  entryComponents: [DialogComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    NgbModule,
+    ColorPickerModule,
+    NoopAnimationsModule,
+    MatDialogModule],
   providers: []  ,
   bootstrap: [AppComponent]
 })
