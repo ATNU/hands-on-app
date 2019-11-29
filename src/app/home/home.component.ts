@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
         this.canvas = new fabric.Canvas('myCanvas');
         this.clear();
         this.canvas.renderAll.bind(this.canvas);
-        this.openDialog()
+        this.openDialog();
     }
 
     async clear() {
@@ -59,6 +59,7 @@ export class HomeComponent implements OnInit {
 
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
+        dialogConfig.maxWidth = 500;
 
         this.dialog.open(DialogComponent, dialogConfig);
     }
