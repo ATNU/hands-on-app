@@ -23,7 +23,10 @@ export class FeedbackComponent implements OnInit {
     q3Text: string;
 
     device: string;
+    deviceText: string;
+
     job: string;
+    jobText: string;
 
     date: any;
 
@@ -74,7 +77,9 @@ export class FeedbackComponent implements OnInit {
             q3Check: this.q3Check,
             q3Text: this.q3Text,
             job: this.job,
+            jobText: this.jobText,
             device: this.device,
+            deviceText: this.deviceText,
             canvasSVG: canvasSVGString,
             canvasJSON: canvasJSONString,
             createdAt: this.date,
