@@ -65,4 +65,25 @@ export class ViewResultComponent implements OnInit {
         }
         */
         }
+
+    downloadJpg() {
+        const canvasDataUrl = this.canvas.toDataURL()
+        .replace(/^data:image\/[^;]*/, 'data:application/octet-stream'),
+        link = document.createElement('a'); // create an anchor tag
+
+        // set parameters for downloading
+        link.setAttribute('href', canvasDataUrl);
+        link.setAttribute('target', '_blank');
+        link.setAttribute('download', this.Id + '.png');
+
+        // compat mode for dispatching click on your anchor
+        if (document.createEvent) {
+        const evtObj = document.createEvent('MouseEvents');
+        evtObj.initEvent('click', true, true);
+        link.dispatchEvent(evtObj);
+        } else if (link.click) {
+        link.click();
+        }
+
+    }
 }
