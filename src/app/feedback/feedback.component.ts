@@ -10,7 +10,7 @@ import {DataService} from '../data.service';
 })
 export class FeedbackComponent implements OnInit {
 
-    radioOptions = ['Yes', 'No', 'Unsure'];
+    complete: boolean;
 
     q1Check: string;
     q1Text: string;
@@ -38,10 +38,13 @@ export class FeedbackComponent implements OnInit {
     }
 
     ngOnInit() {
-
+this.complete = true;
     }
 
     async saveFeedback() {
+        this.checkComplete();
+        console.log(this.complete);
+        if (this.complete) {
             this.date = new Date(Date.now()).toUTCString();
             console.log(this.date);
 // create feedback
@@ -68,7 +71,14 @@ export class FeedbackComponent implements OnInit {
             console.log(feedbackObject);
 
             this.dataService.saveFeedback(feedbackObject).then(() => this.router.navigate(['home']));
-
+        }
     }
+
+
+    checkComplete() {
+        if (this.q1Check === undefined || this.q2Check === undefined || this.q3Check === undefined || this.device === undefined || this.job === undefined) {
+            this.complete = false;
+        } else { this.complete = true; }
+}
 
 }

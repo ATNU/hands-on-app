@@ -1,10 +1,12 @@
 
 <div class="container">
     <div class="intro">
-<h4>Thank you for using the app. We'd be grateful for your feedback for our research.</h4>
+<h4>Thank you for using the app. We'd be grateful for your feedback for our research. Please select one option for every question.</h4>
 </div>
 
+
     <div class="form-group">
+    <hr>
 
 <div class="question">
     <label for="q1Text">Did you enjoy using the app? </label>
@@ -13,6 +15,7 @@
     <div class="form-check form-check-inline" >
         <input class="form-check-input" type="radio" id="q1radioYes" name="q1Radio" value="yes" [(ngModel)]="q1Check">
         <label class="form-check-label" for="q1RadioYes">Yes</label>
+
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" id="q1RadioNo" name="q1Radio" value="no" [(ngModel)]="q1Check">
@@ -22,12 +25,14 @@
             <input class="form-check-input" type="radio" id="q1RadioUnsure" name="q1Radio" value="unsure" [(ngModel)]="device">
             <label class="form-check-label" for="q1RadioUnsure">Unsure</label>
         </div>
+<!--        <p class="required">(required)</p>-->
     </div>
+
     <p>Please tell us more...</p>
      <textarea class="form-control" id="q1text" rows="2" name="textarea-field"
             [(ngModel)]="q1Text"></textarea>
 </div>
-
+        <hr>
     <div class="question">
         <label for="q1Text">Did the app make you think differently about handwriting? </label>
         <div class="radio-btns">
@@ -43,12 +48,13 @@
                 <input class="form-check-input" type="radio" id="q2RadioUnsure" name="q2Radio" value="unsure" [(ngModel)]="q2Check">
                 <label class="form-check-label" for="q2RadioNo">Unsure</label>
             </div>
+<!--            <p class="required">(required)</p>-->
         </div>
         <p>Please tell us more...</p>
         <textarea class="form-control" id="q2text" rows="2" name="textarea-field"
                   [(ngModel)]="q2Text"></textarea>
     </div>
-
+        <hr>
     <div class="question">
         <label for="q1Text">Did the app change the way you read the text?</label>
         <div class="radio-btns">
@@ -64,13 +70,14 @@
                 <input class="form-check-input" type="radio" id="q3RadioUnsure" name="q3Radio" value="unsure" [(ngModel)]="q3Check">
                 <label class="form-check-label" for="q3RadioNo">Unsure</label>
             </div>
+<!--            <p class="required">(required)</p>-->
         </div>
         <p>Please tell us more...</p>
         <textarea class="form-control" id="q3text" rows="2" name="textarea-field"
                   [(ngModel)]="q3Text"></textarea>
     </div>
 
-
+        <hr>
         <div class="question">
             <label for="deviceText">What device did you use?</label>
             <div class="radio-btns">
@@ -98,12 +105,13 @@
                     <input class="form-check-input" type="radio" id="otherDevice" name="device" value="other" [(ngModel)]="device">
                     <label class="form-check-label" for="otherDevice">Other (please specify below)</label>
                 </div>
+<!--                <p class="required">(required)</p>-->
             </div>
             <p>Other device type:</p>
             <textarea class="form-control" id="deviceText" rows="1" name="textarea-field"
                       [(ngModel)]="deviceText"></textarea>
         </div>
-
+        <hr>
         <div class="question">
             <label for="jobText">What is your occupation?</label>
             <div class="radio-btns">
@@ -127,13 +135,17 @@
                     <input class="form-check-input" type="radio" id="otherJob" name="job" value="other" [(ngModel)]="job">
                     <label class="form-check-label" for="otherJob">Other (please specify below)</label>
                 </div>
+<!--                <p class="required">(required)</p>-->
             </div>
             <p>Other occupation:</p>
             <textarea class="form-control" id="jobText" rows="1" name="textarea-field"
                       [(ngModel)]="jobText"></textarea>
         </div>
 
-
+        <hr>
+        <div class="error" *ngIf="!complete">
+            <h4>Please make sure to select one of the options for each question</h4>
+        </div>
 
 
 </div>    <button class="btn btn-primary" (click)=saveFeedback()>Submit image and feedback</button>
