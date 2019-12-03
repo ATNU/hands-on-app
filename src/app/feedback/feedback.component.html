@@ -8,18 +8,23 @@
 
 <div class="question">
     <label for="q1Text">Did you enjoy using the app? </label>
-    <div class="radio-btns">
-    <div class="form-check form-check-inline" >
-        <input class="form-check-input" type="radio" id="q1radioYes" name="q1Radio" value=true [(ngModel)]="q1Choice">
-        <label class="form-check-label" for="q1RadioYes">Yes</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="q1RadioNo" name="q1Radio" value=false [(ngModel)]="q1Choice">
-        <label class="form-check-label" for="q1RadioNo">No</label>
-    </div>
-    </div>
+
+<!--    <div class="radio-btns">-->
+<!--    <div class="form-check form-check-inline" >-->
+<!--        <input class="form-check-input" type="radio" id="q1radioYes" name="q1Radio" value="yes" [(ngModel)]="q1Check">-->
+<!--        <label class="form-check-label" for="q1RadioYes">Yes</label>-->
+<!--    </div>-->
+<!--    <div class="form-check form-check-inline">-->
+<!--        <input class="form-check-input" type="radio" id="q1RadioNo" name="q1Radio" value="no" [(ngModel)]="q1Check">-->
+<!--        <label class="form-check-label" for="q1RadioNo">No</label>-->
+<!--    </div>-->
+<!--        <div class="form-check form-check-inline">-->
+<!--            <input class="form-check-input" type="radio" id="q1RadioUnsure" name="q1Radio" value="unsure" [(ngModel)]="device">-->
+<!--            <label class="form-check-label" for="q1RadioUnsure">Unsure</label>-->
+<!--        </div>-->
+<!--    </div>-->
     <p>Please tell us more...</p>
-     <textarea class="form-control" id="q1text" rows="2" name="textarea-field" required
+     <textarea class="form-control" id="q1text" rows="2" name="textarea-field"
             [(ngModel)]="q1Text"></textarea>
 </div>
 
@@ -27,16 +32,20 @@
         <label for="q1Text">Did the app make you think differently about handwriting? </label>
         <div class="radio-btns">
         <div class="form-check form-check-inline" >
-            <input class="form-check-input" type="radio" id="q2radioYes" name="q2Radio" value=true [(ngModel)]="q2Choice">
+            <input class="form-check-input" type="radio" id="q2radioYes" name="q2Radio" value="yes" [(ngModel)]="q2Check">
             <label class="form-check-label" for="q2RadioYes">Yes</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="q2RadioNo" name="q2Radio" value=false [(ngModel)]="q2Choice">
+            <input class="form-check-input" type="radio" id="q2RadioNo" name="q2Radio" value="no" [(ngModel)]="q2Check">
             <label class="form-check-label" for="q2RadioNo">No</label>
         </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="q2RadioUnsure" name="q2Radio" value="unsure" [(ngModel)]="q2Check">
+                <label class="form-check-label" for="q2RadioNo">Unsure</label>
+            </div>
         </div>
         <p>Please tell us more...</p>
-        <textarea class="form-control" id="q2text" rows="2" name="textarea-field" required
+        <textarea class="form-control" id="q2text" rows="2" name="textarea-field"
                   [(ngModel)]="q2Text"></textarea>
     </div>
 
@@ -44,16 +53,20 @@
         <label for="q1Text">Did the app change the way you read the text?</label>
         <div class="radio-btns">
         <div class="form-check form-check-inline" >
-            <input class="form-check-input" type="radio" id="q3radioYes" name="q3Radio" value=true [(ngModel)]="q3Choice">
+            <input class="form-check-input" type="radio" id="q3radioYes" name="q3Radio" value=true [(ngModel)]="q3Check">
             <label class="form-check-label" for="q3RadioYes">Yes</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="q3RadioNo" name="q3Radio" value=false [(ngModel)]="q3Choice">
+            <input class="form-check-input" type="radio" id="q3RadioNo" name="q3Radio" value=false [(ngModel)]="q3Check">
             <label class="form-check-label" for="q3RadioNo">No</label>
         </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="q3RadioUnsure" name="q3Radio" value="unsure" [(ngModel)]="q3Check">
+                <label class="form-check-label" for="q3RadioNo">Unsure</label>
+            </div>
         </div>
         <p>Please tell us more...</p>
-        <textarea class="form-control" id="q3text" rows="2" name="textarea-field" required
+        <textarea class="form-control" id="q3text" rows="2" name="textarea-field"
                   [(ngModel)]="q3Text"></textarea>
     </div>
 
@@ -62,20 +75,32 @@
             <label for="deviceText">What device did you use?</label>
             <div class="radio-btns">
                 <div class="form-check form-check-inline" >
-                    <input class="form-check-input" type="radio" id="iPad" name="device" value="iPad/tablet" [(ngModel)]="device">
-                    <label class="form-check-label" for="iPad">iPad or Tablet</label>
+                    <input class="form-check-input" type="radio" id="iPad" name="device" value="iPad"  [(ngModel)]="device">
+                    <label class="form-check-label" for="iPad">iPad</label>
+                </div>
+                <div class="form-check form-check-inline" >
+                <input class="form-check-input" type="radio" id="tablet" name="device" value="Android tablet" [(ngModel)]="device">
+                <label class="form-check-label" for="tablet">Android tablet</label>
+            </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="trackpad" name="device" value="Laptop or desktop with trackpad" [(ngModel)]="device">
+                    <label class="form-check-label" for="trackpad">Laptop or desktop PC with trackpad</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="tablet" name="device" value="Laptop/PC" [(ngModel)]="device">
-                    <label class="form-check-label" for="tablet">Laptop or Desktop PC</label>
+                    <input class="form-check-input" type="radio" id="mouse" name="device" value="Laptop or desktop with mouse" [(ngModel)]="device">
+                    <label class="form-check-label" for="mouse">Laptop or desktop PC with mouse</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="laptop" name="device" value="Mobile" [(ngModel)]="device">
-                    <label class="form-check-label" for="tablet">Mobile phone</label>
+                    <input class="form-check-input" type="radio" id="mobile" name="device" value="Mobile" [(ngModel)]="device">
+                    <label class="form-check-label" for="mobile">Mobile phone</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="otherDevice" name="device" value="other" [(ngModel)]="device">
+                    <label class="form-check-label" for="otherDevice">Other (please specify below)</label>
                 </div>
             </div>
             <p>Other device type:</p>
-            <textarea class="form-control" id="deviceText" rows="1" name="textarea-field" required
+            <textarea class="form-control" id="deviceText" rows="1" name="textarea-field"
                       [(ngModel)]="deviceText"></textarea>
         </div>
 
@@ -87,20 +112,24 @@
                     <label class="form-check-label" for="academic">Academic</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="creative" name="job" value="Creative Practitioner" [(ngModel)]="device">
+                    <input class="form-check-input" type="radio" id="creative" name="job" value="Creative Practitioner" [(ngModel)]="job">
                     <label class="form-check-label" for="creative">Creative Practitioner</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="calligrapher" name="job" value="Calligrapher" [(ngModel)]="device">
+                    <input class="form-check-input" type="radio" id="calligrapher" name="job" value="Calligrapher" [(ngModel)]="job">
                     <label class="form-check-label" for="calligrapher">Calligrapher</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="teacher" name="job" value="Teacher" [(ngModel)]="device">
+                    <input class="form-check-input" type="radio" id="teacher" name="job" value="Teacher" [(ngModel)]="job">
                     <label class="form-check-label" for="teacher">Teacher</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="otherJob" name="job" value="other" [(ngModel)]="job">
+                    <label class="form-check-label" for="otherJob">Other (please specify below)</label>
                 </div>
             </div>
             <p>Other occupation:</p>
-            <textarea class="form-control" id="jobText" rows="1" name="textarea-field" required
+            <textarea class="form-control" id="jobText" rows="1" name="textarea-field"
                       [(ngModel)]="jobText"></textarea>
         </div>
 
