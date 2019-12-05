@@ -40,10 +40,10 @@
     <button class="btn btn-secondary" [(colorPicker)]="colour" [cpOKButton]=true [cpCancelButton]=true [style.background]="colour"  (colorPickerSelect)="changeColour(colour)"><img src="./assets/palette.svg" height="25"/></button>
 
     <div class="btn-group" role="group">
-      <button class="btn btn-secondary non-click">Pen size:</button>
+      <button class="btn btn-secondary non-click" onClick="this.blur();">Pen size:</button>
       <button class="btn btn-secondary" type="button"(click)="decreaseWidth()">-</button>
 
-      <button class="non-click" >{{canvas.freeDrawingBrush.width}}</button>
+      <button class="btn btn-secondary non-click" onClick="this.blur();">{{canvas.freeDrawingBrush.width}}</button>
       <button class="btn btn-secondary" type="button"(click)="increaseWidth()">+</button>
   </div>
     <button class="btn btn-secondary" type="button" (click)= feedbackClicked()>Feedback</button>
