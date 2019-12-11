@@ -74,6 +74,9 @@ this.complete = true;
         }
     }
 
+    setJob(jobTitle) {
+        this.job = jobTitle;
+    }
 
     checkComplete() {
         if (this.q1Check === undefined || this.q2Check === undefined || this.q3Check === undefined || this.device === undefined || this.job === undefined) {
