@@ -1,153 +1,143 @@
-
 <div class="container">
     <div class="intro">
-<h4>Thank you for using the app. We'd be grateful for your feedback for our research. Please select one option for every question.</h4>
-</div>
+        <h4>Thank you for using the app. We'd be grateful for your feedback for our research. Please select one option
+            for every question.</h4>
+    </div>
 
 
     <div class="form-group">
-    <hr>
-
-<div class="question">
-    <label for="q1Text">Did you enjoy using the app? </label>
-
-    <div class="radio-btns">
-    <div class="form-check form-check-inline" >
-        <input class="form-check-input" type="radio" id="q1radioYes" name="q1Radio" value="yes" [(ngModel)]="q1Check">
-        <label class="form-check-label" for="q1RadioYes">Yes</label>
-
-    </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="q1RadioNo" name="q1Radio" value="no" [(ngModel)]="q1Check">
-        <label class="form-check-label" for="q1RadioNo">No</label>
-    </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="q1RadioUnsure" name="q1Radio" value="unsure" [(ngModel)]="q1Check">
-            <label class="form-check-label" for="q1RadioUnsure">Unsure</label>
-        </div>
-<!--        <p class="required">(required)</p>-->
-    </div>
-
-    <p>Please tell us more...</p>
-     <textarea class="form-control" id="q1text" rows="1" name="textarea-field"
-            [(ngModel)]="q1Text"></textarea>
-</div>
         <hr>
-    <div class="question">
-        <label for="q1Text">Did the app make you think differently about handwriting? </label>
-        <div class="radio-btns">
-        <div class="form-check form-check-inline" >
-            <input class="form-check-input" type="radio" id="q2radioYes" name="q2Radio" value="yes" [(ngModel)]="q2Check">
-            <label class="form-check-label" for="q2RadioYes">Yes</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="q2RadioNo" name="q2Radio" value="no" [(ngModel)]="q2Check">
-            <label class="form-check-label" for="q2RadioNo">No</label>
-        </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="q2RadioUnsure" name="q2Radio" value="unsure" [(ngModel)]="q2Check">
-                <label class="form-check-label" for="q2RadioNo">Unsure</label>
-            </div>
-<!--            <p class="required">(required)</p>-->
-        </div>
-        <p>Please tell us more...</p>
-        <textarea class="form-control" id="q2text" rows="1" name="textarea-field"
-                  [(ngModel)]="q2Text"></textarea>
-    </div>
-        <hr>
-    <div class="question">
-        <label for="q1Text">Did the app change the way you read the text?</label>
-        <div class="radio-btns">
-        <div class="form-check form-check-inline" >
-            <input class="form-check-input" type="radio" id="q3radioYes" name="q3Radio" value=true [(ngModel)]="q3Check">
-            <label class="form-check-label" for="q3RadioYes">Yes</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="q3RadioNo" name="q3Radio" value=false [(ngModel)]="q3Check">
-            <label class="form-check-label" for="q3RadioNo">No</label>
-        </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="q3RadioUnsure" name="q3Radio" value="unsure" [(ngModel)]="q3Check">
-                <label class="form-check-label" for="q3RadioNo">Unsure</label>
-            </div>
-<!--            <p class="required">(required)</p>-->
-        </div>
-        <p>Please tell us more...</p>
-        <textarea class="form-control" id="q3text" rows="1" name="textarea-field"
-                  [(ngModel)]="q3Text"></textarea>
-    </div>
 
-        <hr>
         <div class="question">
-            <label for="deviceText">What device did you use?</label>
+            <label for="q1Text">Did you enjoy using the app? </label>
+
             <div class="radio-btns">
-                <div class="form-check form-check-inline" >
-                    <input class="form-check-input" type="radio" id="iPad" name="device" value="iPad"  [(ngModel)]="device">
-                    <label class="form-check-label" for="iPad">iPad</label>
+                <div class="form-check form-check-inline">
+                    <input [(ngModel)]="q1Check" class="form-check-input" id="q1radioYes" name="q1Radio" type="radio"
+                           value="yes">
+                    <label class="form-check-label" for="q1RadioYes">Yes</label>
+
                 </div>
-                <div class="form-check form-check-inline" >
-                <input class="form-check-input" type="radio" id="tablet" name="device" value="Android tablet" [(ngModel)]="device">
-                <label class="form-check-label" for="tablet">Android tablet</label>
+                <div class="form-check form-check-inline">
+                    <input [(ngModel)]="q1Check" class="form-check-input" id="q1RadioNo" name="q1Radio" type="radio"
+                           value="no">
+                    <label class="form-check-label" for="q1RadioNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input [(ngModel)]="q1Check" class="form-check-input" id="q1RadioUnsure" name="q1Radio" type="radio"
+                           value="unsure">
+                    <label class="form-check-label" for="q1RadioUnsure">Unsure</label>
+                </div>
+                <!--        <p class="required">(required)</p>-->
             </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="trackpad" name="device" value="Laptop or desktop with trackpad" [(ngModel)]="device">
-                    <label class="form-check-label" for="trackpad">Laptop or desktop PC with trackpad</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="mouse" name="device" value="Laptop or desktop with mouse" [(ngModel)]="device">
-                    <label class="form-check-label" for="mouse">Laptop or desktop PC with mouse</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="mobile" name="device" value="Mobile" [(ngModel)]="device">
-                    <label class="form-check-label" for="mobile">Mobile phone</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="otherDevice" name="device" value="other" [(ngModel)]="device">
-                    <label class="form-check-label" for="otherDevice">Other (please specify below)</label>
-                </div>
-<!--                <p class="required">(required)</p>-->
-            </div>
-            <p>Other device type:</p>
-            <textarea class="form-control" id="deviceText" rows="1" name="textarea-field"
-                      [(ngModel)]="deviceText"></textarea>
+
+            <p>Please tell us more...</p>
+            <textarea [(ngModel)]="q1Text" class="form-control" id="q1text" name="textarea-field"
+                      rows="1"></textarea>
         </div>
         <hr>
         <div class="question">
-            <label for="jobText">What is your occupation?</label>
+            <label for="q1Text">Did the app make you think differently about handwriting? </label>
             <div class="radio-btns">
-                <div class="form-check form-check-inline" >
-                    <input class="form-check-input" type="radio" id="academic" name="job" value="Academic" [(ngModel)]="job">
-                    <label class="form-check-label" for="academic">Academic</label>
+                <div class="form-check form-check-inline">
+                    <input [(ngModel)]="q2Check" class="form-check-input" id="q2radioYes" name="q2Radio" type="radio"
+                           value="yes">
+                    <label class="form-check-label" for="q2RadioYes">Yes</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="creative" name="job" value="Creative Practitioner" [(ngModel)]="job">
-                    <label class="form-check-label" for="creative">Creative Practitioner</label>
+                    <input [(ngModel)]="q2Check" class="form-check-input" id="q2RadioNo" name="q2Radio" type="radio"
+                           value="no">
+                    <label class="form-check-label" for="q2RadioNo">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="calligrapher" name="job" value="Calligrapher" [(ngModel)]="job">
-                    <label class="form-check-label" for="calligrapher">Calligrapher</label>
+                    <input [(ngModel)]="q2Check" class="form-check-input" id="q2RadioUnsure" name="q2Radio" type="radio"
+                           value="unsure">
+                    <label class="form-check-label" for="q2RadioNo">Unsure</label>
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="teacher" name="job" value="Teacher" [(ngModel)]="job">
-                    <label class="form-check-label" for="teacher">Teacher</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="otherJob" name="job" value="other" [(ngModel)]="job">
-                    <label class="form-check-label" for="otherJob">Other (please specify below)</label>
-                </div>
-<!--                <p class="required">(required)</p>-->
+                <!--            <p class="required">(required)</p>-->
             </div>
-            <p>Other occupation:</p>
-            <textarea class="form-control" id="jobText" rows="1" name="textarea-field"
-                      [(ngModel)]="jobText"></textarea>
+            <p>Please tell us more...</p>
+            <textarea [(ngModel)]="q2Text" class="form-control" id="q2text" name="textarea-field"
+                      rows="1"></textarea>
+        </div>
+        <hr>
+        <div class="question">
+            <label for="q1Text">Did the app change the way you read the text?</label>
+            <div class="radio-btns">
+                <div class="form-check form-check-inline">
+                    <input [(ngModel)]="q3Check" class="form-check-input" id="q3radioYes" name="q3Radio" type="radio"
+                           value=true>
+                    <label class="form-check-label" for="q3RadioYes">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input [(ngModel)]="q3Check" class="form-check-input" id="q3RadioNo" name="q3Radio" type="radio"
+                           value=false>
+                    <label class="form-check-label" for="q3RadioNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input [(ngModel)]="q3Check" class="form-check-input" id="q3RadioUnsure" name="q3Radio" type="radio"
+                           value="unsure">
+                    <label class="form-check-label" for="q3RadioNo">Unsure</label>
+                </div>
+                <!--            <p class="required">(required)</p>-->
+            </div>
+            <p>Please tell us more...</p>
+            <textarea [(ngModel)]="q3Text" class="form-control" id="q3text" name="textarea-field"
+                      rows="1"></textarea>
         </div>
 
         <hr>
-        <div class="error" *ngIf="!complete">
+        <div class="question">
+
+
+
+            <p>What device did you use?</p>
+            <select [(ngModel)]="device" class="custom-select">
+                <option  value="iPad">iPad</option>
+                <option  value="Android tablet">Android tablet</option>
+                <option  value="Laptop or computer with trackpad">Laptop or computer with trackpad</option>
+                <option  value="Laptop or computer with mouse">Laptop or computer with mouse</option>
+                <option  value="Mobile phone">Mobile phone</option>
+                <option  value="Other">Other (please specify below)</option>
+            </select>
+
+
+            <div class="optional" *ngIf="device === 'Other'">
+            <textarea [(ngModel)]="deviceText" class="form-control" id="deviceText" name="textarea-field"
+                      rows="1"></textarea>
+            </div>
+        </div>
+
+
+
+
+
+        <hr>
+
+        <div class="question">
+            <p>What is your occupation?</p>
+            <select [(ngModel)]="job" class="custom-select">
+                <option  value="Academic">Academic</option>
+                <option  value="Creative Practitioner">Creative Practitioner</option>
+                <option  value="Calligrapher">Calligrapher</option>
+                <option  value="Teacher">Teacher</option>
+                <option  value="Other">Other (please specify)</option>
+            </select>
+
+            <div class="optional" *ngIf="job === 'Other'">
+                    <textarea [(ngModel)]="jobText" class="form-control" id="jobText" name="textarea-field"
+                              rows="1"></textarea>
+        </div>
+        </div>
+
+
+        <hr>
+        <div *ngIf="!complete" class="error">
             <h4>Please make sure to select one of the options for each question</h4>
         </div>
 
 
-</div>    <button class="btn btn-primary" (click)=saveFeedback()>Submit image and feedback</button>
+    </div>
+    <button (click)=saveFeedback() class="btn btn-primary">Submit image and feedback</button>
 
 </div>
