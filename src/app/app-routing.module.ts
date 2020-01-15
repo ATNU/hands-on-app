@@ -4,13 +4,15 @@ import {FeedbackComponent} from './feedback/feedback.component';
 import {ResultsComponent} from './results/results.component';
 import {ViewResultComponent} from './view-result/view-result.component';
 import {HomeComponent} from './home/home.component';
+import {TextTestComponent} from './text-test/text-test.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   {path: 'feedback/:canvasId', component: FeedbackComponent},
   {path: 'admin', component: ResultsComponent},
-  {path: 'admin/viewResult/:canvasId' , component: ViewResultComponent}
+  {path: 'admin/viewResult/:canvasId' , component: ViewResultComponent},
+  {path: 'text', component: TextTestComponent}
 ];
 
 @NgModule({

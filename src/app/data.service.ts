@@ -45,5 +45,13 @@ export class DataService {
             .catch(this.handleError);
     }
 
-
+async getText() {
+    return this.http.get(environment.apiBaseURL + '/text', {
+        headers: new HttpHeaders()
+            .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
+    })
+        .toPromise()
+        .then((response) => response.body)
+        .catch(this.handleError);
+}
 }

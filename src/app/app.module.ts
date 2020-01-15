@@ -14,6 +14,7 @@ import {HomeComponent} from './home/home.component';
 import {ColorPickerModule} from 'ngx-color-picker';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './dialog/dialog.component';
+import { TextTestComponent } from './text-test/text-test.component';
 
 
 // @ts-ignore
@@ -24,7 +25,8 @@ import { DialogComponent } from './dialog/dialog.component';
     ResultsComponent,
     ViewResultComponent,
     HomeComponent,
-    DialogComponent
+    DialogComponent,
+    TextTestComponent
   ],
   entryComponents: [DialogComponent],
   imports: [

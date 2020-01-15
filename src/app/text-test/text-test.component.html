@@ -1,0 +1,9 @@
+<textarea [(ngModel)]="pageRequested" class="form-control" id="q1text" name="textarea-field"></textarea>
+<button (click)="getPage()">Get page</button>
+
+<div *ngIf="pageText">
+<p>{{pageText[0]}}</p>
+<p>{{pageText[1]}}</p>
+<p>{{pageText[2]}}</p>
+<p>{{pageText[3]}}</p>
+</div>
