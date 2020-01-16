@@ -37,7 +37,7 @@
 <!--    </div>-->
 <!--    </div>-->
 
-    <button class="btn btn-secondary" [(colorPicker)]="colour" [cpOKButton]=true [cpCancelButton]=true [style.background]="colour"  (colorPickerSelect)="changeColour(colour)"><img src="./assets/palette.svg" height="25"/></button>
+    <button class="btn btn-secondary" [(colorPicker)]="colour"  [cpPresetColors]="['#000000', '#2889e9']" [cpAddColorButton]="true" [cpOKButton]=true [cpCancelButton]=true [style.background]="colour"  (colorPickerSelect)="changeColour(colour)"><img src="./assets/palette.svg" height="25"/></button>
 
     <div class="btn-group" role="group">
       <button class="btn btn-light non-click" onClick="this.blur();">Pen size:</button>
