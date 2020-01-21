@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit {
     colour: string;
     message: string;
     canvasID: string;
+    bgImage: string;
+    pageNo: number;
 
     constructor(
         private router: Router,
@@ -26,14 +28,16 @@ export class HomeComponent implements OnInit {
         this.message = 'Change pen colour';
         this.colour = 'gray';
         this.canvas = new fabric.Canvas('myCanvas');
+        this.bgImage = './assets/image8.png';
         this.clear();
         this.canvas.renderAll.bind(this.canvas);
         this.openDialog();
+        this.pageNo = 0 ;
     }
 
     async clear() {
         this.canvas.clear();
-        this.canvas.setBackgroundImage('./assets/image8.png', this.canvas.renderAll.bind(this.canvas));
+        this.canvas.setBackgroundImage(this.bgImage, this.canvas.renderAll.bind(this.canvas));
         this.canvas.isDrawingMode = true;
         /*
         scales background image to the size of the div, but it doesn't load correctly, only when you attempt to draw
@@ -83,6 +87,31 @@ export class HomeComponent implements OnInit {
         if (this.canvas.freeDrawingBrush.width > 1) {
             this.canvas.freeDrawingBrush.width--;
         }
+    }
+
+    changeBgImg() {
+        if (this.pageNo === 0) {
+            this.bgImage = './assets/image8.png';
+        } else if (this.pageNo % 2 === 0) {
+            // page even
+            this.bgImage = './assets/rightpage.jpg';
+        } else {
+            // page odd
+            this.bgImage = './assets/leftpage.jpg';
+        }
+        this.clear();
+
+    }
+
+    nextPage() {
+        // needs to handle the last page of the book.
+        this.pageNo++;
+        this.changeBgImg();
+    }
+
+    prevPage() {
+        this.pageNo > 0 ? this.pageNo-- : this.pageNo = 0;
+        this.changeBgImg();
     }
 
 
