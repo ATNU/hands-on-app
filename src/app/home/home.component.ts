@@ -18,9 +18,9 @@ export class HomeComponent implements OnInit {
     canvasID: string;
     bgImage: string;
     pageNo: number;
-    text;
+    text: string;
     pageText;
-    pageRequested;
+    allLines: string[];
 
     constructor(
         private router: Router,
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
         this.pageNo = 0 ;
         this.dataService.getText().then((text) => {
             this.text = text;
-            console.log(this.text);
+            this.allLines = this.text.split('\\n');
         });
     }
 
@@ -161,10 +161,12 @@ export class HomeComponent implements OnInit {
             console.log(this.pageNo);
 
         // split text into array of lines
-            const allLines = this.text.split('\\r\\n');
+            const allLines = this.text.split('\\n');
+            console.log('all lines');
+            console.log(allLines);
 
         // use page number to work out what lines are needed
-            const line1 = (this.pageNo - 2) * 4;
+            const line1 = (this.pageNo - 1) * 4;
             const line2 = line1 + 1;
             const line3 = line1 + 2;
             const line4 = line1 + 3;
