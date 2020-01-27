@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {fabric} from 'fabric';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { fabric } from 'fabric';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
+import { DataService } from '../data.service';
 
 @Component({
     selector: 'app-home',
@@ -17,10 +18,14 @@ export class HomeComponent implements OnInit {
     canvasID: string;
     bgImage: string;
     pageNo: number;
+    text;
+    pageText;
+    pageRequested;
 
     constructor(
         private router: Router,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private dataService: DataService
     ) {
     }
 
@@ -33,6 +38,10 @@ export class HomeComponent implements OnInit {
         this.canvas.renderAll.bind(this.canvas);
         this.openDialog();
         this.pageNo = 0 ;
+        this.dataService.getText().then((text) => {
+            this.text = text;
+            console.log(this.text);
+        });
     }
 
     async clear() {
@@ -107,11 +116,13 @@ export class HomeComponent implements OnInit {
         // needs to handle the last page of the book.
         this.pageNo++;
         this.changeBgImg();
+        this.getPage();
     }
 
     prevPage() {
         this.pageNo > 0 ? this.pageNo-- : this.pageNo = 0;
         this.changeBgImg();
+        this.getPage();
     }
 
 
@@ -141,6 +152,36 @@ export class HomeComponent implements OnInit {
             link.click();
         }
 
+    }
+
+        // This assumes that page 1 is the manuscript page so the first page actually generated using this method should be page 2.
+        // It returns a list of lines (e.g. lines[0] is the first line to display on the page.
+        getPage() {
+            console.log('get page page no');
+            console.log(this.pageNo);
+
+        // split text into array of lines
+            const allLines = this.text.split('\\r\\n');
+
+        // use page number to work out what lines are needed
+            const line1 = (this.pageNo - 2) * 4;
+            const line2 = line1 + 1;
+            const line3 = line1 + 2;
+            const line4 = line1 + 3;
+
+            console.log( line1 + line2 + line3 + line4);
+
+        // add requested lines to new list
+            const linesList = [];
+            linesList.push(allLines[line1]);
+            linesList.push(allLines[line2]);
+            linesList.push(allLines[line3]);
+            linesList.push(allLines[line4]);
+
+
+            this.pageText = linesList;
+            console.log('lineslist');
+            console.log(linesList);
     }
 
 }
