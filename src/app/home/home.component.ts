@@ -160,11 +160,6 @@ export class HomeComponent implements OnInit {
             console.log('get page page no');
             console.log(this.pageNo);
 
-        // split text into array of lines
-            const allLines = this.text.split('\\n');
-            console.log('all lines');
-            console.log(allLines);
-
         // use page number to work out what lines are needed
             const line1 = (this.pageNo - 1) * 4;
             const line2 = line1 + 1;
@@ -175,15 +170,22 @@ export class HomeComponent implements OnInit {
 
         // add requested lines to new list
             const linesList = [];
-            linesList.push(allLines[line1]);
-            linesList.push(allLines[line2]);
-            linesList.push(allLines[line3]);
-            linesList.push(allLines[line4]);
+            linesList.push(this.allLines[line1]);
+            linesList.push(this.allLines[line2]);
+            linesList.push(this.allLines[line3]);
+            linesList.push(this.allLines[line4]);
 
 
-            this.pageText = linesList;
+            this.pageText = linesList.join('\n\n\n');
             console.log('lineslist');
             console.log(linesList);
+
+            this.canvas.add(new fabric.Text(this.pageText, {
+                left: 100,
+                top: 200,
+                fontSize: 26,
+                textAlign: 'left'
+              }));
     }
 
 }
