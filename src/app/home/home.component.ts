@@ -161,12 +161,12 @@ export class HomeComponent implements OnInit {
             console.log(this.pageNo);
 
         // use page number to work out what lines are needed
-            const line1 = (this.pageNo - 1) * 4;
+            const line1 = (this.pageNo - 1) * 5;
             const line2 = line1 + 1;
             const line3 = line1 + 2;
             const line4 = line1 + 3;
+            const line5 = line1 + 4;
 
-            console.log( line1 + line2 + line3 + line4);
 
         // add requested lines to new list
             const linesList = [];
@@ -174,16 +174,16 @@ export class HomeComponent implements OnInit {
             linesList.push(this.allLines[line2]);
             linesList.push(this.allLines[line3]);
             linesList.push(this.allLines[line4]);
-
+            linesList.push(this.allLines[line5]);
 
             this.pageText = linesList.join('\n\n\n');
             console.log('lineslist');
             console.log(linesList);
 
             this.canvas.add(new fabric.Text(this.pageText, {
-                left: 100,
+                left: this.bgImage === './assets/rightpage.jpg' ? 50 : 100,
                 top: 200,
-                fontSize: 26,
+                fontSize: 22,
                 textAlign: 'left'
               }));
     }
