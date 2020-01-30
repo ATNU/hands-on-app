@@ -160,7 +160,7 @@ export class HomeComponent implements OnInit {
             console.log('get page page no');
             console.log(this.pageNo);
 
-        // use page number to work out what lines are needed
+            // use page number to work out what lines are needed
             const line1 = (this.pageNo - 1) * 5;
             const line2 = line1 + 1;
             const line3 = line1 + 2;
@@ -168,7 +168,7 @@ export class HomeComponent implements OnInit {
             const line5 = line1 + 4;
 
 
-        // add requested lines to new list
+            // add requested lines to new list
             const linesList = [];
             linesList.push(this.allLines[line1]);
             linesList.push(this.allLines[line2]);
@@ -177,15 +177,23 @@ export class HomeComponent implements OnInit {
             linesList.push(this.allLines[line5]);
 
             this.pageText = linesList.join('\n\n\n');
-            console.log('lineslist');
-            console.log(linesList);
 
-            this.canvas.add(new fabric.Text(this.pageText, {
+            // Generate a fabric text object
+            // adjustments for left and right page margins
+            // if a line of text is too long, reduce the font size until it fits
+            const maxWidth = 500;
+            const textLines = new fabric.Text(this.pageText, {
                 left: this.bgImage === './assets/rightpage.jpg' ? 50 : 100,
-                top: 200,
+                top: 250,
                 fontSize: 22,
                 textAlign: 'left'
-              }));
+              });
+
+            if (textLines.width > maxWidth) {
+                textLines.fontSize *= maxWidth / (textLines.width + 1);
+                textLines.width = maxWidth;
+            }
+            this.canvas.add(textLines);
     }
 
 }
