@@ -174,31 +174,31 @@ export class HomeComponent implements OnInit {
             const line1 = (this.pageNo - 1) * 5;
             
             // if line1 is OK, add and move on to get line 2
-            if (line1 <= this.lineCount) {
+            if (line1 <= (this.lineCount - 1)) {
                 linesList.push(this.allLines[line1].replace('\\r', ''));
 
                 const line2 = line1 + 1;
                 
                 // if line 2 is OK, add and move on to get line 3
-                if (line2 <= this.lineCount) {
+                if (line2 <= (this.lineCount - 1)) {
                     linesList.push(this.allLines[line2].replace('\\r', ''));
                    
                     const line3 = line1 + 2;
 
                     // if line 3 is OK, add and move on to get line 4
-                    if (line3 <= this.lineCount) {
+                    if (line3 <= (this.lineCount - 1)) {
                         linesList.push(this.allLines[line3].replace('\\r', ''));
 
                         const line4 = line1 + 3;
 
                         // if line 4 is OK, add and move on to get line 5
-                        if (line4 <= this.lineCount) {
+                        if (line4 <= (this.lineCount - 1)) {
                             linesList.push(this.allLines[line4].replace('\\r', ''));
 
                             const line5 = line1 + 4;
 
                             // if line 5 is OK, add
-                            if (line5 <= this.lineCount) {
+                            if (line5 <= (this.lineCount - 1)) {
                                 linesList.push(this.allLines[line5].replace('\\r', ''));
                             }
                         }
@@ -237,6 +237,6 @@ export class HomeComponent implements OnInit {
        const decimalPageCount = (lines / 5) + 1;
 
        // round up to nearest whole page
-       this.pageCount = Math.ceil(decimalPageCount);
+       this.pageCount = Math.ceil(decimalPageCount)-1;
     }
 }
