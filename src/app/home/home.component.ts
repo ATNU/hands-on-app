@@ -4,6 +4,7 @@ import { fabric } from 'fabric';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DataService } from '../data.service';
+import {forEach} from "@angular-devkit/schematics";
 
 @Component({
     selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
     text: string;
     pageText;
     allLines: string[];
+    pageCount: number;
 
     constructor(
         private router: Router,
@@ -41,6 +43,8 @@ export class HomeComponent implements OnInit {
         this.dataService.getText().then((text) => {
             this.text = text;
             this.allLines = this.text.split('\\n');
+            this.countPages(this.allLines);
+            console.log('page count = ' + this.pageCount);
         });
     }
 
@@ -199,4 +203,15 @@ export class HomeComponent implements OnInit {
             this.canvas.add(textLines);
     }
 
+    // start counting at page 2 because manuscript is page 1
+    countPages(listOfLines) {
+       let lineCount = 0;
+       listOfLines.forEach(() => {
+            lineCount++;
+        });
+       const decimalPageCount = (lineCount / 4) + 1;
+
+       // round up to nearest whole page
+        this.pageCount = Math.ceil(decimalPageCount);
+    }
 }
