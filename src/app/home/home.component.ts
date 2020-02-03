@@ -168,13 +168,16 @@ export class HomeComponent implements OnInit {
             const line5 = line1 + 4;
 
 
-            // add requested lines to new list
+            // add requested lines to new list after removing '/r'
             const linesList = [];
-            linesList.push(this.allLines[line1]);
-            linesList.push(this.allLines[line2]);
-            linesList.push(this.allLines[line3]);
-            linesList.push(this.allLines[line4]);
-            linesList.push(this.allLines[line5]);
+
+            linesList.push(this.allLines[line1].replace('\\r', ''));
+            linesList.push(this.allLines[line2].replace('\\r', ''));
+            linesList.push(this.allLines[line3].replace('\\r', ''));
+            linesList.push(this.allLines[line4].replace('\\r', ''));
+            linesList.push(this.allLines[line5].replace('\\r', ''));
+
+
 
             this.pageText = linesList.join('\n\n\n');
 
