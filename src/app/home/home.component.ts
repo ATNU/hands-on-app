@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
         this.clear();
         this.canvas.renderAll.bind(this.canvas);
         this.openDialog();
-        this.pageNo = 778 ;
+        this.pageNo = 0 ;
         this.dataService.getText().then((text) => {
             this.text = text;
             this.allLines = this.text.split('\\n');
