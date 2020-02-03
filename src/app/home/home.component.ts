@@ -185,6 +185,7 @@ export class HomeComponent implements OnInit {
             
             // if line1 is OK, add and move on to get line 2
             if (line1 <= (this.lineCount - 1)) {
+
                 linesList.push(this.allLines[line1].replace('\\r', ''));
 
                 const line2 = line1 + 1;
@@ -242,9 +243,11 @@ export class HomeComponent implements OnInit {
        listOfLines.forEach(() => {
             lines++;
         });
-       this.lineCount = lines;
 
-       const decimalPageCount = (lines / 5) + 1;
+       // take off last line to remove stray speech mark
+       this.lineCount = lines - 1;
+
+       const decimalPageCount = (this.lineCount / 5) + 1;
 
        // round up to nearest whole page
        this.pageCount = Math.ceil(decimalPageCount) - 1;
