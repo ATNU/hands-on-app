@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
     pageText;
     allLines: string[];
     pageCount: number;
+    lineCount: number;
 
     constructor(
         private router: Router,
@@ -39,11 +40,12 @@ export class HomeComponent implements OnInit {
         this.clear();
         this.canvas.renderAll.bind(this.canvas);
         this.openDialog();
-        this.pageNo = 0 ;
+        this.pageNo = 222 ;
         this.dataService.getText().then((text) => {
             this.text = text;
             this.allLines = this.text.split('\\n');
             this.countPages(this.allLines);
+            console.log('line count = ' + this.lineCount);
             console.log('page count = ' + this.pageCount);
         });
     }
@@ -164,24 +166,45 @@ export class HomeComponent implements OnInit {
             console.log('get page page no');
             console.log(this.pageNo);
 
-            // use page number to work out what lines are needed
-            const line1 = (this.pageNo - 1) * 5;
-            const line2 = line1 + 1;
-            const line3 = line1 + 2;
-            const line4 = line1 + 3;
-            const line5 = line1 + 4;
-
-
-            // add requested lines to new list after removing '/r'
+            // use page number to work out what lines are needed, then, if they are less than total number of lines, add them to a list of lines for the requested page
+            // after removing '/r'
+            
             const linesList = [];
 
-            linesList.push(this.allLines[line1].replace('\\r', ''));
-            linesList.push(this.allLines[line2].replace('\\r', ''));
-            linesList.push(this.allLines[line3].replace('\\r', ''));
-            linesList.push(this.allLines[line4].replace('\\r', ''));
-            linesList.push(this.allLines[line5].replace('\\r', ''));
+            const line1 = (this.pageNo - 1) * 5;
+            
+            // if line1 is OK, add and move on to get line 2
+            if (line1 <= this.lineCount) {
+                linesList.push(this.allLines[line1].replace('\\r', ''));
 
+                const line2 = line1 + 1;
+                
+                // if line 2 is OK, add and move on to get line 3
+                if (line2 <= this.lineCount) {
+                    linesList.push(this.allLines[line2].replace('\\r', ''));
+                   
+                    const line3 = line1 + 2;
 
+                    // if line 3 is OK, add and move on to get line 4
+                    if (line3 <= this.lineCount) {
+                        linesList.push(this.allLines[line3].replace('\\r', ''));
+
+                        const line4 = line1 + 3;
+
+                        // if line 4 is OK, add and move on to get line 5
+                        if (line4 <= this.lineCount) {
+                            linesList.push(this.allLines[line4].replace('\\r', ''));
+
+                            const line5 = line1 + 4;
+
+                            // if line 5 is OK, add
+                            if (line5 <= this.lineCount) {
+                                linesList.push(this.allLines[line5].replace('\\r', ''));
+                            }
+                        }
+                    }
+                }
+            }
 
             this.pageText = linesList.join('\n\n\n');
 
@@ -205,13 +228,15 @@ export class HomeComponent implements OnInit {
 
     // start counting at page 2 because manuscript is page 1
     countPages(listOfLines) {
-       let lineCount = 0;
+       let lines = 0;
        listOfLines.forEach(() => {
-            lineCount++;
+            lines++;
         });
-       const decimalPageCount = (lineCount / 4) + 1;
+       this.lineCount = lines;
+
+       const decimalPageCount = (lines / 5) + 1;
 
        // round up to nearest whole page
-        this.pageCount = Math.ceil(decimalPageCount);
+       this.pageCount = Math.ceil(decimalPageCount);
     }
 }
