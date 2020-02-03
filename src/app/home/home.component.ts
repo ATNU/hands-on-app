@@ -4,7 +4,7 @@ import { fabric } from 'fabric';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DataService } from '../data.service';
-import {forEach} from "@angular-devkit/schematics";
+import {environment} from "../../environments/environment";
 
 @Component({
     selector: 'app-home',
@@ -33,6 +33,9 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+        console.log('base URL: ' + environment.apiBaseURL);
+
         this.message = 'Change pen colour';
         this.colour = 'gray';
         this.canvas = new fabric.Canvas('myCanvas');
@@ -40,7 +43,7 @@ export class HomeComponent implements OnInit {
         this.clear();
         this.canvas.renderAll.bind(this.canvas);
         this.openDialog();
-        this.pageNo = 222 ;
+        this.pageNo = 778 ;
         this.dataService.getText().then((text) => {
             this.text = text;
             this.allLines = this.text.split('\\n');
@@ -119,10 +122,17 @@ export class HomeComponent implements OnInit {
     }
 
     nextPage() {
-        // needs to handle the last page of the book.
         this.pageNo++;
-        this.changeBgImg();
-        this.getPage();
+
+        if (this.pageNo <= this.pageCount) {
+            this.changeBgImg();
+            this.getPage();
+        }
+
+        // keep counter on last page if reached
+        else {
+            this.pageNo--;
+        }
     }
 
     prevPage() {
@@ -237,6 +247,6 @@ export class HomeComponent implements OnInit {
        const decimalPageCount = (lines / 5) + 1;
 
        // round up to nearest whole page
-       this.pageCount = Math.ceil(decimalPageCount)-1;
+       this.pageCount = Math.ceil(decimalPageCount) - 1;
     }
 }
