@@ -10,7 +10,7 @@
     <img class="firstPageImage" src="../assets/sampleImage.jpg" alt="First page"> -->
 
 
-  <div>
+  <div id="canvas-background" [ngStyle]="{ 'background-image': 'url(' + bgImage + ')'}">
     <canvas id="myCanvas" width="680" height="870"></canvas>
   </div>
 

@@ -55,7 +55,8 @@ export class HomeComponent implements OnInit {
 
     async clear() {
         this.canvas.clear();
-        this.canvas.setBackgroundImage(this.bgImage, this.canvas.renderAll.bind(this.canvas));
+       // this.canvas.setBackgroundImage(this.bgImage, this.canvas.renderAll.bind(this.canvas));
+        this.getPage();
         this.canvas.isDrawingMode = true;
         /*
         scales background image to the size of the div, but it doesn't load correctly, only when you attempt to draw
