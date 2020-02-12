@@ -167,7 +167,7 @@ export class HomeComponent implements OnInit {
         this.canvas.isDrawingMode = true;
         const eraserBrush = new EraserBrush(this.canvas);
         eraserBrush.width = 10;
-        eraserBrush.color = "#ffffff";
+        eraserBrush.color = "#A59D87";
         this.canvas.freeDrawingBrush = eraserBrush;
         //canvas.renderAll();
       }
