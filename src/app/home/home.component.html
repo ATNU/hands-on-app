@@ -20,15 +20,14 @@
 
   <div class="buttons">
     <div class="btn-group">
-      <button type="button" class="btn btn-secondary" (click)=prevPage()>Prev</button>
+      <button type="button" class="btn btn-secondary" (click)=prevPage()><img src="./assets/chevron-back.svg"
+          height="25" /></button>
     </div>
-
-    <button type="button" class="btn btn-secondary" (click)=clear()>Reset</button>
 
 
 
     <button type="button" class="btn btn-secondary" (click)=erase()><img src="./assets/erase2.svg"
-        height="25" /></button>
+        width="25"/></button>
 
 
 
@@ -45,35 +44,45 @@
     <!--    </div>-->
     <!--    </div>-->
 
-    <div class="btn-group mr-3">
+
       <button type="button" class="btn btn-secondary" type="button" (click)=enableDraw()><img src="./assets/edit.svg"
           height="25" /></button>
       <div class="btn-group" ngbDropdown role="group">
-        <button class="btn btn-secondary dropdown-toggle-split" ngbDropdownToggle></button>
+        <button class="btn btn-secondary dropdown-toggle-split" ngbDropdownToggle><img src="./assets/dots.svg"
+          height="25" /></button>
 
         <div ngbDropdownMenu class="dropdown-menu">
+          <div class="btn-group">
+            <button type="button" class="btn" [(colorPicker)]="colour" [cpPresetColors]="['#000000', '#2889e9']"
+              [cpAddColorButton]="true" [cpOKButton]=true [cpCancelButton]=true [style.background]="colour"
+              (colorPickerSelect)="changeColour(colour)"><img src="./assets/palette.svg" height="25" /></button>
 
-          <button type="button" class="btn" [(colorPicker)]="colour" [cpPresetColors]="['#000000', '#2889e9']"
-            [cpAddColorButton]="true" [cpOKButton]=true [cpCancelButton]=true [style.background]="colour"
-            (colorPickerSelect)="changeColour(colour)"><img src="./assets/palette.svg" height="25" /></button>
-
-
-          <button class="btn btn-light non-click" onClick="this.blur();">Pen size:</button>
-          <button type="button" class="btn btn-secondary" type="button" (click)="decreaseWidth()">-</button>
-
-          <button class="btn btn-light non-click" onClick="this.blur();">{{canvas.freeDrawingBrush.width}}</button>
-          <button type="button" class="btn btn-secondary" type="button" (click)="increaseWidth()">+</button>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary" type="button" (click)="decreaseWidth()">-</button>
+            <button class="btn btn-light non-click" onClick="this.blur();">{{canvas.freeDrawingBrush.width}}</button>
+            <button type="button" class="btn btn-secondary" type="button" (click)="increaseWidth()">+</button>
+          </div>
+          <button type="button" class="btn btn-secondary" (click)=clear()>Reset</button>
         </div>
       </div>
-    </div>
+
+
+        <button type="button" class="btn btn-secondary" (click)=feedbackClicked()><img src="./assets/chat.svg"
+          height="25" /></button>
+ 
 
 
 
 
 
-    <button type="button" class="btn btn-secondary" (click)=feedbackClicked()>Feedback</button>
+
+
+
+
     <div class="btn-group">
-      <button type="button" class="btn btn-secondary" (click)=nextPage()>Next</button>
+      <button type="button" class="btn btn-secondary" (click)=nextPage()><img src="./assets/chevron-forward.svg"
+          height="25" /></button>
     </div>
 
   </div>

@@ -161,18 +161,15 @@ export class HomeComponent implements OnInit {
 
         this.router.navigate(['feedback/' + this.canvasID]);
     }
-
-      // to use it, just set the brush
+      // set the brush to eraser
       erase() {
         this.canvas.isDrawingMode = true;
         const eraserBrush = new EraserBrush(this.canvas);
         eraserBrush.width = 10;
         eraserBrush.color = "#A59D87";
         this.canvas.freeDrawingBrush = eraserBrush;
-        //canvas.renderAll();
+
       }
-  
-  
 
     downLoadJpg() {
         const canvasDataUrl = this.canvas.toDataURL()
@@ -325,7 +322,7 @@ const EraserBrush = fabric.util.createClass(fabric.PencilBrush, {
      * we use the points captured to create an new fabric path object
      * and add it to the fabric canvas.
      */
-    _finalizeAndAddPath () {
+    _finalizeAndAddPath() {
       let ctx = this.canvas.contextTop;
       ctx.closePath();
       if (this.decimate) {
