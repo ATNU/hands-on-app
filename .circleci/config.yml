@@ -1,3 +1,4 @@
+
 version: 2
 jobs:
   build:
@@ -17,7 +18,6 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASS rsenuatnu.azurecr.io
           docker push rsenuatnu.azurecr.io/hands-on-app:latest
           docker push rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1
-
   build-with-tag:
     docker:
       - image: circleci/node:8
@@ -31,11 +31,10 @@ jobs:
           docker_layer_caching: false
 
       - run: |
-          docker build -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1 -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1 .
+          docker build -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_TAG -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1 .
           docker login -u $DOCKER_USER -p $DOCKER_PASS rsenuatnu.azurecr.io
-          docker push rsenuatnu.azurecr.io/hands-on-app:latest
+          docker push rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_TAG
           docker push rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1
-
 workflows:
   version: 2
   untagged-build:
@@ -53,4 +52,4 @@ workflows:
             branches:
               ignore: /.*/
             tags:
-              only: /^\d+\.\d+\.\d+$/
+              only: /^\d+\.\d+\.\d+$/t
