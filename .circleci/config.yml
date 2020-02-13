@@ -28,7 +28,7 @@ jobs:
       - checkout
 
        - setup_remote_docker:
-              docker_layer_caching: false
+          docker_layer_caching: false
 
       - run: |
           docker build -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1 -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1 .
