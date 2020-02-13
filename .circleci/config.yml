@@ -18,10 +18,39 @@ jobs:
           docker push rsenuatnu.azurecr.io/hands-on-app:latest
           docker push rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1
 
+  build-with-tag:
+    docker:
+      - image: circleci/node:8
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+       - setup_remote_docker:
+              docker_layer_caching: false
+
+      - run: |
+          docker build -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1 -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1 .
+          docker login -u $DOCKER_USER -p $DOCKER_PASS rsenuatnu.azurecr.io
+          docker push rsenuatnu.azurecr.io/hands-on-app:latest
+          docker push rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1
 
 workflows:
   version: 2
-  build:
+  untagged-build:
     jobs:
       - build:
           context: atnu-context
+          filters:
+            tags:
+              ignore: /.*/
+  tagged-build:
+    jobs:
+      - build-with-tag:
+          context: atnu-context
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+\.\d+\.\d+$/
