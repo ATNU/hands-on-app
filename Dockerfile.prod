@@ -6,6 +6,7 @@ RUN npm install -g @angular/cli && npm install --force
 RUN npm rebuild node-sass
 RUN ng build --prod="true"
 
-FROM nginx:alpine
-COPY --from=builder /usr/local/app/dist/* /usr/share/nginx/html
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+FROM linuxserver/letsencrypt
+COPY --from=builder /usr/local/app/dist/* /config/www
+COPY api.subfolder.conf /config/nginx/proxy-confs/api.subfolder.conf
+EXPOSE 80 433

@@ -14,7 +14,7 @@ jobs:
           docker_layer_caching: false
 
       - run: |
-          docker build -t rsenuatnu.azurecr.io/hands-on-app:latest -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1 .
+          docker build -f Dockerfile.prod -t rsenuatnu.azurecr.io/hands-on-app:latest -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1 .
           docker login -u $DOCKER_USER -p $DOCKER_PASS rsenuatnu.azurecr.io
           docker push rsenuatnu.azurecr.io/hands-on-app:latest
           docker push rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1
@@ -31,7 +31,7 @@ jobs:
           docker_layer_caching: false
 
       - run: |
-          docker build -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_TAG -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1 .
+          docker build -f Dockerfile.prod -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_TAG -t rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1 .
           docker login -u $DOCKER_USER -p $DOCKER_PASS rsenuatnu.azurecr.io
           docker push rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_TAG
           docker push rsenuatnu.azurecr.io/hands-on-app:$CIRCLE_SHA1
