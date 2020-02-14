@@ -50,6 +50,6 @@ workflows:
           context: atnu-context
           filters:
             branches:
-              ignore: /*/
+              ignore: /.*/
             tags:
-              only: /^\d+\.\d+\.\d+$/t
+              only: /^\d+\.\d+\.\d+$/
