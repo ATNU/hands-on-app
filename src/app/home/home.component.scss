@@ -38,6 +38,10 @@
   width: 10px;
 }
 
+.dropdown-menu {
+  border: 0px;
+}
+
 // restrict canvas and container width to manuscript page (container dictates navbar max-width)
 .container {
   max-width: 800px;

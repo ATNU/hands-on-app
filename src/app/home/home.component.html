@@ -34,15 +34,7 @@
                                                                                                height="25"/></button>
 
                 <div ngbDropdownMenu class="dropdown-menu">
-                    <div class="btn-group">
-                        <button type="button" class="btn" [(colorPicker)]="colour"
-                                [cpPresetColors]="['#000000', '#2889e9', '#FF0000']"
-                                [cpAddColorButton]="true" [cpOKButton]=true [cpCancelButton]=true
-                                [style.background]="colour"
-                                (colorPickerSelect)="changeColour(colour)"><img src="./assets/palette.svg" height="25"/>
-                        </button>
-                    </div>
-
+                    <div class="btn-group-vertical">
                     <!--          brush width-->
                     <div class="btn-group">
                         <button type="button" class="btn btn-secondary" type="button" (click)="decreaseWidth()">-
@@ -52,7 +44,19 @@
                         <button type="button" class="btn btn-secondary" type="button" (click)="increaseWidth()">+
                         </button>
                     </div>
+
+
+                    <button type="button" class="btn btn-secondary" [(colorPicker)]="colour"
+                            [cpPresetColors]="['#000000', '#2889e9', '#FF0000']"
+                            [cpAddColorButton]="true" [cpOKButton]=true [cpCancelButton]=true
+                            [style.background]="colour"
+                            (colorPickerSelect)="changeColour(colour)"><img src="./assets/palette.svg" height="25"/>
+                    </button>
+
+
                     <button type="button" class="btn btn-secondary" (click)=clear()>Reset</button>
+                    </div>
+
                 </div>
             </div>
             <!-- end of colour and size drop-up-->
