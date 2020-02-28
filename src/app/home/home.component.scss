@@ -28,15 +28,6 @@
   outline: none;
 }
 
-.btn-group {
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-
-body{
-  background-color: black !important;
-}
 
 .btn-small {
   width: 10px;
@@ -47,11 +38,36 @@ body{
   width: 10px;
 }
 
-.buttons {
-  margin-left:70px;
+// restrict canvas and container width to manuscript page (container dictates navbar max-width)
+.container {
+  max-width: 800px;
 }
-
 #canvas-background {
   max-width: 800px;
   background-repeat: no-repeat;
 }
+
+.footer {
+  position: relative;
+  height: 150px;
+  clear:both;
+  padding-top:20px;
+}
+
+button.btn-success.right {
+    float: right;
+
+}
+
+button.btn-success.left {
+  float: left;
+}
+
+.btn-group.controls {
+ margin: auto;
+  clear: both;
+}
+
+
+
+
