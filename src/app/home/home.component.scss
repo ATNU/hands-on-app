@@ -17,16 +17,18 @@
 }
 
 .non-click:active {
-  box-shadow:none;
+  box-shadow:none !important;
 }
 .non-click:active:focus {
-  box-shadow:none;
-  outline:none;
+  box-shadow:none !important;
+  outline:none !important;
 }
 
 .non-click:focus {
-  outline: none;
+  outline: none !important;
 }
+
+
 
 
 .btn-small {

@@ -11,6 +11,14 @@ import {DataService} from '../data.service';
 export class FeedbackComponent implements OnInit {
 
     complete: boolean;
+   q1CheckValid: boolean;
+   q2CheckValid: boolean;
+   q3CheckValid: boolean;
+   deviceValid: boolean;
+   deviceOtherValid;
+   jobValid: boolean;
+   jobOtherValid;
+   submitted : boolean;
 
     q1Check: string;
     q1Text: string;
@@ -42,17 +50,12 @@ this.complete = true;
     }
 
     async saveFeedback() {
+        this.submitted = true;
+        console.log('submitted');
         this.checkComplete();
-        console.log(this.complete);
+        console.log('complete ' + this.complete);
         if (this.complete) {
-            this.date = new Date(Date.now()).toUTCString();
-            console.log(this.date);
-// create feedback
-            const canvasSVGString = localStorage.getItem('svg');
-            const canvasJSONString = localStorage.getItem('json');
-            localStorage.removeItem('svg');
-            localStorage.removeItem('json');
-
+console.log('comeplted');
             const feedbackObject = {
                 q1Check: this.q1Check,
                 q1Text: this.q1Text,
@@ -64,8 +67,6 @@ this.complete = true;
                 jobText: this.jobText,
                 device: this.device,
                 deviceText: this.deviceText,
-                canvasSVG: canvasSVGString,
-                canvasJSON: canvasJSONString,
                 createdAt: this.date,
             };
             console.log(feedbackObject);
@@ -79,9 +80,53 @@ this.complete = true;
     }
 
     checkComplete() {
-        if (this.q1Check === undefined || this.q2Check === undefined || this.q3Check === undefined || this.device === undefined || this.job === undefined) {
+
+        // reset complete to true (only changes if required fields are missing)
+        this.complete = true;
+
+        // check each field
+        if (this.q1Check === undefined) {
+            this.q1CheckValid = false;
             this.complete = false;
-        } else { this.complete = true; }
+        } else {
+            this.q1CheckValid = true;
+        }
+        if (this.q2Check === undefined) {
+            this.q2CheckValid = false;
+            this.complete = false;
+        } else {
+            this.q2CheckValid = true;
+        }
+        if (this.q3Check === undefined) {
+            this.q3CheckValid = false;
+            this.complete = false;
+        } else {
+            this.q3CheckValid = true;
+        }
+        if (this.device === undefined) {
+            this.deviceValid = false;
+            this.complete = false;
+        } else {
+            this.deviceValid = true;
+        }
+        if (this.job === undefined) {
+            this.jobValid = false;
+            this.complete = false;
+        } else {
+            this.jobValid = true;
+        }
+        // if other is selected for final questions, check text has been entered.
+        if (this.device === 'Other' && this.deviceText === undefined) {
+            this.deviceOtherValid = false;
+        } else {
+            this.deviceOtherValid = true;
+        }
+        if (this.job === 'Other' && this.jobText === undefined) {
+            this.jobOtherValid = false;
+        } else {
+            this.jobOtherValid = true;
+        }
+
 }
 
 }

@@ -5,6 +5,7 @@
 
 .radio-btns {
   margin-left: 0px;
+  margin-bottom: 10px;
 }
 
 
@@ -12,24 +13,33 @@
   margin-top:20px;
 }
 
-.error {
-  color: red;
+
+.col.q1l {
+  max-width: 40%;
 }
 
-.required {
-  color: indianred;
-}
 
 hr {
   border-color: white;
 
 }
 
-
-.custom-select {
-  width: 400px;
+.col.dropboxError {
+  padding-left: 0px;
+  margin-left: 0px;
 }
 
+.col.dropbox {
+  padding-right: 0;
+}
 .optional {
   margin-top: 15px;
+}
+
+
+.custom-select{
+  width: 300px ;
+}
+.optional {
+  width: 300px;
 }
