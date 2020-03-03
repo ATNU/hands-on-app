@@ -143,13 +143,11 @@
         <hr>
         <div class="question dropdown">
             <div class="row">
-                <div class="col">
-                    <p>What device did you use?</p>
+                <div class="col q1l">
+                    What device did you use?
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col dropbox">
+                <div class="col">
                     <select [(ngModel)]="device" required class="custom-select" >
                         <option value="iPad">iPad</option>
                         <option value="Android tablet">Android tablet</option>
@@ -159,18 +157,25 @@
                         <option value="Other">Other (please specify below)</option>
                     </select>
                 </div>
-                <div class="col dropboxError">
-                    <div class="text-danger " *ngIf="submitted && deviceValid === false">
-                        <p>Please select an option</p>
+            </div>
+            <div class="col">
+                <div class="text-danger " *ngIf="submitted && deviceValid === false">
+                    <p>Please select an option</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col q1l">
+
+                </div>
+                <div class="col">
+                    <div class="optional" *ngIf="device === 'Other'">
+            <textarea [(ngModel)]="deviceText" class="form-control" id="deviceText" name="textarea-field"
+                      rows="1"></textarea>
                     </div>
                 </div>
             </div>
 
-
-            <div class="optional" *ngIf="device === 'Other'">
-            <textarea [(ngModel)]="deviceText" class="form-control" id="deviceText" name="textarea-field"
-                      rows="1"></textarea>
-            </div>
             <div class="text-danger" *ngIf="submitted && deviceOtherValid === false">
                 <p>Required</p>
             </div>
@@ -184,13 +189,13 @@
 
     <div class="question dropdown">
         <div class="row">
-            <div class="col">
-                <p>What is your occupation?</p>
+            <div class="col q1l">
+               What is your occupation?
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col dropbox">
+
+
+            <div class="col">
                 <select [(ngModel)]="job" class="custom-select">
                     <option value="Academic">Academic</option>
                     <option value="Creative Practitioner">Creative Practitioner</option>
@@ -199,14 +204,14 @@
                     <option value="Other">Other (please specify)</option>
                 </select>
             </div>
-            <div class="col dropboxError">
-                <div class="text-danger" *ngIf="submitted && jobValid === false">
-                    <p>Please select an option</p>
-                </div>
-            </div>
+
         </div>
 
-
+        <div class="col">
+            <div class="text-danger" *ngIf="submitted && jobValid === false">
+                <p>Please select an option</p>
+            </div>
+        </div>
 
         <div class="optional" *ngIf="job === 'Other'">
                     <textarea [(ngModel)]="jobText" class="form-control" id="jobText" name="textarea-field"
