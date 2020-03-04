@@ -13,7 +13,7 @@
     <!--<img src="{{ screen }}" *ngIf="state">-->
 
     <!-- Bottom navbar -->
-    <div class="navbar fixed-bottom container">
+    <div [hidden] = dialogOpen class="navbar fixed-bottom container">
 
         <button type="button" class="btn btn-success" (click)=prevPage()><img src="./assets/chevron-back.svg"
                                                                               height="25"/></button>
