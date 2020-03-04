@@ -156,13 +156,14 @@
                         <option value="Mobile phone">Mobile phone</option>
                         <option value="Other">Other (please specify below)</option>
                     </select>
-                </div>
-            </div>
-            <div class="col">
-                <div class="text-danger " *ngIf="submitted && deviceValid === false">
+                    <div class="text-danger " *ngIf="submitted && deviceValid === false">
                     <p>Please select an option</p>
                 </div>
+                </div>
             </div>
+
+
+
 
             <div class="row">
                 <div class="col q1l">
@@ -173,12 +174,13 @@
             <textarea [(ngModel)]="deviceText" class="form-control" id="deviceText" name="textarea-field"
                       rows="1"></textarea>
                     </div>
+                    <div class="text-danger" *ngIf="submitted && deviceOtherValid === false">
+                        <p>Required</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="text-danger" *ngIf="submitted && deviceOtherValid === false">
-                <p>Required</p>
-            </div>
+
 
 
         </div>
@@ -203,16 +205,18 @@
                     <option value="Teacher">Teacher</option>
                     <option value="Other">Other (please specify)</option>
                 </select>
-            </div>
-
-        </div>
-
-        <div class="col">
-            <div class="text-danger" *ngIf="submitted && jobValid === false">
+                <div class="text-danger" *ngIf="submitted && jobValid === false">
                 <p>Please select an option</p>
             </div>
+            </div>
+
         </div>
 
+<div class="row">
+    <div class="col q1l">
+
+    </div>
+    <div class="col">
         <div class="optional" *ngIf="job === 'Other'">
                     <textarea [(ngModel)]="jobText" class="form-control" id="jobText" name="textarea-field"
                               rows="1"></textarea>
@@ -220,6 +224,12 @@
         <div class="text-danger" *ngIf="submitted && jobOtherValid === false">
             <p>Required</p>
         </div>
+    </div>
+</div>
+
+
+
+
     </div>
 
 

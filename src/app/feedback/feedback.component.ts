@@ -53,9 +53,9 @@ this.complete = true;
         this.submitted = true;
         console.log('submitted');
         this.checkComplete();
-        console.log('complete ' + this.complete);
+
         if (this.complete) {
-console.log('comeplted');
+            console.log('form complete so send');
             const feedbackObject = {
                 q1Check: this.q1Check,
                 q1Text: this.q1Text,
@@ -118,11 +118,13 @@ console.log('comeplted');
         // if other is selected for final questions, check text has been entered.
         if (this.device === 'Other' && this.deviceText === undefined) {
             this.deviceOtherValid = false;
+            this.complete = false;
         } else {
             this.deviceOtherValid = true;
         }
         if (this.job === 'Other' && this.jobText === undefined) {
             this.jobOtherValid = false;
+            this.complete = false;
         } else {
             this.jobOtherValid = true;
         }
