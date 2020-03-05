@@ -15,6 +15,8 @@ import {ColorPickerModule} from 'ngx-color-picker';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './dialog/dialog.component';
 import { TextTestComponent } from './text-test/text-test.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 
 // @ts-ignore
@@ -26,7 +28,9 @@ import { TextTestComponent } from './text-test/text-test.component';
     ViewResultComponent,
     HomeComponent,
     DialogComponent,
-    TextTestComponent
+    TextTestComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   entryComponents: [DialogComponent],
   imports: [

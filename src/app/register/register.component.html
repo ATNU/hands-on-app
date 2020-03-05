@@ -1,0 +1,21 @@
+<div class="container">
+    <h1>Register</h1>
+    <form (ngSubmit)="onSubmit()"#regForm="ngForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email"
+       required
+       [(ngModel)]="email" name="email">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" id="password"
+       required
+       [(ngModel)]="password" name="password">
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="!regForm.form.valid">Submit</button>
+
+    </form>
+</div>
