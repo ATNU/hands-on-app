@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {fabric} from "fabric";
-import {DataService} from "../data.service";
-import {ActivatedRoute} from "@angular/router";
+import {fabric} from 'fabric';
+import {DataService} from '../data.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-page-result',

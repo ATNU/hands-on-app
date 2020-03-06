@@ -94,5 +94,13 @@ async getUserResults(ID) {
             .then((response) => JSON.parse(response.body))
             .catch(this.handleError);
     }
-
+    async getAllFeedbacks() {
+        return await this.http.get(environment.apiBaseURL + '/feedback/all', {
+            headers: new HttpHeaders()
+                .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
+        })
+            .toPromise()
+            .then((response) => JSON.parse(response.body))
+            .catch(this.handleError);
+    }
 }

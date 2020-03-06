@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../data.service';
 import { Router } from '@angular/router';
+import { Parser } from 'json2csv';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-summaries',
@@ -9,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class SummariesComponent implements OnInit {
 summaries: any;
+allFeedbacks: any;
 
   constructor(
       private dataService: DataService,
@@ -18,10 +21,52 @@ summaries: any;
   ngOnInit() {
     this.dataService.getUserSummaries().then((summariesObject) => {
       this.summaries = summariesObject.summaries;
+      console.log(this.summaries);
+      this.dataService.getAllFeedbacks().then((results) => {
+this.allFeedbacks = results;
+
+      });
     });
   }
 
   viewUser(ID: string) {
     this.router.navigate(['/userResult/' + ID]);
   }
+
+downloadFeedbackCSV() {
+    const fields = ['_id', 'userId', 'q1Check', 'q1Text', 'q2Check', 'q2Text', 'q3Check', 'q3Text', 'job', 'jobText', 'device', 'deviceText', 'timestamp'];
+    const opts = {fields};
+
+    try {
+        const parser = new Parser(opts);
+        const csv = parser.parse(this.allFeedbacks);
+
+        const blob = new Blob([csv], {type: 'text/plain;charset=utf-8'});
+        const now = Date.now();
+        saveAs(blob, now + 'feedbacks.csv');
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+downloadSummaryCSV() {
+    const fields = ['id', 'furthestPage', 'pages', 'feedbacks'];
+    const opts = { fields };
+
+    try {
+        const parser = new Parser(opts);
+        const csv = parser.parse(this.summaries);
+
+        const blob = new Blob([csv], {type: 'text/plain;charset=utf-8'});
+        const now = Date.now();
+        saveAs(blob, now + 'summaryData.csv');
+
+    } catch (err) {
+        console.error(err);
+    }
+    }
+
+
+
+
 }

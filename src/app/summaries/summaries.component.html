@@ -1,5 +1,6 @@
 <div class="container">
-    <h1>User summaries</h1>
+    <h1>Summary data</h1>
+
     <p>Click on a row to view a specific user's saved pages and feedback</p>
             <table class="table-dark table-striped table-responsive table-bordered table-hover">
               <thead>
@@ -21,4 +22,7 @@
               </tr>
               </tbody>
             </table>
+  <h2>Downloads</h2>
+  <button class="btn btn-primary" (click)="downloadSummaryCSV()">Download summary data</button>
+<button class="btn btn-primary" (click)="downloadFeedbackCSV()">Download all feedback forms</button>
 </div>

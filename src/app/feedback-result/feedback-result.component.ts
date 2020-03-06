@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {DataService} from "../data.service";
-import {showRuleCrashWarning} from "tslint/lib/error";
 
 @Component({
   selector: 'app-feedback-result',
