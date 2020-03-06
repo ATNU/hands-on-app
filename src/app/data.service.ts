@@ -85,5 +85,14 @@ async getUserResults(ID) {
             .catch(this.handleError);
     }
 
+    async getPage(pageID) {
+        return await this.http.get(environment.apiBaseURL + '/page/pageID/' + pageID, {
+            headers: new HttpHeaders()
+                .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
+        })
+            .toPromise()
+            .then((response) => JSON.parse(response.body))
+            .catch(this.handleError);
+    }
 
 }

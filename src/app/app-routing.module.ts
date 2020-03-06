@@ -7,6 +7,7 @@ import {TextTestComponent} from './text-test/text-test.component';
 import {SummariesComponent} from './summaries/summaries.component';
 import {UserResultComponent} from './user-result/user-result.component';
 import {FeedbackResultComponent} from './feedback-result/feedback-result.component';
+import {PageResultComponent} from './page-result/page-result.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'admin', component: SummariesComponent},
   {path: 'userResult/:userID' , component: UserResultComponent},
   {path: 'text', component: TextTestComponent},
-  {path: 'feedbackResult/:feedbackID' , component: FeedbackResultComponent}
+  {path: 'feedbackResult/:feedbackID' , component: FeedbackResultComponent},
+  {path: 'pageResult/:pageID' , component: PageResultComponent}
 ];
 
 @NgModule({

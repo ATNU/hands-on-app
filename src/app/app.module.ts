@@ -18,6 +18,7 @@ import {CommonModule} from "@angular/common";
 import {SummariesComponent} from "./summaries/summaries.component";
 import { UserResultComponent } from './user-result/user-result.component';
 import { FeedbackResultComponent } from './feedback-result/feedback-result.component';
+import { PageResultComponent } from './page-result/page-result.component';
 
 
 // @ts-ignore
@@ -31,7 +32,8 @@ import { FeedbackResultComponent } from './feedback-result/feedback-result.compo
     DialogComponent,
     TextTestComponent,
     UserResultComponent,
-    FeedbackResultComponent
+    FeedbackResultComponent,
+    PageResultComponent
   ],
   entryComponents: [DialogComponent],
   imports: [
