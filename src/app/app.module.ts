@@ -8,13 +8,16 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {FeedbackComponent} from './feedback/feedback.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ResultsComponent} from './results/results.component';
 import {ViewResultComponent} from './view-result/view-result.component';
 import {HomeComponent} from './home/home.component';
 import {ColorPickerModule} from 'ngx-color-picker';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './dialog/dialog.component';
 import { TextTestComponent } from './text-test/text-test.component';
+import {CommonModule} from "@angular/common";
+import {SummariesComponent} from "./summaries/summaries.component";
+import { UserResultComponent } from './user-result/user-result.component';
+import { FeedbackResultComponent } from './feedback-result/feedback-result.component';
 
 
 // @ts-ignore
@@ -22,11 +25,13 @@ import { TextTestComponent } from './text-test/text-test.component';
   declarations: [
     AppComponent,
     FeedbackComponent,
-    ResultsComponent,
+    SummariesComponent,
     ViewResultComponent,
     HomeComponent,
     DialogComponent,
-    TextTestComponent
+    TextTestComponent,
+    UserResultComponent,
+    FeedbackResultComponent
   ],
   entryComponents: [DialogComponent],
   imports: [
@@ -37,7 +42,9 @@ import { TextTestComponent } from './text-test/text-test.component';
     NgbModule,
     ColorPickerModule,
     NoopAnimationsModule,
-    MatDialogModule],
+    MatDialogModule,
+    CommonModule],
+
   providers: []  ,
   bootstrap: [AppComponent]
 })
