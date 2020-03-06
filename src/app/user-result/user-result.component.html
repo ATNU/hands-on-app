@@ -6,7 +6,7 @@
     <p>Click on a date to view user's saved feedback</p>
     <table class="table-dark table-striped table-bordered table-hover">
         <tbody>
-        <tr *ngFor="let fb of feedbacks" (click)="viewFeedback(feedback._id)">
+        <tr *ngFor="let fb of feedbacks" (click)="viewFeedback(fb._id)">
             <td>{{transformDate(fb.timestamp)}}</td>
         </tr>
         </tbody>
