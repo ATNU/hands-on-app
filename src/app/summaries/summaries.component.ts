@@ -12,6 +12,7 @@ import { saveAs } from 'file-saver';
 export class SummariesComponent implements OnInit {
 summaries: any;
 allFeedbacks: any;
+feedbacksWithProcessedTime: any;
 
   constructor(
       private dataService: DataService,
@@ -24,10 +25,28 @@ allFeedbacks: any;
       console.log(this.summaries);
       this.dataService.getAllFeedbacks().then((results) => {
 this.allFeedbacks = results;
-
+this.processTimes();
       });
     });
   }
+
+  // put timestamps in nicer format for download
+    processTimes() {
+      this.feedbacksWithProcessedTime = this.allFeedbacks;
+      for (const fb of this.feedbacksWithProcessedTime) {
+          const time = fb.timestamp;
+          const date = new Date(time);
+
+          // if minutes is less than 10 add 0 before it
+          const mins = date.getMinutes();
+          let strMins = mins.toString();
+          if (mins < 10) {
+              strMins = '0' + strMins;
+          }
+
+          fb.timestamp = date.getHours() + '.' + strMins + ' ' + date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+      }
+    }
 
   viewUser(ID: string) {
     this.router.navigate(['/userResult/' + ID]);

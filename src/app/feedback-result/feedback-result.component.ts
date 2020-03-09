@@ -35,6 +35,14 @@ feedback: any;
 
   transformDate(dateString) {
     const date = new Date(dateString);
-    return date.getHours() + '.' + date.getMinutes() + ' ' + date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+
+    // if minutes is less than 10 add 0 before it
+    const mins = date.getMinutes();
+    let strMins = mins.toString();
+    if (mins < 10) {
+      strMins = '0' + strMins;
+    }
+
+    return date.getHours() + '.' + strMins + ' ' + date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
   }
 }
