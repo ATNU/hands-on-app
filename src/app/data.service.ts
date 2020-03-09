@@ -19,7 +19,11 @@ export class DataService {
   }
 
    async saveFeedback(feedbackObject) {
-        return this.http.post(environment.apiBaseURL + '/feedback/save', feedbackObject)
+      const jwt = localStorage.getItem('token');
+      let headers = new HttpHeaders();
+      headers = headers.set('Authorization', 'Bearer ' + jwt);
+
+        return this.http.post(environment.apiBaseURL + '/feedback/save', feedbackObject, {headers})
             .toPromise()
             .then((response) => console.log(response))
             .catch(this.handleError);
