@@ -61,7 +61,7 @@ svg: any;
     // set parameters for downloading
     link.setAttribute('href', canvasDataUrl);
     link.setAttribute('target', '_blank');
-    link.setAttribute('download', this.Id + '.png');
+    link.setAttribute('download', this.ID + '.png');
 
     // compat mode for dispatching click on your anchor
     if (document.createEvent) {
