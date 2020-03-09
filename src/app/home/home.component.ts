@@ -92,7 +92,6 @@ export class HomeComponent implements OnInit {
 this.dialogOpen = true;
         const dialogConfig = new MatDialogConfig();
 
-        dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.maxWidth = 500;
         dialogConfig.disableClose = false;

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from '../data.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import {FeedbackSuccessComponent} from "../feedback-success/feedback-success.component";
 
 
 @Component({
@@ -42,7 +44,8 @@ export class FeedbackComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private dataService: DataService) {
+        private dataService: DataService,
+        private dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -71,8 +74,25 @@ this.complete = true;
             };
             console.log(feedbackObject);
 
-            this.dataService.saveFeedback(feedbackObject).then(() => this.router.navigate(['home']));
+            this.dataService.saveFeedback(feedbackObject).then(() => {
+                this.confirmSent();
+            });
         }
+    }
+
+    confirmSent() {
+        const dialogConfig = new MatDialogConfig();
+
+        dialogConfig.autoFocus = true;
+        dialogConfig.maxWidth = 500;
+        dialogConfig.disableClose = false;
+
+        const newDialog = this.dialog.open(FeedbackSuccessComponent, dialogConfig);
+
+        // signal to navbar to be functional after dialog is closed
+        newDialog.afterClosed().subscribe(result => {
+            this.router.navigate(['home']);
+        });
     }
 
     setJob(jobTitle) {
