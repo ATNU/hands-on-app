@@ -5,6 +5,7 @@
 
 .radio-btns {
   margin-left: 0px;
+  margin-bottom: 10px;
 }
 
 
@@ -12,13 +13,11 @@
   margin-top:20px;
 }
 
-.error {
-  color: red;
+
+.col.q1l {
+  max-width: 40%;
 }
 
-.required {
-  color: indianred;
-}
 
 hr {
   border-color: white;
@@ -26,10 +25,9 @@ hr {
 }
 
 
-.custom-select {
-  width: 400px;
-}
-
 .optional {
   margin-top: 15px;
 }
+
+
+

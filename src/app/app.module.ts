@@ -18,6 +18,9 @@ import { TextTestComponent } from './text-test/text-test.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
+import { FeedbackSuccessComponent } from './feedback-success/feedback-success.component';
+
+
 
 // @ts-ignore
 @NgModule({
@@ -30,9 +33,10 @@ import { RegisterComponent } from './register/register.component';
     DialogComponent,
     TextTestComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    FeedbackSuccessComponent
   ],
-  entryComponents: [DialogComponent],
+  entryComponents: [DialogComponent, FeedbackSuccessComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

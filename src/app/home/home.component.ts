@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit {
     pageCount: number;
     lineCount: number;
     pencilTest: any;
+    dialogOpen: boolean;
+
     constructor(
         private router: Router,
         private dialog: MatDialog,
@@ -87,14 +89,20 @@ export class HomeComponent implements OnInit {
     }
 
     openDialog() {
-
+this.dialogOpen = true;
         const dialogConfig = new MatDialogConfig();
 
-        dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.maxWidth = 500;
+        dialogConfig.disableClose = false;
 
-        this.dialog.open(DialogComponent, dialogConfig);
+        const newDialog = this.dialog.open(DialogComponent, dialogConfig);
+
+        // signal to navbar to be functional after dialog is closed
+        newDialog.afterClosed().subscribe(result => {
+            this.dialogOpen = false;
+        });
+
     }
 
 
