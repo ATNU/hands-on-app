@@ -15,8 +15,6 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   {path: 'feedback/:canvasId', component: FeedbackComponent},
-  {path: 'admin', component: ResultsComponent},
-  {path: 'admin/viewResult/:canvasId' , component: ViewResultComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'admin', component: SummariesComponent},
