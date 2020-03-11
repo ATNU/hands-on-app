@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
     lineCount: number;
     pencilTest: any;
     dialogOpen: boolean;
+    resObject: any;
 
     constructor(
         private router: Router,
@@ -48,8 +49,9 @@ export class HomeComponent implements OnInit {
         this.canvas.renderAll.bind(this.canvas);
         this.openDialog();
         this.pageNo = 0 ;
-        this.dataService.getText().then((text) => {
-            this.text = text;
+        this.dataService.getText().then((response) => {
+            this.text = response.contents;
+            console.log(this.text);
             this.allLines = this.text.split('\\n');
             this.countPages(this.allLines);
             console.log('line count = ' + this.lineCount);
