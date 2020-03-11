@@ -19,7 +19,7 @@ export class DataService {
   }
 
   async saveFeedback(feedbackObject) {
-    const jwt = localStorage.getItem('token');
+    const jwt = localStorage.getItem('id_token');
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', 'Bearer ' + jwt);
 
@@ -50,7 +50,7 @@ export class DataService {
   }
 
   async getText() {
-    const jwt = localStorage.getItem('token');
+    const jwt = localStorage.getItem('id_token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + jwt,
