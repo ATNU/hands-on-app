@@ -8,7 +8,7 @@ import {LoginComponent} from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   {path: 'feedback/:canvasId', component: FeedbackComponent},
   {path: 'admin', component: ResultsComponent},

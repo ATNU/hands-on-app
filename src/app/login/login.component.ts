@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import * as moment from 'moment';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -9,12 +10,16 @@ import * as moment from 'moment';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-    email: string;
-    password: string;
-    tokenData: any;
+  email: string;
+  password: string;
+  tokenData: any;
+  returnUrl: string;
+  showError: Boolean;
 
   constructor(private authService: AuthService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
+    this.showError = false;
   }
 
 
@@ -22,16 +27,22 @@ export class LoginComponent implements OnInit {
     this.email = '';
     this.password = '';
   }
-
-  onSubmit() {
-    console.log(this.email, this.password);
+  onSubmit(): void {
     let user = {
-        email: this.email,
-        password : this.password
+      email: this.email,
+      password: this.password
     };
-    if (this.email + this.password) {
-      this.authService.logIn(user);
-    }
-      }
+    this.authService.logIn(user).subscribe(status => {
+      this.showError = false;
+      this.router.navigateByUrl('/home');
+    },
+      error => {
+        this.showError = true;
+      });
   }
+
+  onRegisterClick(): void {
+    this.router.navigateByUrl('/register');
+  }
+}
 

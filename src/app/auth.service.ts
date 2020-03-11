@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../environments/environment';
 import { EmailValidator } from '@angular/forms';
 import * as moment from 'moment';
+import { map, filter, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -29,23 +31,22 @@ export class AuthService {
         return this.http.post(environment.apiBaseURL + '/auth/login', {
             email: user.email,
             password : user.password
-        }).toPromise()
-        .then((response) => {
-            this.setSession(response);
-        })
-        .catch(this.handleError);
+        }).pipe(
+            map( response => {
+                this.setSession(response);
+                return response;
+            }),
+            catchError( error => {
+                return throwError(error);
+            })
+          );
 
     }
 
     setSession(authResult) {
         const expiresAt = moment().add(authResult.tokenData.expiresIn, 'second');
-        console.log('authrestult');
-        console.log(authResult.tokenData);
-        console.log(authResult.tokenData.expiresIn);
-        console.log(authResult.tokenData.token);
         localStorage.setItem('id_token', authResult.tokenData.token);
         localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()) );
-        console.log(localStorage);
     }
 
     logout() {
