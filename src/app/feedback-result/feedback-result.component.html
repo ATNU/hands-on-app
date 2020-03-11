@@ -1,0 +1,55 @@
+<div class="container">
+    <h1>Feedback</h1>
+    <p>Saved: {{transformDate(feedback.timestamp)}}</p>
+<div class="row">
+    <div class ="col one">
+        <p>Did you enjoy using the app?</p>
+    </div>
+    <div class="col">
+        <p>{{feedback.q1Check}}</p>
+        <p>{{feedback.q1Text}}</p>
+    </div>
+</div>
+<hr>
+    <div class="row">
+        <div class ="col  one">
+            <p>Did the app make you think differently about handwriting? </p>
+        </div>
+        <div class="col">
+            <p>{{feedback.q2Check}}</p>
+            <p>{{feedback.q2Text}}</p>
+        </div>
+    </div>
+<hr>
+    <div class="row">
+        <div class ="col one">
+            <p>Did the app change the way you read the text? </p>
+        </div>
+        <div class="col">
+            <p>{{feedback.q3Check}}</p>
+            <p>{{feedback.q3Text}}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class ="col one">
+            <p>Device:</p>
+        </div>
+        <div class="col">
+            <p>{{feedback.device}}</p>
+            <p>{{feedback.deviceText}}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class ="col one">
+            <p>Occupation:</p>
+        </div>
+        <div class="col">
+            <p>{{feedback.job}}</p>
+            <p>{{feedback.jobText}}</p>
+        </div>
+    </div>
+    <hr>
+
+</div>

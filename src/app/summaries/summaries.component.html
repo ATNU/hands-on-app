@@ -1,0 +1,28 @@
+<div class="container">
+    <h1>Summary data</h1>
+
+    <p>Click on a row to view a specific user's saved pages and feedback</p>
+            <table class="table-dark table-striped table-responsive table-bordered table-hover">
+              <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">User ID</th>
+                <th scope="col">Furthest page saved</th>
+                <th scope="col">Number of pages saved</th>
+                <th scope="col">Number of feedback forms submitted</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let summary of summaries; let i = index" (click)="viewUser(summary.id)">
+                <th scope="row">{{i+1}}</th>
+                <td>{{summary.id}}</td>
+                <td>{{summary.furthestPage}}</td>
+                <td>{{summary.pages}}</td>
+                <td>{{summary.feedbacks}}</td>
+              </tr>
+              </tbody>
+            </table>
+  <h2>Downloads</h2>
+  <button class="btn btn-primary" (click)="downloadSummaryCSV()">Download summary data</button>
+<button class="btn btn-primary" (click)="downloadFeedbackCSV()">Download all feedback forms</button>
+</div>

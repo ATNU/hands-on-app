@@ -58,4 +58,53 @@ async getText() {
         .then((response) => response.body)
         .catch(this.handleError);
 }
+
+async getUserResults(ID) {
+    return await this.http.get(environment.apiBaseURL + '/app/user?ID=' + ID, {
+        headers: new HttpHeaders()
+            .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
+    })
+        .toPromise()
+        .then((response) => JSON.parse(response.body))
+        .catch(this.handleError);
+}
+
+    async getUserSummaries() {
+        return await this.http.get(environment.apiBaseURL + '/app/users', {
+            headers: new HttpHeaders()
+                .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
+        })
+            .toPromise()
+            .then((response) => JSON.parse(response.body))
+            .catch(this.handleError);
+    }
+
+    async getFeedback(feedbackID) {
+        return await this.http.get(environment.apiBaseURL + '/feedback/' + feedbackID, {
+            headers: new HttpHeaders()
+                .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
+        })
+            .toPromise()
+            .then((response) => JSON.parse(response.body))
+            .catch(this.handleError);
+    }
+
+    async getPage(pageID) {
+        return await this.http.get(environment.apiBaseURL + '/page/pageID/' + pageID, {
+            headers: new HttpHeaders()
+                .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
+        })
+            .toPromise()
+            .then((response) => JSON.parse(response.body))
+            .catch(this.handleError);
+    }
+    async getAllFeedbacks() {
+        return await this.http.get(environment.apiBaseURL + '/feedback/all', {
+            headers: new HttpHeaders()
+                .set('Content-Type', 'text/json'), responseType: 'text', observe: 'response'
+        })
+            .toPromise()
+            .then((response) => JSON.parse(response.body))
+            .catch(this.handleError);
+    }
 }

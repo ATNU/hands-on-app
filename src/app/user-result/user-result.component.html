@@ -1,0 +1,33 @@
+<div class="container">
+    <h1>User Results</h1>
+    <p>{{ID}}</p>
+
+    <h3>Feedbacks</h3>
+    <p>Click on a date to view user's saved feedback</p>
+    <table class="table-dark table-striped table-bordered table-hover">
+        <tbody>
+        <tr *ngFor="let fb of feedbacks" (click)="viewFeedback(fb._id)">
+            <td>{{transformDate(fb.timestamp)}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <h3>Pages</h3>
+    <p>Click on a row to view the saved page</p>
+    <table class="table-dark table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Page number</th>
+            <th scope="col">Date last saved</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let page of pages" (click)="viewPage(page._id)">
+            <td>{{page.pageNo}}</td>
+            <td>{{transformDate(page.timestamp)}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
