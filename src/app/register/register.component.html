@@ -25,7 +25,14 @@
             </div>
 
             <button type="submit" class="btn btn-success btn-lg" [disabled]="!regForm.form.valid">Submit</button>
-
+            <div class="row">
+                <div class="col notReg">
+                    Already registered?
+                </div>
+                <div class="col regBtn">
+                    <button type="button" class="btn btn-primary registerBtn" (click)="onLoginClick()">Login here</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
