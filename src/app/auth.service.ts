@@ -5,6 +5,7 @@ import { EmailValidator } from '@angular/forms';
 import * as moment from 'moment';
 import { map, filter, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import {AlertService} from "./alert/alert.service";
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ import { throwError } from 'rxjs';
 
 export class AuthService {
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private alertService: AlertService) {
     }
 
     signUp(user) {
@@ -29,15 +30,7 @@ export class AuthService {
         return this.http.post(environment.apiBaseURL + '/auth/login', {
             email: user.email,
             password : user.password
-        }).pipe(
-            map( response => {
-                this.setSession(response);
-                return response;
-            }),
-            catchError( error => {
-                return throwError(error);
-            })
-          );
+        });
 
     }
 
