@@ -17,12 +17,10 @@ export class AuthService {
 
     signUp(user) {
         console.log('register');
-        return this.http.post(environment.apiBaseURL + '/auth/signup', {
+        return this.http.post<any>(environment.apiBaseURL + '/auth/signup', {
             email: user.email,
             password : user.password
-        }).toPromise()
-        .then((response) => console.log(response))
-        .catch(this.handleError);
+        });
 
     }
 
