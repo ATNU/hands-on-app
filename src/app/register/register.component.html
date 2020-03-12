@@ -1,22 +1,31 @@
 <div class="container">
+    <div class="loginWindow">
 
-    <h1>Register</h1>
-    <form (ngSubmit)="onSubmit()"#regForm="ngForm">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email"
-       required
-       [(ngModel)]="email" name="email">
-      </div>
+        <h1>Register</h1>
 
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="text" class="form-control" id="password"
-       required
-       [(ngModel)]="password" name="password">
-      </div>
+        <form (ngSubmit)="onSubmit()" #regForm="ngForm">
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label col-form-label"><img src="../assets/email-24px.svg"
+                                                                                       height="25"/></label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="email"
+                           required
+                           [(ngModel)]="email" name="email" placeholder="Email">
+                </div>
+            </div>
 
-      <button type="submit" class="btn btn-success" [disabled]="!regForm.form.valid">Submit</button>
+            <div class="form-group row">
+                <label for="password" class="col-sm-2 col-form-label col-form-label"><img src="../assets/lock-24px.svg"
+                                                                                          height="25"/></label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="password"
+                           required
+                           [(ngModel)]="password" name="password" placeholder="Password">
+                </div>
+            </div>
 
-    </form>
+            <button type="submit" class="btn btn-success btn-lg" [disabled]="!regForm.form.valid">Submit</button>
+
+        </form>
+    </div>
 </div>

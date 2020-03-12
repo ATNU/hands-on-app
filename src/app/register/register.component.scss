@@ -6,4 +6,21 @@
     border-left: 5px solid #a94442; /* red */
   }
 
+h1 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
+.loginWindow {
+  top: 30%;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  width: 60%;
+}
+
+
+.col-sm-10 {
+  padding-left: 0;
+}
