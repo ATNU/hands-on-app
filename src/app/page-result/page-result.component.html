@@ -1,12 +1,19 @@
 <div class="container">
     <h1>Saved Page</h1>
-    <p>Saved: {{transformDate(page.timestamp)}}</p>
-    <p>Page number: {{page.pageNo}}</p>
+    <div class="row">
+        <div class="col">
+            <p>Saved: {{transformDate(page.timestamp)}}</p>
+            <p>Page number: {{page.pageNo}}</p>
+        </div>
+        <div class="col">
+            <button class="btn btn-secondary" type="button" (click)= downloadJpg()>Download Canvas</button>
+        </div>
+    </div>
+
+
     <div>
         <canvas id="viewCanvas" width="700" height="900"></canvas>
     </div>
 
-    <div class="btn-group" role="group">
-        <button class="btn btn-secondary" type="button" (click)= downloadJpg()>Download Canvas</button>
-    </div>
+
 </div>
