@@ -28,6 +28,8 @@ export class HomeComponent implements OnInit {
     pencilTest: any;
     dialogOpen: boolean;
     resObject: any;
+screenWidth;
+screenHeight;
 
     constructor(
         private router: Router,
@@ -40,12 +42,27 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {
 
         console.log('base URL: ' + environment.apiBaseURL);
+        this.screenHeight = screen.height;
+        this.screenWidth = screen.width;
+
+
 
         this.message = 'Change pen colour';
         this.colour = 'gray';
+
+        // create a canvas and scale to size of background image
+        const canvasBground = document.getElementById('canvas-background');
+        const cbWidth = canvasBground.clientWidth;
+
         this.canvas = new fabric.Canvas('myCanvas');
+        this.canvas.setWidth(this.screenWidth);
+        this.canvas.setHeight(cbWidth * 1.41);
+
         this.bgImage = './assets/image8.png';
         this.clear();
+
+
+
         this.canvas.renderAll.bind(this.canvas);
         this.openDialog();
         this.pageNo = 0;
@@ -244,19 +261,25 @@ export class HomeComponent implements OnInit {
         this.pageText = linesList.join('\n\n\n');
 
         // Generate a fabric text object
-        // adjustments for left and right page margins
+        // adjustments for left and right page margins - all in proportion to size of canvas-background image height and screen width
         // if a line of text is too long, reduce the font size until it fits
-        const maxWidth = 500;
+
+        const canvasBground = document.getElementById('canvas-background');
+        const maxWidth = this.screenWidth * 0.6;
+        const smallMargin = this.screenWidth * 0.08;
+        const largeMargin = this.screenWidth * 0.15;
+
         const textLines = new fabric.Text(this.pageText, {
-            left: this.bgImage === './assets/rightpage.jpg' ? 50 : 100,
-            top: 250,
+            left: this.bgImage === './assets/rightpage.jpg' ? smallMargin : largeMargin,
+            top: canvasBground.clientHeight * 0.3,
             fontSize: 22,
             textAlign: 'left'
         });
 
         if (textLines.width > maxWidth) {
+
             textLines.fontSize *= maxWidth / (textLines.width + 1);
-            textLines.width = maxWidth;
+            textLines.width = this.screenWidth;
         }
         this.canvas.add(textLines);
     }

@@ -4,10 +4,9 @@
         <!--[scrollX]="true"-->
         <!--[scrollY]="true">-->
 
-        <div id="canvas-background" [ngStyle]="{ 'background-image': 'url(' + bgImage + ')'}">
-            <canvas id="myCanvas" width="680" height="870"></canvas>
+        <div id="canvas-background" [ngStyle]="{ 'background-image': 'url(' + bgImage + ')', 'width': screenWidth, 'height': screenHeight, 'background-size': 'contain'}">
+            <canvas id="myCanvas"></canvas>
         </div>
-
     </div>
 
     <!--<img src="{{ screen }}" *ngIf="state">-->
