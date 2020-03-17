@@ -31,6 +31,9 @@ export class HomeComponent implements OnInit {
 screenWidth;
 screenHeight;
 
+    zoomMax = 23;
+    SCALE_FACTOR = 1.3;
+
     constructor(
         private router: Router,
         private dialog: MatDialog,
@@ -52,16 +55,25 @@ screenHeight;
 
         // create a canvas and scale to size of background image
         const canvasBground = document.getElementById('canvas-background');
-        const cbWidth = canvasBground.clientWidth;
+        const viewpointWidth = this.screenWidth - 50;
+        const viewpointHeight = this.screenHeight - 50;
+        canvasBground.setAttribute('height', viewpointHeight.toString());
+        canvasBground.setAttribute('width', viewpointWidth.toString());
 
         this.canvas = new fabric.Canvas('myCanvas');
-        this.canvas.setWidth(this.screenWidth);
-        this.canvas.setHeight(cbWidth * 1.41);
+        this.canvas.setWidth(680);
+        this.canvas.setHeight(870);
 
         this.bgImage = './assets/image8.png';
         this.clear();
 
-
+        fabric.Image.fromURL(this.bgImage, (oImg) => {
+            // oImg.height = this.screenHeight;
+            // oImg.width = this.screenWidth;
+            this.canvas.add(oImg);
+            this.canvas.sendToBack(oImg);
+            this.canvas.renderAll();
+        }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
 
         this.canvas.renderAll.bind(this.canvas);
         this.openDialog();
@@ -76,6 +88,40 @@ screenHeight;
         });
         this.pencilTest = 'Pencil';
     }
+
+    zoomIn() {
+        if(this.canvas.getZoom().toFixed(5) > this.zoomMax){
+            console.log("zoomIn: Error: cannot zoom-in anymore");
+            return;
+        }
+
+        this.canvas.setZoom(this.canvas.getZoom()*this.SCALE_FACTOR);
+        this.canvas.setHeight(this.canvas.getHeight() * this.SCALE_FACTOR);
+        this.canvas.setWidth(this.canvas.getWidth() * this.SCALE_FACTOR);
+        this.canvas.renderAll();
+    }
+
+    zoomOut() {
+        // if( this.canvas.getZoom().toFixed(5) <=1 ){
+        //     console.log("zoomOut: Error: cannot zoom-out anymore");
+        //     return;
+        // }
+
+        this.canvas.setZoom(this.canvas.getZoom()/this.SCALE_FACTOR);
+        this.canvas.setHeight(this.canvas.getHeight() / this.SCALE_FACTOR);
+        this.canvas.setWidth(this.canvas.getWidth() / this.SCALE_FACTOR);
+        this.canvas.renderAll();
+    }
+
+    moveDown() {
+       this.move('top', '-');
+    }
+
+    // move(position, value) {
+    //     const c = document.getElementById('myCanvas');
+    //         c.css(position, value);
+    // }
+
 
     async clear() {
         this.canvas.clear();

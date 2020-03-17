@@ -48,9 +48,13 @@
 .container {
   max-width: 800px;
 }
+
+
 #canvas-background {
-  max-width: 800px;
-  background-repeat: no-repeat;
+  left: 0;
+  position: absolute;
+  top: 0;
+  overflow: auto;
 }
 
 .footer {

@@ -4,7 +4,7 @@
         <!--[scrollX]="true"-->
         <!--[scrollY]="true">-->
 
-        <div id="canvas-background" [ngStyle]="{ 'background-image': 'url(' + bgImage + ')', 'width': screenWidth, 'height': screenHeight, 'background-size': 'contain'}">
+        <div id="canvas-background" >
             <canvas id="myCanvas"></canvas>
         </div>
     </div>
@@ -16,7 +16,9 @@
 
         <button type="button" class="btn btn-success" (click)=prevPage()><img src="./assets/chevron-back.svg"
                                                                               height="25"/></button>
-
+        <button (click)="zoomIn()">ZoomIn</button>
+        <button (click)="zoomOut()">ZoomOut</button>
+        <button (click)="moveDown()">Canvas: &#8595;</button>
 
         <!--Drawing controls-->
         <div class="btn-group controls">
