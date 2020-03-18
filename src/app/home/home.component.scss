@@ -48,10 +48,18 @@
 .container {
   max-width: 800px;
 }
+
+
 #canvas-background {
-  max-width: 800px;
-  background-repeat: no-repeat;
+  left: 0;
+  position: absolute;
+  overflow: scroll;
+  margin: 0;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
+
 
 .footer {
   position: relative;
@@ -74,6 +82,13 @@ button.btn-success.left {
   clear: both;
 }
 
+
+.zoomBtns {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+}
 
 
 
