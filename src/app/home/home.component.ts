@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
     resObject: any;
     screenWidth;
     screenHeight;
+    originalZoom;
 
     zoomMax = 23;
     SCALE_FACTOR = 1.3;
@@ -64,8 +65,8 @@ export class HomeComponent implements OnInit {
         this.canvas.setHeight(this.screenWidth * 1.33);
 
         // set zoom to display whole page using screen width of ipad page
-        const zoom = this.screenWidth / 768;
-        this.canvas.setZoom(zoom);
+       this.originalZoom = this.screenWidth / 768;
+        this.canvas.setZoom(this.originalZoom);
 
         this.bgImage = './assets/image8.png';
         this.clear();
