@@ -6,6 +6,7 @@ import {DialogComponent} from '../dialog/dialog.component';
 import {DataService} from '../data.service';
 import {environment} from '../../environments/environment';
 import {TemplateBindingParseResult} from '@angular/compiler';
+import {AuthService} from "../auth.service";
 
 @Component({
     selector: 'app-home',
@@ -38,7 +39,8 @@ export class HomeComponent implements OnInit {
     constructor(
         private router: Router,
         private dialog: MatDialog,
-        private dataService: DataService
+        private dataService: DataService,
+        private authService: AuthService
     ) {
     }
 
@@ -213,6 +215,14 @@ export class HomeComponent implements OnInit {
     }
 
     nextPage() {
+
+        // todo save page to local
+
+        // don't navigate if not logged in
+        if (!this.authService.isLoggedIn()) {
+            this.router.navigate(['/login']);
+        }
+
         this.pageNo++;
 
         if (this.pageNo <= this.pageCount) {
@@ -224,6 +234,13 @@ export class HomeComponent implements OnInit {
     }
 
     prevPage() {
+        // todo save page to local
+
+        // don't navigate if not logged in
+        if (!this.authService.isLoggedIn()) {
+            this.router.navigate(['/login']);
+        }
+
         this.pageNo > 0 ? this.pageNo-- : this.pageNo = 0;
         this.changeBgImg();
         this.getPage();
