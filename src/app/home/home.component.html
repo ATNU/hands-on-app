@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="btn-group-vertical zoomBtns">
+    <div  [hidden]=dialogOpen class="btn-group-vertical zoomBtns">
         <button type="button" class="btn btn-secondary" (click)="zoomIn()"><img src="./assets/zoom_in.svg"
                                                                                 height="25"/></button>
         <button type="button" class="btn btn-secondary" (click)="zoomOut()"><img src="./assets/zoom_out.svg"

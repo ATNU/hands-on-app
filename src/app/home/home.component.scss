@@ -53,10 +53,11 @@
 #canvas-background {
   left: 0;
   position: absolute;
-  top: 0;
   overflow: scroll;
-
-
+  margin: 0;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 

@@ -49,7 +49,6 @@ screenHeight;
         this.screenWidth = screen.width;
 
 
-
         this.message = 'Change pen colour';
         this.colour = 'gray';
 
@@ -60,16 +59,19 @@ screenHeight;
         // canvasBground.setAttribute('height', viewpointHeight.toString());
         // canvasBground.setAttribute('width', viewpointWidth.toString());
 
+        // size canvas to fit screen width and stop at bottom of image
         this.canvas = new fabric.Canvas('myCanvas');
-        this.canvas.setWidth(680);
-        this.canvas.setHeight(1000);
+        this.canvas.setWidth(this.screenWidth);
+        this.canvas.setHeight(this.screenWidth*1.33);
+
+        // set zoom to display whole page using screen width of ipad page
+        const zoom = this.screenWidth/768;
+        this.canvas.setZoom(zoom);
 
         this.bgImage = './assets/image8.png';
         this.clear();
 
         fabric.Image.fromURL(this.bgImage, (oImg) => {
-            // oImg.height = this.screenHeight;
-            // oImg.width = this.screenWidth;
             this.canvas.add(oImg);
             this.canvas.sendToBack(oImg);
             this.canvas.renderAll();
