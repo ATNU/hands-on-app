@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { fabric } from 'fabric';
-import { MatDialog, MatDialogConfig } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
-import { DataService } from '../data.service';
-import { environment } from '../../environments/environment';
-import { TemplateBindingParseResult } from '@angular/compiler';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {fabric} from 'fabric';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {DialogComponent} from '../dialog/dialog.component';
+import {DataService} from '../data.service';
+import {environment} from '../../environments/environment';
+import {TemplateBindingParseResult} from '@angular/compiler';
 
 @Component({
     selector: 'app-home',
@@ -28,8 +28,8 @@ export class HomeComponent implements OnInit {
     pencilTest: any;
     dialogOpen: boolean;
     resObject: any;
-screenWidth;
-screenHeight;
+    screenWidth;
+    screenHeight;
 
     zoomMax = 23;
     SCALE_FACTOR = 1.3;
@@ -38,7 +38,6 @@ screenHeight;
         private router: Router,
         private dialog: MatDialog,
         private dataService: DataService
-
     ) {
     }
 
@@ -62,10 +61,10 @@ screenHeight;
         // size canvas to fit screen width and stop at bottom of image
         this.canvas = new fabric.Canvas('myCanvas');
         this.canvas.setWidth(this.screenWidth);
-        this.canvas.setHeight(this.screenWidth*1.33);
+        this.canvas.setHeight(this.screenWidth * 1.33);
 
         // set zoom to display whole page using screen width of ipad page
-        const zoom = this.screenWidth/768;
+        const zoom = this.screenWidth / 768;
         this.canvas.setZoom(zoom);
 
         this.bgImage = './assets/image8.png';
@@ -91,12 +90,12 @@ screenHeight;
     }
 
     zoomIn() {
-        if(this.canvas.getZoom().toFixed(5) > this.zoomMax){
-            console.log("zoomIn: Error: cannot zoom-in anymore");
-            return;
-        }
+        // if(this.canvas.getZoom().toFixed(5) > this.zoomMax){
+        //     console.log("zoomIn: Error: cannot zoom-in anymore");
+        //     return;
+        // }
 
-        this.canvas.setZoom(this.canvas.getZoom()*this.SCALE_FACTOR);
+        this.canvas.setZoom(this.canvas.getZoom() * this.SCALE_FACTOR);
         this.canvas.setHeight(this.canvas.getHeight() * this.SCALE_FACTOR);
         this.canvas.setWidth(this.canvas.getWidth() * this.SCALE_FACTOR);
         this.canvas.renderAll();
@@ -108,35 +107,35 @@ screenHeight;
         //     return;
         // }
 
-        this.canvas.setZoom(this.canvas.getZoom()/this.SCALE_FACTOR);
+        this.canvas.setZoom(this.canvas.getZoom() / this.SCALE_FACTOR);
         this.canvas.setHeight(this.canvas.getHeight() / this.SCALE_FACTOR);
         this.canvas.setWidth(this.canvas.getWidth() / this.SCALE_FACTOR);
         this.canvas.renderAll();
     }
 
-moveLeft() {
-    var units = 10 ;
-    var delta = new fabric.Point(units,0) ;
-    this.canvas.relativePan(delta) ;
-}
+    moveLeft() {
+        var units = 10;
+        var delta = new fabric.Point(units, 0);
+        this.canvas.relativePan(delta);
+    }
 
-moveRight() {
-    var units = 10 ;
-    var delta = new fabric.Point(-units,0) ;
-    this.canvas.relativePan(delta) ;
-}
+    moveRight() {
+        var units = 10;
+        var delta = new fabric.Point(-units, 0);
+        this.canvas.relativePan(delta);
+    }
 
-moveDown() {
-    var units = 10 ;
-    var delta = new fabric.Point(0,-units) ;
-    this.canvas.relativePan(delta) ;
-}
+    moveDown() {
+        var units = 10;
+        var delta = new fabric.Point(0, -units);
+        this.canvas.relativePan(delta);
+    }
 
-moveUp() {
-    var units = 10 ;
-    var delta = new fabric.Point(0,units) ;
-    this.canvas.relativePan(delta) ;
-}
+    moveUp() {
+        var units = 10;
+        var delta = new fabric.Point(0, units);
+        this.canvas.relativePan(delta);
+    }
 
     async clear() {
         this.canvas.clear();
@@ -236,6 +235,7 @@ moveUp() {
 
         this.router.navigate(['feedback/' + this.canvasID]);
     }
+
     // set the brush to eraser
     erase() {
         this.canvas.isDrawingMode = true;
@@ -248,7 +248,7 @@ moveUp() {
 
     downLoadJpg() {
         const canvasDataUrl = this.canvas.toDataURL()
-            .replace(/^data:image\/[^;]*/, 'data:application/octet-stream'),
+                .replace(/^data:image\/[^;]*/, 'data:application/octet-stream'),
             link = document.createElement('a'); // create an anchor tag
 
         // set parameters for downloading
@@ -266,6 +266,7 @@ moveUp() {
         }
 
     }
+
     // This assumes that page 1 is the manuscript page so the first page actually generated using this method should be page 2.
     // It returns a list of lines (e.g. lines[0] is the first line to display on the page.
     getPage() {
@@ -319,14 +320,21 @@ moveUp() {
         // adjustments for left and right page margins - all in proportion to size of canvas-background image height and screen width
         // if a line of text is too long, reduce the font size until it fits
 
-        const canvasBground = document.getElementById('canvas-background');
-        const maxWidth = this.screenWidth * 0.6;
-        const smallMargin = this.screenWidth * 0.08;
-        const largeMargin = this.screenWidth * 0.15;
+        const maxWidth = this.screenWidth * 0.9;
+        let smallMargin = this.screenWidth * 0.2;
+        let largeMargin = this.screenWidth * 0.3;
+        let topMargin = this.screenWidth * 1.33 * 0.3;
+
+        // adapt margins for small screens
+        if (this.screenWidth < 600) {
+            topMargin = this.screenWidth * 1.33 * 0.5;
+            smallMargin = this.screenWidth * 0.4;
+            largeMargin = this.screenWidth * 0.5;
+        }
 
         const textLines = new fabric.Text(this.pageText, {
             left: this.bgImage === './assets/rightpage.jpg' ? smallMargin : largeMargin,
-            top: canvasBground.clientHeight * 0.3,
+            top: topMargin,
             fontSize: 22,
             textAlign: 'left'
         });
@@ -430,7 +438,9 @@ const EraserBrush = fabric.util.createClass(fabric.PencilBrush, {
         const objects = this.canvas.getObjects().filter((obj) => {
             // if (obj instanceof fabric.Textbox) return false;
             // if (obj instanceof fabric.IText) return false;
-            if (!obj.intersectsWithObject(path)) { return false; }
+            if (!obj.intersectsWithObject(path)) {
+                return false;
+            }
             return true;
         });
 
