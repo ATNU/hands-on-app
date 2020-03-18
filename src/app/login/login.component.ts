@@ -38,6 +38,8 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
+              console.log('successful login');
+              this.authService.setSession(data);
               this.router.navigate(['/home']);
             },
             error => {

@@ -231,10 +231,12 @@ export class HomeComponent implements OnInit {
 
 
     feedbackClicked() {
-        localStorage.setItem('svg', this.canvas.toSVG());
-        localStorage.setItem('json', JSON.stringify(this.canvas.toDatalessJSON()));
+        // localStorage.setItem('svg', this.canvas.toSVG());
+        // localStorage.setItem('json', JSON.stringify(this.canvas.toDatalessJSON()));
 
-        this.router.navigate(['feedback/' + this.canvasID]);
+        // todo save page to local storage with page number as with next page?
+
+        this.router.navigate(['feedback']);
     }
 
     // set the brush to eraser
