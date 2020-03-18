@@ -1,8 +1,0 @@
-<div class="container">
-  <div *ngIf="allCanvas">
-<p>Click on an ID to view canvas and feedback:</p>
-  <div *ngFor="let canvas of allCanvas">
-    <p (click) = "canvasClicked(canvas._id)">{{canvas._id}}</p>
-  </div>
-  </div>
-</div>
