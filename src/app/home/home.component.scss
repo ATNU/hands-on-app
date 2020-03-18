@@ -54,8 +54,11 @@
   left: 0;
   position: absolute;
   top: 0;
-  overflow: auto;
+  overflow: scroll;
+
+
 }
+
 
 .footer {
   position: relative;
@@ -78,6 +81,13 @@ button.btn-success.left {
   clear: both;
 }
 
+
+.zoomBtns {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+}
 
 
 

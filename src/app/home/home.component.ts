@@ -54,15 +54,15 @@ screenHeight;
         this.colour = 'gray';
 
         // create a canvas and scale to size of background image
-        const canvasBground = document.getElementById('canvas-background');
-        const viewpointWidth = this.screenWidth - 50;
-        const viewpointHeight = this.screenHeight - 50;
-        canvasBground.setAttribute('height', viewpointHeight.toString());
-        canvasBground.setAttribute('width', viewpointWidth.toString());
+        // const canvasBground = document.getElementById('canvas-background');
+        // const viewpointWidth = this.screenWidth - 50;
+        // const viewpointHeight = this.screenHeight - 50;
+        // canvasBground.setAttribute('height', viewpointHeight.toString());
+        // canvasBground.setAttribute('width', viewpointWidth.toString());
 
         this.canvas = new fabric.Canvas('myCanvas');
         this.canvas.setWidth(680);
-        this.canvas.setHeight(870);
+        this.canvas.setHeight(1000);
 
         this.bgImage = './assets/image8.png';
         this.clear();
@@ -80,7 +80,6 @@ screenHeight;
         this.pageNo = 0;
         this.dataService.getText().then((response) => {
             this.text = response.contents;
-            console.log(this.text);
             this.allLines = this.text.split('\\n');
             this.countPages(this.allLines);
             console.log('line count = ' + this.lineCount);
@@ -113,36 +112,36 @@ screenHeight;
         this.canvas.renderAll();
     }
 
-    moveDown() {
-       this.move('top', '-');
-    }
+moveLeft() {
+    var units = 10 ;
+    var delta = new fabric.Point(units,0) ;
+    this.canvas.relativePan(delta) ;
+}
 
-    // move(position, value) {
-    //     const c = document.getElementById('myCanvas');
-    //         c.css(position, value);
-    // }
+moveRight() {
+    var units = 10 ;
+    var delta = new fabric.Point(-units,0) ;
+    this.canvas.relativePan(delta) ;
+}
 
+moveDown() {
+    var units = 10 ;
+    var delta = new fabric.Point(0,-units) ;
+    this.canvas.relativePan(delta) ;
+}
+
+moveUp() {
+    var units = 10 ;
+    var delta = new fabric.Point(0,units) ;
+    this.canvas.relativePan(delta) ;
+}
 
     async clear() {
         this.canvas.clear();
         // this.canvas.setBackgroundImage(this.bgImage, this.canvas.renderAll.bind(this.canvas));
+
         this.getPage();
         this.canvas.isDrawingMode = true;
-        /*
-        scales background image to the size of the div, but it doesn't load correctly, only when you attempt to draw
-        const canvasHeight = this.canvas.height;
-         const canvasWidth = this.canvas.width;
-         const bgImg = new fabric.Image();
-         bgImg.setSrc('./assets/image.png', function() {
-             bgImg.set({
-                 scaleX: canvasWidth / bgImg.width,
-                 scaleY: canvasHeight / bgImg.height
-             });
-
-         });
-
-        this.canvas.setBackgroundImage(bgImg, this.canvas.renderAll.bind(this.canvas));
-        this.canvas.isDrawingMode = true;*/
 
     }
 
@@ -195,10 +194,18 @@ screenHeight;
         } else if (this.pageNo % 2 === 0) {
             // page even
             this.bgImage = './assets/rightpage.jpg';
+
         } else {
             // page odd
             this.bgImage = './assets/leftpage.jpg';
         }
+        fabric.Image.fromURL(this.bgImage, (oImg) => {
+            // oImg.height = this.screenHeight;
+            // oImg.width = this.screenWidth;
+            this.canvas.add(oImg);
+            this.canvas.sendToBack(oImg);
+            this.canvas.renderAll();
+        }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
         this.clear();
 
     }
