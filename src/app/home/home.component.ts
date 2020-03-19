@@ -29,6 +29,12 @@ export class HomeComponent implements OnInit {
     pencilTest: any;
     dialogOpen: boolean;
     resObject: any;
+    screenWidth;
+    screenHeight;
+    originalZoom;
+
+    zoomMax = 23;
+    SCALE_FACTOR = 1.3;
 
     constructor(
         private router: Router,
@@ -42,18 +48,43 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {
 
         console.log('base URL: ' + environment.apiBaseURL);
+        this.screenHeight = screen.height;
+        this.screenWidth = screen.width;
+
 
         this.message = 'Change pen colour';
         this.colour = 'gray';
+
+        // create a canvas and scale to size of background image
+        // const canvasBground = document.getElementById('canvas-background');
+        // const viewpointWidth = this.screenWidth - 50;
+        // const viewpointHeight = this.screenHeight - 50;
+        // canvasBground.setAttribute('height', viewpointHeight.toString());
+        // canvasBground.setAttribute('width', viewpointWidth.toString());
+
+        // size canvas to fit screen width and stop at bottom of image
         this.canvas = new fabric.Canvas('myCanvas');
+        this.canvas.setWidth(this.screenWidth);
+        this.canvas.setHeight(this.screenWidth * 1.33);
+
+        // set zoom to display whole page using screen width of ipad page
+       this.originalZoom = this.screenWidth / 768;
+        this.canvas.setZoom(this.originalZoom);
+
         this.bgImage = './assets/image8.png';
         this.clear();
+
+        fabric.Image.fromURL(this.bgImage, (oImg) => {
+            this.canvas.add(oImg);
+            this.canvas.sendToBack(oImg);
+            this.canvas.renderAll();
+        }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
+
         this.canvas.renderAll.bind(this.canvas);
         this.openDialog();
         this.pageNo = 0;
         this.dataService.getText().then((response) => {
             this.text = response.contents;
-            console.log(this.text);
             this.allLines = this.text.split('\\n');
             this.countPages(this.allLines);
             console.log('line count = ' + this.lineCount);
@@ -62,26 +93,59 @@ export class HomeComponent implements OnInit {
         this.pencilTest = 'Pencil';
     }
 
+    zoomIn() {
+        // if(this.canvas.getZoom().toFixed(5) > this.zoomMax){
+        //     console.log("zoomIn: Error: cannot zoom-in anymore");
+        //     return;
+        // }
+
+        this.canvas.setZoom(this.canvas.getZoom() * this.SCALE_FACTOR);
+        this.canvas.setHeight(this.canvas.getHeight() * this.SCALE_FACTOR);
+        this.canvas.setWidth(this.canvas.getWidth() * this.SCALE_FACTOR);
+        this.canvas.renderAll();
+    }
+
+    zoomOut() {
+        // if( this.canvas.getZoom().toFixed(5) <=1 ){
+        //     console.log("zoomOut: Error: cannot zoom-out anymore");
+        //     return;
+        // }
+
+        this.canvas.setZoom(this.canvas.getZoom() / this.SCALE_FACTOR);
+        this.canvas.setHeight(this.canvas.getHeight() / this.SCALE_FACTOR);
+        this.canvas.setWidth(this.canvas.getWidth() / this.SCALE_FACTOR);
+        this.canvas.renderAll();
+    }
+
+    moveLeft() {
+        var units = 10;
+        var delta = new fabric.Point(units, 0);
+        this.canvas.relativePan(delta);
+    }
+
+    moveRight() {
+        var units = 10;
+        var delta = new fabric.Point(-units, 0);
+        this.canvas.relativePan(delta);
+    }
+
+    moveDown() {
+        var units = 10;
+        var delta = new fabric.Point(0, -units);
+        this.canvas.relativePan(delta);
+    }
+
+    moveUp() {
+        var units = 10;
+        var delta = new fabric.Point(0, units);
+        this.canvas.relativePan(delta);
+    }
+
     async clear() {
         this.canvas.clear();
         // this.canvas.setBackgroundImage(this.bgImage, this.canvas.renderAll.bind(this.canvas));
-
+        // get page removed from here?
         this.canvas.isDrawingMode = true;
-        /*
-        scales background image to the size of the div, but it doesn't load correctly, only when you attempt to draw
-        const canvasHeight = this.canvas.height;
-         const canvasWidth = this.canvas.width;
-         const bgImg = new fabric.Image();
-         bgImg.setSrc('./assets/image.png', function() {
-             bgImg.set({
-                 scaleX: canvasWidth / bgImg.width,
-                 scaleY: canvasHeight / bgImg.height
-             });
-
-         });
-
-        this.canvas.setBackgroundImage(bgImg, this.canvas.renderAll.bind(this.canvas));
-        this.canvas.isDrawingMode = true;*/
 
     }
 
@@ -134,10 +198,18 @@ export class HomeComponent implements OnInit {
         } else if (this.pageNo % 2 === 0) {
             // page even
             this.bgImage = './assets/rightpage.jpg';
+
         } else {
             // page odd
             this.bgImage = './assets/leftpage.jpg';
         }
+        fabric.Image.fromURL(this.bgImage, (oImg) => {
+            // oImg.height = this.screenHeight;
+            // oImg.width = this.screenWidth;
+            this.canvas.add(oImg);
+            this.canvas.sendToBack(oImg);
+            this.canvas.renderAll();
+        }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
         this.clear();
 
     }
@@ -174,6 +246,7 @@ export class HomeComponent implements OnInit {
 
         this.router.navigate(['feedback/' + this.canvasID]);
     }
+
     // set the brush to eraser
     erase() {
         this.canvas.isDrawingMode = true;
@@ -222,7 +295,7 @@ export class HomeComponent implements OnInit {
 
     downLoadJpg() {
         const canvasDataUrl = this.canvas.toDataURL()
-            .replace(/^data:image\/[^;]*/, 'data:application/octet-stream'),
+                .replace(/^data:image\/[^;]*/, 'data:application/octet-stream'),
             link = document.createElement('a'); // create an anchor tag
 
         // set parameters for downloading
@@ -240,6 +313,7 @@ export class HomeComponent implements OnInit {
         }
 
     }
+
     // This assumes that page 1 is the manuscript page so the first page actually generated using this method should be page 2.
     // It returns a list of lines (e.g. lines[0] is the first line to display on the page.
     getPage() {
@@ -290,19 +364,32 @@ export class HomeComponent implements OnInit {
         this.pageText = linesList.join('\n\n\n');
 
         // Generate a fabric text object
-        // adjustments for left and right page margins
+        // adjustments for left and right page margins - all in proportion to size of canvas-background image height and screen width
         // if a line of text is too long, reduce the font size until it fits
-        const maxWidth = 500;
+
+        const maxWidth = this.screenWidth * 0.9;
+        let smallMargin = this.screenWidth * 0.2;
+        let largeMargin = this.screenWidth * 0.3;
+        let topMargin = this.screenWidth * 1.33 * 0.3;
+
+        // adapt margins for small screens
+        if (this.screenWidth < 600) {
+            topMargin = this.screenWidth * 1.33 * 0.5;
+            smallMargin = this.screenWidth * 0.4;
+            largeMargin = this.screenWidth * 0.5;
+        }
+
         const textLines = new fabric.Text(this.pageText, {
-            left: this.bgImage === './assets/rightpage.jpg' ? 50 : 100,
-            top: 250,
+            left: this.bgImage === './assets/rightpage.jpg' ? smallMargin : largeMargin,
+            top: topMargin,
             fontSize: 22,
             textAlign: 'left'
         });
 
         if (textLines.width > maxWidth) {
+
             textLines.fontSize *= maxWidth / (textLines.width + 1);
-            textLines.width = maxWidth;
+            textLines.width = this.screenWidth;
         }
         this.canvas.add(textLines);
     }
@@ -398,7 +485,9 @@ const EraserBrush = fabric.util.createClass(fabric.PencilBrush, {
         const objects = this.canvas.getObjects().filter((obj) => {
             // if (obj instanceof fabric.Textbox) return false;
             // if (obj instanceof fabric.IText) return false;
-            if (!obj.intersectsWithObject(path)) { return false; }
+            if (!obj.intersectsWithObject(path)) {
+                return false;
+            }
             return true;
         });
 
