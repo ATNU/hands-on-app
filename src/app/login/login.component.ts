@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import * as moment from 'moment';
 import { first } from 'rxjs/operators';
-import {AlertService} from "../alert/alert.service";
 
 @Component({
   selector: 'app-login',
@@ -15,12 +14,11 @@ export class LoginComponent implements OnInit {
   password: string;
   tokenData: any;
   returnUrl: string;
-  showError: boolean;
+  showError: Boolean;
 
   constructor(private authService: AuthService,
               private route: ActivatedRoute,
-              private router: Router,
-              private alertService: AlertService) {
+              private router: Router) {
     this.showError = false;
   }
 
@@ -34,17 +32,14 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.password
     };
-    this.authService.logIn(user)
-        .pipe(first())
-        .subscribe(
-            data => {
-              this.router.navigate(['/home']);
-            },
-            error => {
-              this.alertService.error(error);
-            }
-        );
-  };
+    this.authService.logIn(user).subscribe(status => {
+      this.showError = false;
+      this.router.navigateByUrl('/home');
+    },
+      error => {
+        this.showError = true;
+      });
+  }
 
   onRegisterClick(): void {
     this.router.navigateByUrl('/register');

@@ -7,7 +7,7 @@ import { MatDialogModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FeedbackComponent } from './feedback/feedback.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ViewResultComponent } from './view-result/view-result.component';
 import { HomeComponent } from './home/home.component';
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -24,8 +24,6 @@ import { SummariesComponent } from './summaries/summaries.component';
 import { UserResultComponent } from './user-result/user-result.component';
 import { FeedbackResultComponent } from './feedback-result/feedback-result.component';
 import { PageResultComponent } from './page-result/page-result.component';
-import {ErrorInterceptor} from "./error.interceptor";
-import { AlertComponent } from './alert/alert.component';
 
 
 // @ts-ignore
@@ -43,8 +41,7 @@ import { AlertComponent } from './alert/alert.component';
     FeedbackSuccessComponent,
     UserResultComponent,
     FeedbackResultComponent,
-    PageResultComponent,
-    AlertComponent
+    PageResultComponent
   ],
   entryComponents: [DialogComponent, FeedbackSuccessComponent],
   imports: [
@@ -58,9 +55,7 @@ import { AlertComponent } from './alert/alert.component';
     MatDialogModule,
     CommonModule],
 
-  providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
-    ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
