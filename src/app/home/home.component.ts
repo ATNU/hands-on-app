@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
     async clear() {
         this.canvas.clear();
         // this.canvas.setBackgroundImage(this.bgImage, this.canvas.renderAll.bind(this.canvas));
-
+        this.getPage();
         this.canvas.isDrawingMode = true;
         /*
         scales background image to the size of the div, but it doesn't load correctly, only when you attempt to draw
@@ -155,7 +155,6 @@ export class HomeComponent implements OnInit {
     }
 
     prevPage() {
-        localStorage.removeItem('pageList');
         if (this.pageNo > 1) {
             this.pageNo--;
             this.changeBgImg();
@@ -245,8 +244,8 @@ export class HomeComponent implements OnInit {
     getPage() {
         console.log('get page page no');
         console.log(this.pageNo);
-
-        // use page number to work out what lines are needed, then, if they are less than total number of lines, add them to a list of lines for the requested page
+        if (this.pageNo !== 0) {
+                    // use page number to work out what lines are needed, then, if they are less than total number of lines, add them to a list of lines for the requested page
         // after removing '/r'
 
         const linesList = [];
@@ -305,6 +304,9 @@ export class HomeComponent implements OnInit {
             textLines.width = maxWidth;
         }
         this.canvas.add(textLines);
+        }
+
+
     }
 
     // start counting at page 2 because manuscript is page 1
