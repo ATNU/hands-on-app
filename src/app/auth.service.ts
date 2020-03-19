@@ -20,26 +20,20 @@ export class AuthService {
         return this.http.post(environment.apiBaseURL + '/auth/signup', {
             email: user.email,
             password : user.password
-        }).toPromise()
-        .then((response) => console.log(response))
-        .catch(this.handleError);
+        });
 
     }
 
     logIn(user) {
 
-        return this.http.post(environment.apiBaseURL + '/auth/login', {
+        return this.http.post<any>(environment.apiBaseURL + '/auth/login', {
             email: user.email,
             password : user.password
         }).pipe(
             map( response => {
                 this.setSession(response);
                 return response;
-            }),
-            catchError( error => {
-                return throwError(error);
-            })
-          );
+            }));
 
     }
 
