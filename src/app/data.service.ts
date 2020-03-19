@@ -29,6 +29,23 @@ export class DataService {
       .catch(this.handleError);
   }
 
+  async saveProgress() {
+    const jwt = localStorage.getItem('id_token');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+
+    const requestBody = {
+      pages: JSON.parse(localStorage.getItem('pageList')) || []
+    };
+
+    return this.http.post(environment.apiBaseURL + '/page/sou', requestBody, { headers })
+      .toPromise()
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(this.handleError);
+  }
+
   async getAllFeedbackAndCanvas() {
     return await this.http.get(environment.apiBaseURL + '/feedback/all', {
       headers: new HttpHeaders()
@@ -105,6 +122,7 @@ export class DataService {
       .then((response) => JSON.parse(response.body))
       .catch(this.handleError);
   }
+
   async getAllFeedbacks() {
     return await this.http.get(environment.apiBaseURL + '/feedback/all', {
       headers: new HttpHeaders()
@@ -114,4 +132,10 @@ export class DataService {
       .then((response) => JSON.parse(response.body))
       .catch(this.handleError);
   }
+
+
+
+
+
+
 }

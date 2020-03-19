@@ -6,6 +6,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { DataService } from '../data.service';
 import { environment } from '../../environments/environment';
 import { TemplateBindingParseResult } from '@angular/compiler';
+import { AuthService } from '../auth.service';
 
 @Component({
     selector: 'app-home',
@@ -32,7 +33,8 @@ export class HomeComponent implements OnInit {
     constructor(
         private router: Router,
         private dialog: MatDialog,
-        private dataService: DataService
+        private dataService: DataService,
+        private authService: AuthService
 
     ) {
     }
@@ -63,7 +65,7 @@ export class HomeComponent implements OnInit {
     async clear() {
         this.canvas.clear();
         // this.canvas.setBackgroundImage(this.bgImage, this.canvas.renderAll.bind(this.canvas));
-        this.getPage();
+
         this.canvas.isDrawingMode = true;
         /*
         scales background image to the size of the div, but it doesn't load correctly, only when you attempt to draw
@@ -141,6 +143,7 @@ export class HomeComponent implements OnInit {
     }
 
     nextPage() {
+        this.savePage(false);
         this.pageNo++;
 
         if (this.pageNo <= this.pageCount) {
@@ -152,9 +155,16 @@ export class HomeComponent implements OnInit {
     }
 
     prevPage() {
-        this.pageNo > 0 ? this.pageNo-- : this.pageNo = 0;
-        this.changeBgImg();
-        this.getPage();
+        localStorage.removeItem('pageList');
+        if (this.pageNo > 1) {
+            this.pageNo--;
+            this.changeBgImg();
+            this.getPage();
+        } else if (this.pageNo === 1) {
+            this.pageNo = 0;
+            this.changeBgImg();
+        }
+
     }
 
 
@@ -173,6 +183,42 @@ export class HomeComponent implements OnInit {
         this.canvas.freeDrawingBrush = eraserBrush;
 
     }
+
+    savePage(toServer: boolean) {
+
+        let svg = this.canvas.toSVG();
+        let json = JSON.stringify(this.canvas.toDatalessJSON());
+
+        let a = [];
+        if (localStorage.hasOwnProperty('pageList')) {
+            a = JSON.parse(localStorage.getItem('pageList')) || [];
+            a.push({
+                pageNo: this.pageNo,
+                svg: svg,
+                json: json
+            });
+            localStorage.setItem('pageList', JSON.stringify(a));
+        } else {
+            a.push({
+                pageNo: this.pageNo,
+                svg: svg,
+                json: json
+            });
+            localStorage.setItem('pageList', JSON.stringify(a));
+        }
+
+        if (toServer === true) {
+            if (this.authService.isLoggedIn) {
+                this.dataService.saveProgress().then((response) => {
+                    console.log(response);
+                });
+            } else {
+                // send to login page and resume
+            }
+
+        }
+    }
+
 
     downLoadJpg() {
         const canvasDataUrl = this.canvas.toDataURL()
