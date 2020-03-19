@@ -145,6 +145,13 @@ export class HomeComponent implements OnInit {
         // this.canvas.setBackgroundImage(this.bgImage, this.canvas.renderAll.bind(this.canvas));
 
         this.getPage();
+        fabric.Image.fromURL(this.bgImage, (oImg) => {
+            // oImg.height = this.screenHeight;
+            // oImg.width = this.screenWidth;
+            this.canvas.add(oImg);
+            this.canvas.sendToBack(oImg);
+            this.canvas.renderAll();
+        }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
         this.canvas.isDrawingMode = true;
 
     }
@@ -211,7 +218,6 @@ export class HomeComponent implements OnInit {
             this.canvas.renderAll();
         }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
         this.clear();
-
     }
 
     nextPage() {
@@ -293,79 +299,83 @@ export class HomeComponent implements OnInit {
         console.log('get page page no');
         console.log(this.pageNo);
 
-        // use page number to work out what lines are needed, then, if they are less than total number of lines, add them to a list of lines for the requested page
-        // after removing '/r'
+        // first page doesn't pull any text
+if (this.pageNo !== 0) {
 
-        const linesList = [];
+    // use page number to work out what lines are needed, then, if they are less than total number of lines, add them to a list of lines for the requested page
+    // after removing '/r'
 
-        const line1 = (this.pageNo - 1) * 5;
+    const linesList = [];
 
-        // if line1 is OK, add and move on to get line 2
-        if (line1 <= (this.lineCount - 1)) {
+    const line1 = (this.pageNo - 1) * 5;
 
-            linesList.push(this.allLines[line1].replace('\\r', ''));
+    // if line1 is OK, add and move on to get line 2
+    if (line1 <= (this.lineCount - 1)) {
 
-            const line2 = line1 + 1;
+        linesList.push(this.allLines[line1].replace('\\r', ''));
 
-            // if line 2 is OK, add and move on to get line 3
-            if (line2 <= (this.lineCount - 1)) {
-                linesList.push(this.allLines[line2].replace('\\r', ''));
+        const line2 = line1 + 1;
 
-                const line3 = line1 + 2;
+        // if line 2 is OK, add and move on to get line 3
+        if (line2 <= (this.lineCount - 1)) {
+            linesList.push(this.allLines[line2].replace('\\r', ''));
 
-                // if line 3 is OK, add and move on to get line 4
-                if (line3 <= (this.lineCount - 1)) {
-                    linesList.push(this.allLines[line3].replace('\\r', ''));
+            const line3 = line1 + 2;
 
-                    const line4 = line1 + 3;
+            // if line 3 is OK, add and move on to get line 4
+            if (line3 <= (this.lineCount - 1)) {
+                linesList.push(this.allLines[line3].replace('\\r', ''));
 
-                    // if line 4 is OK, add and move on to get line 5
-                    if (line4 <= (this.lineCount - 1)) {
-                        linesList.push(this.allLines[line4].replace('\\r', ''));
+                const line4 = line1 + 3;
 
-                        const line5 = line1 + 4;
+                // if line 4 is OK, add and move on to get line 5
+                if (line4 <= (this.lineCount - 1)) {
+                    linesList.push(this.allLines[line4].replace('\\r', ''));
 
-                        // if line 5 is OK, add
-                        if (line5 <= (this.lineCount - 1)) {
-                            linesList.push(this.allLines[line5].replace('\\r', ''));
-                        }
+                    const line5 = line1 + 4;
+
+                    // if line 5 is OK, add
+                    if (line5 <= (this.lineCount - 1)) {
+                        linesList.push(this.allLines[line5].replace('\\r', ''));
                     }
                 }
             }
         }
-
-        this.pageText = linesList.join('\n\n\n');
-
-        // Generate a fabric text object
-        // adjustments for left and right page margins - all in proportion to size of canvas-background image height and screen width
-        // if a line of text is too long, reduce the font size until it fits
-
-        const maxWidth = this.screenWidth * 0.9;
-        let smallMargin = this.screenWidth * 0.2;
-        let largeMargin = this.screenWidth * 0.3;
-        let topMargin = this.screenWidth * 1.33 * 0.3;
-
-        // adapt margins for small screens
-        if (this.screenWidth < 600) {
-            topMargin = this.screenWidth * 1.33 * 0.5;
-            smallMargin = this.screenWidth * 0.4;
-            largeMargin = this.screenWidth * 0.5;
-        }
-
-        const textLines = new fabric.Text(this.pageText, {
-            left: this.bgImage === './assets/rightpage.jpg' ? smallMargin : largeMargin,
-            top: topMargin,
-            fontSize: 22,
-            textAlign: 'left'
-        });
-
-        if (textLines.width > maxWidth) {
-
-            textLines.fontSize *= maxWidth / (textLines.width + 1);
-            textLines.width = this.screenWidth;
-        }
-        this.canvas.add(textLines);
     }
+
+    this.pageText = linesList.join('\n\n\n');
+
+    // Generate a fabric text object
+    // adjustments for left and right page margins - all in proportion to size of canvas-background image height and screen width
+    // if a line of text is too long, reduce the font size until it fits
+
+    const maxWidth = this.screenWidth * 0.9;
+    let smallMargin = this.screenWidth * 0.2;
+    let largeMargin = this.screenWidth * 0.3;
+    let topMargin = this.screenWidth * 1.33 * 0.3;
+
+    // adapt margins for small screens
+    if (this.screenWidth < 600) {
+        topMargin = this.screenWidth * 1.33 * 0.5;
+        smallMargin = this.screenWidth * 0.4;
+        largeMargin = this.screenWidth * 0.5;
+    }
+
+    const textLines = new fabric.Text(this.pageText, {
+        left: this.bgImage === './assets/rightpage.jpg' ? smallMargin : largeMargin,
+        top: topMargin,
+        fontSize: 22,
+        textAlign: 'left'
+    });
+
+    if (textLines.width > maxWidth) {
+
+        textLines.fontSize *= maxWidth / (textLines.width + 1);
+        textLines.width = this.screenWidth;
+    }
+    this.canvas.add(textLines);
+}
+}
 
     // start counting at page 2 because manuscript is page 1
     countPages(listOfLines) {
