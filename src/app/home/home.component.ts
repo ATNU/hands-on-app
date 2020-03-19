@@ -195,7 +195,7 @@ export class HomeComponent implements OnInit {
         eraserBrush.width = 10;
         eraserBrush.color = "#A59D87";
         this.canvas.freeDrawingBrush = eraserBrush;
-        this.addBackgroundImage();
+
     }
 
 
@@ -443,6 +443,7 @@ const EraserBrush = fabric.util.createClass(fabric.PencilBrush, {
                 // remove the old objects then add the new image
                 this.canvas.remove(...objects);
                 this.canvas.add(fabricImage);
+
             });
         }
 
@@ -450,5 +451,6 @@ const EraserBrush = fabric.util.createClass(fabric.PencilBrush, {
         this.canvas.renderAll();
         this._resetShadow();
     },
+
 });
 
