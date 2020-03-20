@@ -43,14 +43,10 @@ export class HomeComponent implements OnInit {
 
         console.log('base URL: ' + environment.apiBaseURL);
 
-
-
         this.message = 'Change pen colour';
         this.colour = 'gray';
         this.canvas = new fabric.Canvas('myCanvas');
         this.bgImage = './assets/image8.png';
-
-      this.addBackgroundImage();
         this.clear();
         this.canvas.renderAll.bind(this.canvas);
         this.openDialog();
@@ -64,16 +60,6 @@ export class HomeComponent implements OnInit {
             console.log('page count = ' + this.pageCount);
         });
         this.pencilTest = 'Pencil';
-    }
-
-   addBackgroundImage() {
-        console.log('add background');
-        fabric.Image.fromURL(this.bgImage, (oImg) => {
-            this.canvas.add(oImg);
-            this.canvas.sendToBack(oImg);
-            this.canvas.renderAll();
-        }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
-
     }
 
     async clear() {
@@ -189,16 +175,13 @@ export class HomeComponent implements OnInit {
     }
     // set the brush to eraser
     erase() {
-
         this.canvas.isDrawingMode = true;
         const eraserBrush = new EraserBrush(this.canvas);
         eraserBrush.width = 10;
         eraserBrush.color = "#A59D87";
         this.canvas.freeDrawingBrush = eraserBrush;
-        this.addBackgroundImage();
+
     }
-
-
 
     savePage(toServer: boolean) {
 

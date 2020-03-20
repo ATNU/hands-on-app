@@ -4,11 +4,7 @@
         <!--[scrollX]="true"-->
         <!--[scrollY]="true">-->
 
-<!--        <div id="canvas-background" [ngStyle]="{ 'background-image': 'url(' + bgImage + ')'}">-->
-<!--            <canvas id="myCanvas" width="680" height="870"></canvas>-->
-<!--        </div>-->
-
-        <div id="canvas-background">
+        <div id="canvas-background" [ngStyle]="{ 'background-image': 'url(' + bgImage + ')'}">
             <canvas id="myCanvas" width="680" height="870"></canvas>
         </div>
 
@@ -22,7 +18,7 @@
         <button type="button" class="btn btn-success" (click)=prevPage()><img src="./assets/chevron-back.svg"
                                                                               height="25"/></button>
 
-<button (click)="addBackgroundImage()">Reset</button>
+
         <!--Drawing controls-->
         <div class="btn-group controls">
             <button type="button" class="btn btn-secondary" (click)=erase()><img src="./assets/erase2w.svg"
