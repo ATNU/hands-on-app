@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit {
     pencilTest: any;
     dialogOpen: boolean;
     resObject: any;
-    SCALE_FACTOR = 1.3;
 
     constructor(
         private router: Router,
@@ -38,30 +37,6 @@ export class HomeComponent implements OnInit {
         private authService: AuthService
 
     ) {
-    }
-
-    zoomIn() {
-        // if(this.canvas.getZoom().toFixed(5) > this.zoomMax){
-        //     console.log("zoomIn: Error: cannot zoom-in anymore");
-        //     return;
-        // }
-
-        this.canvas.setZoom(this.canvas.getZoom() * this.SCALE_FACTOR);
-        // this.canvas.setHeight(this.canvas.getHeight() * this.SCALE_FACTOR);
-        // this.canvas.setWidth(this.canvas.getWidth() * this.SCALE_FACTOR);
-        this.canvas.renderAll();
-    }
-
-    zoomOut() {
-        // if( this.canvas.getZoom().toFixed(5) <=1 ){
-        //     console.log("zoomOut: Error: cannot zoom-out anymore");
-        //     return;
-        // }
-
-        this.canvas.setZoom(this.canvas.getZoom() / this.SCALE_FACTOR);
-        // this.canvas.setHeight(this.canvas.getHeight() / this.SCALE_FACTOR);
-        // this.canvas.setWidth(this.canvas.getWidth() / this.SCALE_FACTOR);
-        this.canvas.renderAll();
     }
 
     ngOnInit(): void {
@@ -141,29 +116,6 @@ export class HomeComponent implements OnInit {
 
     }
 
-    moveLeft() {
-        var units = 10;
-        var delta = new fabric.Point(units, 0);
-        this.canvas.relativePan(delta);
-    }
-
-    moveRight() {
-        var units = 10;
-        var delta = new fabric.Point(-units, 0);
-        this.canvas.relativePan(delta);
-    }
-
-    moveDown() {
-        var units = 10;
-        var delta = new fabric.Point(0, -units);
-        this.canvas.relativePan(delta);
-    }
-
-    moveUp() {
-        var units = 10;
-        var delta = new fabric.Point(0, units);
-        this.canvas.relativePan(delta);
-    }
 
     // This is now default on as listed above in clear and oninit
     enableDraw() {
@@ -490,15 +442,15 @@ const EraserBrush = fabric.util.createClass(fabric.PencilBrush, {
 
                 // remove the old objects then add the new image
                 this.canvas.remove(...objects);
-                fabric.Image.fromURL('./assets/image8.png', (oImg) => {
-                    this.canvas.add(oImg);
-                    this.canvas.sendToBack(oImg);
-                }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
                 this.canvas.add(fabricImage);
+
             });
         }
+
         this.canvas.clearContext(this.canvas.contextTop);
         this.canvas.renderAll();
         this._resetShadow();
-    }
+    },
+
 });
+

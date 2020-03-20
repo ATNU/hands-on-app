@@ -1,18 +1,5 @@
 <div class="container">
-    <nav [hidden]=dialogOpen class="navbar fixed-top">
-        <div class="btn-group controls">
-            <button type="button" class="btn btn-secondary" (click)="moveLeft()"><img src="./assets/left.svg" height="25"></button>
 
-
-            <button type="button" class="btn btn-secondary" (click)="moveUp()"><img src="./assets/up.svg"
-                                                                                    height="25"/></button>
-            <button type="button" class="btn btn-secondary" (click)="moveDown()"><img src="./assets/down.svg"
-                                                                                      height="25"/></button>
-            <button type="button" class="btn btn-secondary" (click)="moveRight()"><img src="./assets/right.svg"
-                                                                                       height="25"/></button>
-        </div>
-
-    </nav>
     <div class="container canvas" [class.newBG]="state">
         <!--[scrollX]="true"-->
         <!--[scrollY]="true">-->
@@ -25,11 +12,6 @@
             <canvas id="myCanvas" width="680" height="870"></canvas>
         </div>
 
-    </div>
-
-    <div [hidden]=dialogOpen class="btn-group-vertical zoomBtns">
-        <button type="button" class="btn btn-secondary" (click)="zoomIn()">ZoomIn</button>
-        <button type="button" class="btn btn-secondary" (click)="zoomOut()">ZoomOut</button>
     </div>
 
     <!--<img src="{{ screen }}" *ngIf="state">-->
