@@ -211,6 +211,7 @@ export class HomeComponent implements OnInit {
         if (this.pageNo <= this.pageCount) {
             this.changeBgImg();
             this.getPage();
+            this.addBackgroundImage();
         } else {
             this.pageNo--;
         }
@@ -221,6 +222,7 @@ export class HomeComponent implements OnInit {
             this.pageNo--;
             this.changeBgImg();
             this.getPage();
+            this.addBackgroundImage();
         } else if (this.pageNo === 1) {
             this.pageNo = 0;
             this.changeBgImg();
@@ -237,15 +239,34 @@ export class HomeComponent implements OnInit {
     }
     // set the brush to eraser
     erase() {
+console.log('erase on page ' + this.pageNo);
+        if (this.pageNo === 0) {
+            this.canvas.isDrawingMode = true;
+            const eraserBrush = new EraserBrush(this.canvas);
+            eraserBrush.width = 10;
+            eraserBrush.color = "#A59D87";
+            this.canvas.freeDrawingBrush = eraserBrush;
+        } else if (this.isEven(this.pageNo)) {
+            this.canvas.isDrawingMode = true;
+            const eraserBrush = new EraserBrushRight(this.canvas);
+            eraserBrush.width = 10;
+            eraserBrush.color = "#A59D87";
+            this.canvas.freeDrawingBrush = eraserBrush;
+        } else {
+            this.canvas.isDrawingMode = true;
+            const eraserBrush = new EraserBrushLeft(this.canvas);
+            eraserBrush.width = 10;
+            eraserBrush.color = "#A59D87";
+            this.canvas.freeDrawingBrush = eraserBrush;
+        }
 
-        this.canvas.isDrawingMode = true;
-        const eraserBrush = new EraserBrush(this.canvas);
-        eraserBrush.width = 10;
-        eraserBrush.color = "#A59D87";
-        this.canvas.freeDrawingBrush = eraserBrush;
+
 
     }
 
+    isEven(num )  {
+    return ((num % 2) === 0);
+    }
 
 
     savePage(toServer: boolean) {
@@ -491,6 +512,164 @@ const EraserBrush = fabric.util.createClass(fabric.PencilBrush, {
                 // remove the old objects then add the new image
                 this.canvas.remove(...objects);
                 fabric.Image.fromURL('./assets/image8.png', (oImg) => {
+                    this.canvas.add(oImg);
+                    this.canvas.sendToBack(oImg);
+                }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
+                this.canvas.add(fabricImage);
+            });
+        }
+        this.canvas.clearContext(this.canvas.contextTop);
+        this.canvas.renderAll();
+        this._resetShadow();
+    }
+});
+
+
+/*
+ * Note1: Might not work with versions other than 3.1.0
+ *
+ * Made it so that the path will be 'merged' with other objects
+ *  into a customized group and has a 'destination-out' composition
+ */
+const EraserBrushRight = fabric.util.createClass(fabric.PencilBrush, {
+
+    /**
+     * On mouseup after drawing the path on contextTop canvas
+     * we use the points captured to create an new fabric path object
+     * and add it to the fabric canvas.
+     */
+    _finalizeAndAddPath() {
+        let ctx = this.canvas.contextTop;
+        ctx.closePath();
+        if (this.decimate) {
+            this._points = this.decimatePoints(this._points, this.decimate);
+        }
+        let pathData = this.convertPointsToSVGPath(this._points).join('');
+        if (pathData === 'M 0 0 Q 0 0 0 0 L 0 0') {
+            // do not create 0 width/height paths, as they are
+            // rendered inconsistently across browsers
+            // Firefox 4, for example, renders a dot,
+            // whereas Chrome 10 renders nothing
+            this.canvas.requestRenderAll();
+            return;
+        }
+
+        // use globalCompositeOperation to 'fake' eraser
+        let path = this.createPath(pathData);
+        path.globalCompositeOperation = 'destination-out';
+        path.selectable = false;
+        path.evented = false;
+        path.absolutePositioned = true;
+
+        // grab all the objects that intersects with the path
+        const objects = this.canvas.getObjects().filter((obj) => {
+            // if (obj instanceof fabric.Textbox) return false;
+            // if (obj instanceof fabric.IText) return false;
+            if (!obj.intersectsWithObject(path)) { return false; }
+            return true;
+        });
+
+        if (objects.length > 0) {
+
+            // merge those objects into a group
+            const mergedGroup = new fabric.Group(objects);
+            const newPath = new ErasedGroup(mergedGroup, path);
+
+            const left = newPath.left;
+            const top = newPath.top;
+
+            // convert it into a dataURL, then back to a fabric image
+            const newData = newPath.toDataURL({
+                withoutTransform: true
+            });
+            fabric.Image.fromURL(newData, (fabricImage) => {
+                fabricImage.set({
+                    left,
+                    top,
+                });
+
+                // remove the old objects then add the new image
+                this.canvas.remove(...objects);
+                fabric.Image.fromURL('./assets/rightpage.jpg', (oImg) => {
+                    this.canvas.add(oImg);
+                    this.canvas.sendToBack(oImg);
+                }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
+                this.canvas.add(fabricImage);
+            });
+        }
+        this.canvas.clearContext(this.canvas.contextTop);
+        this.canvas.renderAll();
+        this._resetShadow();
+    }
+});
+
+
+/*
+ * Note1: Might not work with versions other than 3.1.0
+ *
+ * Made it so that the path will be 'merged' with other objects
+ *  into a customized group and has a 'destination-out' composition
+ */
+const EraserBrushLeft = fabric.util.createClass(fabric.PencilBrush, {
+
+    /**
+     * On mouseup after drawing the path on contextTop canvas
+     * we use the points captured to create an new fabric path object
+     * and add it to the fabric canvas.
+     */
+    _finalizeAndAddPath() {
+        let ctx = this.canvas.contextTop;
+        ctx.closePath();
+        if (this.decimate) {
+            this._points = this.decimatePoints(this._points, this.decimate);
+        }
+        let pathData = this.convertPointsToSVGPath(this._points).join('');
+        if (pathData === 'M 0 0 Q 0 0 0 0 L 0 0') {
+            // do not create 0 width/height paths, as they are
+            // rendered inconsistently across browsers
+            // Firefox 4, for example, renders a dot,
+            // whereas Chrome 10 renders nothing
+            this.canvas.requestRenderAll();
+            return;
+        }
+
+        // use globalCompositeOperation to 'fake' eraser
+        let path = this.createPath(pathData);
+        path.globalCompositeOperation = 'destination-out';
+        path.selectable = false;
+        path.evented = false;
+        path.absolutePositioned = true;
+
+        // grab all the objects that intersects with the path
+        const objects = this.canvas.getObjects().filter((obj) => {
+            // if (obj instanceof fabric.Textbox) return false;
+            // if (obj instanceof fabric.IText) return false;
+            if (!obj.intersectsWithObject(path)) { return false; }
+            return true;
+        });
+
+        if (objects.length > 0) {
+
+            // merge those objects into a group
+            const mergedGroup = new fabric.Group(objects);
+            const newPath = new ErasedGroup(mergedGroup, path);
+
+            const left = newPath.left;
+            const top = newPath.top;
+
+            // convert it into a dataURL, then back to a fabric image
+            const newData = newPath.toDataURL({
+                withoutTransform: true
+            });
+            fabric.Image.fromURL(newData, (fabricImage) => {
+                fabricImage.set({
+                    left,
+                    top,
+                });
+
+                // remove the old objects then add the new image
+                this.canvas.remove(...objects);
+                fabric.Image.fromURL('./assets/leftpage.jpg', (oImg) => {
                     this.canvas.add(oImg);
                     this.canvas.sendToBack(oImg);
                 }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
