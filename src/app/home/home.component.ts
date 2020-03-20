@@ -171,7 +171,7 @@ export class HomeComponent implements OnInit {
         localStorage.setItem('svg', this.canvas.toSVG());
         localStorage.setItem('json', JSON.stringify(this.canvas.toDatalessJSON()));
 
-        this.router.navigate(['feedback/' + this.canvasID]);
+        this.router.navigate(['feedback']);
     }
     // set the brush to eraser
     erase() {
