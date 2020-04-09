@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
     pencilTest: any;
     dialogOpen: boolean;
     resObject: any;
+    furthestPage: number;
 
     constructor(
         private router: Router,
@@ -40,17 +41,14 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.pageNo = 0;
 
         console.log('base URL: ' + environment.apiBaseURL);
-
-        this.message = 'Change pen colour';
-        this.colour = 'gray';
         this.canvas = new fabric.Canvas('myCanvas');
-        this.bgImage = './assets/image8.png';
-        this.clear();
-        this.canvas.renderAll.bind(this.canvas);
         this.openDialog();
-        this.pageNo = 0;
+        this.pencilTest = 'Pencil';
+
+        //generate the text
         this.dataService.getText().then((response) => {
             this.text = response.contents;
             console.log(this.text);
@@ -59,7 +57,21 @@ export class HomeComponent implements OnInit {
             console.log('line count = ' + this.lineCount);
             console.log('page count = ' + this.pageCount);
         });
-        this.pencilTest = 'Pencil';
+
+
+
+        this.resumePageAvailable().then((response) => {
+            console.log(response);
+            if (response === true) {
+                console.log('resuming furthest page');
+                this.resume();
+            } else {
+                console.log('no save found, starting book');
+                this.startFresh();
+            }
+        });
+
+        this.canvas.renderAll.bind(this.canvas);
     }
 
     async clear() {
@@ -83,6 +95,13 @@ export class HomeComponent implements OnInit {
         this.canvas.setBackgroundImage(bgImg, this.canvas.renderAll.bind(this.canvas));
         this.canvas.isDrawingMode = true;*/
 
+    }
+
+    startFresh() {
+        this.bgImage = './assets/image8.png';
+        this.clear();
+        this.canvas.renderAll.bind(this.canvas);
+        this.pageNo = 0;
     }
 
     openDialog() {
@@ -143,12 +162,22 @@ export class HomeComponent implements OnInit {
     }
 
     nextPage() {
-        this.savePage(false);
+        console.log('next page');
+       // this.savePage();
         this.pageNo++;
 
         if (this.pageNo <= this.pageCount) {
-            this.changeBgImg();
-            this.getPage();
+            this.savedPageAvailable().then((response) => {
+                console.log(response);
+                if (response === true) {
+                    console.log('resuming saved page');
+                    this.getRequestedPage();
+                } else {
+                    console.log('no save found, page generated');
+                    this.changeBgImg();
+                    this.getPage();
+                }
+            });
         } else {
             this.pageNo--;
         }
@@ -157,8 +186,17 @@ export class HomeComponent implements OnInit {
     prevPage() {
         if (this.pageNo > 1) {
             this.pageNo--;
-            this.changeBgImg();
-            this.getPage();
+            this.savedPageAvailable().then((response) => {
+                console.log(response);
+                if (response === true) {
+                    console.log('resuming saved page');
+                    this.getRequestedPage();
+                } else {
+                    console.log('no save found, page generated');
+                    this.changeBgImg();
+                    this.getPage();
+                }
+            });
         } else if (this.pageNo === 1) {
             this.pageNo = 0;
             this.changeBgImg();
@@ -166,11 +204,65 @@ export class HomeComponent implements OnInit {
 
     }
 
+    async resumePageAvailable() {
+        let test;
+        await this.dataService.resume().then((response) => {
+            console.log(response);
+            if (response.page) {
+                test = true;
+            } else {
+                test = false;
+            }
+        });
+        return test;
+    }
+
+
+    resume() {
+        this.dataService.resume().then((response) => {
+            console.log(response);
+            if (response.page) {
+                this.pageNo = response.page.pageNo;
+                const resumedJSON = response.page.json;
+                this.displayCanvas(resumedJSON);
+            }
+        });
+    }
+
+    async savedPageAvailable() {
+        let test;
+        await this.dataService.getPageForUser(this.pageNo).then((response) => {
+            console.log(response);
+            if (response.page) {
+                test = true;
+            } else {
+                test = false;
+            }
+        });
+        return test;
+    }
+
+    getRequestedPage() {
+        this.dataService.getPageForUser(this.pageNo).then((response) => {
+            const reqPageJSON = response.page.json;
+            this.displayCanvas(reqPageJSON);
+      });
+    }
+
+    displayCanvas(pageDataToLoad) {
+        this.changeBgImg();
+        console.log(this.pageNo);
+        console.log('in display canvas');
+        console.log(pageDataToLoad);
+        this.canvas.loadFromJSON(pageDataToLoad, this.canvas.renderAll.bind(this.canvas), function(o, object) {
+            fabric.log(o, object);
+        });
+
+
+    }
+
 
     feedbackClicked() {
-        localStorage.setItem('svg', this.canvas.toSVG());
-        localStorage.setItem('json', JSON.stringify(this.canvas.toDatalessJSON()));
-
         this.router.navigate(['feedback']);
     }
     // set the brush to eraser
@@ -183,7 +275,31 @@ export class HomeComponent implements OnInit {
 
     }
 
-    savePage(toServer: boolean) {
+    // server is expecting an array so that in the future multiple pages could be pushed together if a way is found to store them on the client device
+    savePage() {
+        let svg = this.canvas.toSVG();
+        let json = JSON.stringify(this.canvas.toDatalessJSON());
+
+        let pageArray = [];
+
+        pageArray.push({
+            pageNo: this.pageNo,
+            svg: svg,
+            json: json
+        });
+
+        if (this.authService.isLoggedIn) {
+            this.dataService.savePage(pageArray).then((response) => {
+                console.log(response);
+            });
+        } else {
+            // send to login page and resume
+        }
+    }
+
+    /* Version that uses local storage to collate pages together, then only push to server if save is clicked, provides offline use, but doesn't work in the browser due to localstorage having a limit 
+    if true is passed as a parameter it will call dataservice to send to server*/
+    addToListSavePage(toServer: boolean) {
 
         let svg = this.canvas.toSVG();
         let json = JSON.stringify(this.canvas.toDatalessJSON());
@@ -196,14 +312,28 @@ export class HomeComponent implements OnInit {
                 svg: svg,
                 json: json
             });
-            localStorage.setItem('pageList', JSON.stringify(a));
+            try{
+                localStorage.setItem('pageList', JSON.stringify(a));
+            }
+            catch(e) {
+                console.log('error caught');
+                console.log(e.message);
+                this.checkSaveError(e);
+            }
         } else {
             a.push({
                 pageNo: this.pageNo,
                 svg: svg,
                 json: json
             });
-            localStorage.setItem('pageList', JSON.stringify(a));
+            try {
+                localStorage.setItem('pageList', JSON.stringify(a));
+            }
+            catch (e) {
+                console.log('error caught');
+                console.log(e.message);
+                this.checkSaveError(e);
+            }
         }
 
         if (toServer === true) {
@@ -215,6 +345,16 @@ export class HomeComponent implements OnInit {
                 // send to login page and resume
             }
 
+        }
+    }
+
+    checkSaveError(e) {
+        console.log('in check save error');
+        if (e.message.includes('quota')) {
+            console.log('quota uihruihuihihuihuhuhuihuihui');
+
+        } else {
+            // FGNOTE what to do here
         }
     }
 

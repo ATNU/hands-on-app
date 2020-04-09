@@ -29,23 +29,63 @@ export class DataService {
       .catch(this.handleError);
   }
 
-  async saveProgress() {
-    const jwt = localStorage.getItem('id_token');
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    // save function for a single page, param is an array as server expects array of pages
+    async savePage(pageArray) {
+      const jwt = localStorage.getItem('id_token');
+      let headers = new HttpHeaders();
+      headers = headers.set('Authorization', 'Bearer ' + jwt);
 
-    const requestBody = {
-      pages: JSON.parse(localStorage.getItem('pageList')) || []
-    };
+      const requestBody = {
+        pages: pageArray
+      };
 
-    return this.http.post(environment.apiBaseURL + '/page/sou', requestBody, { headers })
-      .toPromise()
-      .then((response) => {
-        console.log(response);
-      })
-      .catch(this.handleError);
-  }
+      return this.http.post(environment.apiBaseURL + '/page/sou', requestBody, { headers })
+        .toPromise()
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(this.handleError);
+    }
 
+      // resume function for a single page, gets furthest page available
+      async resume()  {
+        const jwt = localStorage.getItem('id_token');
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + jwt,
+          responseType: 'text',
+          observe: 'response'
+        });
+
+        return this.http.get(environment.apiBaseURL + '/page/resume', {
+          headers
+        })
+          .toPromise()
+          .then((response) => {
+
+            return response;
+          })
+          .catch(this.handleError);
+      }
+
+      async getPageForUser(pageNo: number)  {
+        const jwt = localStorage.getItem('id_token');
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + jwt,
+          responseType: 'text',
+          observe: 'response'
+        });
+
+        return this.http.get(environment.apiBaseURL   + '/page/pageNumber/' + pageNo, { headers })
+          .toPromise()
+          .then((response) => {
+
+            return response;
+          })
+          .catch(this.handleError);
+      }
+    
   async getAllFeedbackAndCanvas() {
     return await this.http.get(environment.apiBaseURL + '/feedback/all', {
       headers: new HttpHeaders()
@@ -135,6 +175,24 @@ export class DataService {
 
 
 
+  // save function where pages are stored in local storage, not currently used as exceeding limits
+  async saveProgress() {
+    const jwt = localStorage.getItem('id_token');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+
+    const requestBody = {
+      pages: JSON.parse(localStorage.getItem('pageList')) || []
+    };
+
+    return this.http.post(environment.apiBaseURL + '/page/sou', requestBody, { headers })
+      .toPromise()
+      .then((response) => {
+        console.log(response);
+        localStorage.removeItem('pageList');
+      })
+      .catch(this.handleError);
+  }
 
 
 
