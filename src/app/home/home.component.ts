@@ -286,7 +286,7 @@ export class HomeComponent implements OnInit {
 
     // server is expecting an array so that in the future multiple pages could be pushed together if a way is found to store them on the client device
     savePage() {
-        const svg = this.canvas.toSVG();
+        const svg = ''; //this.canvas.toSVG();
         const json = JSON.stringify(this.canvas.toDatalessJSON());
 
         const pageArray = [];
