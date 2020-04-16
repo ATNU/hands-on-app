@@ -37,7 +37,6 @@ export class HomeComponent implements OnInit {
         private dialog: MatDialog,
         private dataService: DataService,
         private authService: AuthService
-
     ) {
     }
 
@@ -81,6 +80,13 @@ export class HomeComponent implements OnInit {
         this.canvas.clear();
         // this.canvas.setBackgroundImage(this.bgImage, this.canvas.renderAll.bind(this.canvas));
         this.getPage();
+        fabric.Image.fromURL(this.bgImage, (oImg) => {
+            // oImg.height = this.screenHeight;
+            // oImg.width = this.screenWidth;
+            this.canvas.add(oImg);
+            this.canvas.sendToBack(oImg);
+            this.canvas.renderAll();
+        }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
         this.canvas.isDrawingMode = true;
         /*
         scales background image to the size of the div, but it doesn't load correctly, only when you attempt to draw
@@ -164,12 +170,15 @@ export class HomeComponent implements OnInit {
             this.bgImage = './assets/leftpage.jpg';
         }
         this.clear();
-
     }
 
     nextPage() {
-        console.log('next page');
-       // this.savePage();
+
+        // don't navigate if not logged in
+        if (!this.authService.isLoggedIn()) {
+            this.router.navigate(['/login']);
+        }
+
         this.pageNo++;
 
         if (this.pageNo <= this.pageCount) {
@@ -190,7 +199,12 @@ export class HomeComponent implements OnInit {
     }
 
     prevPage() {
-        if (this.pageNo > 0) {
+         // don't navigate if not logged in
+         if (!this.authService.isLoggedIn()) {
+            this.router.navigate(['/login']);
+        }
+
+         if (this.pageNo > 0) {
             this.pageNo--;
             this.savedPageAvailable().then((response) => {
                 console.log(response);
@@ -379,7 +393,7 @@ export class HomeComponent implements OnInit {
         }
 
     }
-    // This assumes that page 1 is the manuscript page so the first page actually generated using this method should be page 2.
+        // This assumes that page 1 is the manuscript page so the first page actually generated using this method should be page 2.
     // It returns a list of lines (e.g. lines[0] is the first line to display on the page.
     getPage() {
         console.log('get page page no');
@@ -448,9 +462,8 @@ export class HomeComponent implements OnInit {
 
 
     }
-
     // start counting at page 2 because manuscript is page 1
-    countPages(listOfLines) {
+countPages(listOfLines) {
         let lines = 0;
         listOfLines.forEach(() => {
             lines++;
