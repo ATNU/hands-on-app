@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
         this.openDialog();
         this.pencilTest = 'Pencil';
 
-        //generate the text
+        // generate the text
         this.dataService.getText().then((response) => {
             this.text = response.contents;
             console.log(this.text);
@@ -272,22 +272,22 @@ export class HomeComponent implements OnInit {
         this.canvas.isDrawingMode = true;
         const eraserBrush = new EraserBrush(this.canvas);
         eraserBrush.width = 10;
-        eraserBrush.color = "#A59D87";
+        eraserBrush.color = '#A59D87';
         this.canvas.freeDrawingBrush = eraserBrush;
 
     }
 
     // server is expecting an array so that in the future multiple pages could be pushed together if a way is found to store them on the client device
     savePage() {
-        let svg = this.canvas.toSVG();
-        let json = JSON.stringify(this.canvas.toDatalessJSON());
+        const svg = this.canvas.toSVG();
+        const json = JSON.stringify(this.canvas.toDatalessJSON());
 
-        let pageArray = [];
+        const pageArray = [];
 
         pageArray.push({
             pageNo: this.pageNo,
-            svg: svg,
-            json: json
+            svg,
+            json
         });
 
         if (this.authService.isLoggedIn) {
@@ -299,25 +299,24 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    /* Version that uses local storage to collate pages together, then only push to server if save is clicked, provides offline use, but doesn't work in the browser due to localstorage having a limit 
+    /* Version that uses local storage to collate pages together, then only push to server if save is clicked, provides offline use, but doesn't work in the browser due to localstorage having a limit
     if true is passed as a parameter it will call dataservice to send to server*/
     addToListSavePage(toServer: boolean) {
 
-        let svg = this.canvas.toSVG();
-        let json = JSON.stringify(this.canvas.toDatalessJSON());
+        const svg = this.canvas.toSVG();
+        const json = JSON.stringify(this.canvas.toDatalessJSON());
 
         let a = [];
         if (localStorage.hasOwnProperty('pageList')) {
             a = JSON.parse(localStorage.getItem('pageList')) || [];
             a.push({
                 pageNo: this.pageNo,
-                svg: svg,
-                json: json
+                svg,
+                json
             });
-            try{
+            try {
                 localStorage.setItem('pageList', JSON.stringify(a));
-            }
-            catch(e) {
+            } catch (e) {
                 console.log('error caught');
                 console.log(e.message);
                 this.checkSaveError(e);
@@ -325,8 +324,8 @@ export class HomeComponent implements OnInit {
         } else {
             a.push({
                 pageNo: this.pageNo,
-                svg: svg,
-                json: json
+                svg,
+                json
             });
             try {
                 localStorage.setItem('pageList', JSON.stringify(a));
@@ -515,12 +514,12 @@ const EraserBrush = fabric.util.createClass(fabric.PencilBrush, {
      * and add it to the fabric canvas.
      */
     _finalizeAndAddPath() {
-        let ctx = this.canvas.contextTop;
+        const ctx = this.canvas.contextTop;
         ctx.closePath();
         if (this.decimate) {
             this._points = this.decimatePoints(this._points, this.decimate);
         }
-        let pathData = this.convertPointsToSVGPath(this._points).join('');
+        const pathData = this.convertPointsToSVGPath(this._points).join('');
         if (pathData === 'M 0 0 Q 0 0 0 0 L 0 0') {
             // do not create 0 width/height paths, as they are
             // rendered inconsistently across browsers
@@ -531,7 +530,7 @@ const EraserBrush = fabric.util.createClass(fabric.PencilBrush, {
         }
 
         // use globalCompositeOperation to 'fake' eraser
-        let path = this.createPath(pathData);
+        const path = this.createPath(pathData);
         path.globalCompositeOperation = 'destination-out';
         path.selectable = false;
         path.evented = false;
