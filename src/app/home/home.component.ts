@@ -80,13 +80,6 @@ export class HomeComponent implements OnInit {
         this.canvas.clear();
         // this.canvas.setBackgroundImage(this.bgImage, this.canvas.renderAll.bind(this.canvas));
         this.getPage();
-        fabric.Image.fromURL(this.bgImage, (oImg) => {
-            // oImg.height = this.screenHeight;
-            // oImg.width = this.screenWidth;
-            this.canvas.add(oImg);
-            this.canvas.sendToBack(oImg);
-            this.canvas.renderAll();
-        }, {evented: false, selectable: false, hasBorders: false, hasControls: false, hasRotatingPoint: false});
         this.canvas.isDrawingMode = true;
         /*
         scales background image to the size of the div, but it doesn't load correctly, only when you attempt to draw
