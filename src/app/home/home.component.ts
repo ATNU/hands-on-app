@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
     dialogOpen: boolean;
     resObject: any;
     furthestPage: number;
+    pencilWidth: number;
 
     constructor(
         private router: Router,
@@ -71,6 +72,8 @@ export class HomeComponent implements OnInit {
             }
         });
 
+        this.colour = this.canvas.freeDrawingBrush.color;
+        this.pencilWidth = this.canvas.freeDrawingBrush.width;
         this.canvas.renderAll.bind(this.canvas);
     }
 
@@ -127,24 +130,27 @@ export class HomeComponent implements OnInit {
         this.canvas.renderAll.bind(this.canvas);
         this.canvas.isDrawingMode = true;
         this.canvas.freeDrawingBrush = new fabric[this.pencilTest + 'Brush'](this.canvas);
-        this.canvas.freeDrawingBrush.width = 5;
+        this.canvas.freeDrawingBrush.width = this.pencilWidth;
         this.canvas.freeDrawingBrush.color = this.colour;
-        //   this.canvas.renderAll();
+        this.canvas.renderAll();
     }
 
 
     changeColour(colour: string) {
+        this.colour = colour;
         this.canvas.freeDrawingBrush.color = colour;
     }
 
     increaseWidth() {
         this.canvas.freeDrawingBrush.width++;
+        this.pencilWidth = this.canvas.freeDrawingBrush.width;
     }
 
     decreaseWidth() {
         if (this.canvas.freeDrawingBrush.width > 1) {
             this.canvas.freeDrawingBrush.width--;
         }
+        this.pencilWidth = this.canvas.freeDrawingBrush.width;
     }
 
     changeBgImg() {
@@ -184,7 +190,7 @@ export class HomeComponent implements OnInit {
     }
 
     prevPage() {
-        if (this.pageNo > 1) {
+        if (this.pageNo > 0) {
             this.pageNo--;
             this.savedPageAvailable().then((response) => {
                 console.log(response);
@@ -197,24 +203,20 @@ export class HomeComponent implements OnInit {
                     this.getPage();
                 }
             });
-        } else if (this.pageNo === 1) {
-            this.pageNo = 0;
-            this.changeBgImg();
         }
-
     }
 
     async resumePageAvailable() {
-        let test;
+        let isPage: boolean;
         await this.dataService.resume().then((response) => {
             console.log(response);
             if (response.page) {
-                test = true;
+                isPage = true;
             } else {
-                test = false;
+                isPage = false;
             }
         });
-        return test;
+        return isPage;
     }
 
 
@@ -230,16 +232,16 @@ export class HomeComponent implements OnInit {
     }
 
     async savedPageAvailable() {
-        let test;
+        let isPage: boolean;
         await this.dataService.getPageForUser(this.pageNo).then((response) => {
             console.log(response);
             if (response.page) {
-                test = true;
+                isPage = true;
             } else {
-                test = false;
+                isPage = false;
             }
         });
-        return test;
+        return isPage;
     }
 
     getRequestedPage() {
@@ -328,8 +330,7 @@ export class HomeComponent implements OnInit {
             });
             try {
                 localStorage.setItem('pageList', JSON.stringify(a));
-            }
-            catch (e) {
+            } catch (e) {
                 console.log('error caught');
                 console.log(e.message);
                 this.checkSaveError(e);
