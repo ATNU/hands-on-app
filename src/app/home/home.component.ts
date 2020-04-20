@@ -173,6 +173,8 @@ export class HomeComponent implements OnInit {
             this.router.navigate(['/login']);
         }
 
+        this.savePage();
+
         this.pageNo++;
 
         if (this.pageNo <= this.pageCount) {
@@ -197,6 +199,8 @@ export class HomeComponent implements OnInit {
          if (!this.authService.isLoggedIn()) {
             this.router.navigate(['/login']);
         }
+
+         this.savePage();
 
          if (this.pageNo > 0) {
             this.pageNo--;
@@ -290,9 +294,10 @@ export class HomeComponent implements OnInit {
 
     }
 
-    // server is expecting an array so that in the future multiple pages could be pushed together if a way is found to store them on the client device
+    /* server is expecting an array
+    in the future multiple pages could be pushed together if a way is found to store them on the client device*/
     savePage() {
-        const svg = ''; //this.canvas.toSVG();
+        const svg = ''; // this.canvas.toSVG(); removed to reduce size of packet to server, currently SVG is unused, but possible
         const json = JSON.stringify(this.canvas.toDatalessJSON());
 
         const pageArray = [];
@@ -312,7 +317,8 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    /* Version that uses local storage to collate pages together, then only push to server if save is clicked, provides offline use, but doesn't work in the browser due to localstorage having a limit
+    /* UNUSED - Version that uses local storage to collate pages together, then only push to server if save is clicked,
+    provides offline use, but doesn't work in the browser due to localstorage having a limit
     if true is passed as a parameter it will call dataservice to send to server*/
     addToListSavePage(toServer: boolean) {
 
