@@ -26,7 +26,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.email, this.password);
 
       // reset alerts on submit
       this.alertService.clear();

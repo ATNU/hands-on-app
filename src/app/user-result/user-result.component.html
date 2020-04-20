@@ -24,7 +24,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let page of pages" (click)="viewPage(page._id)">
-            <td>{{page.pageNo}}</td>
+            <td>{{page.pageNo + 1}}</td>
             <td>{{transformDate(page.timestamp)}}</td>
         </tr>
         </tbody>

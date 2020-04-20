@@ -21,13 +21,26 @@ feedbacksWithProcessedTime: any;
 
   ngOnInit() {
     this.dataService.getUserSummaries().then((summariesObject) => {
-      this.summaries = summariesObject.summaries;
+
+        // correct page number so not zero indexed in admin data
+        this.correctPageNumber(summariesObject);
+
       console.log(this.summaries);
       this.dataService.getAllFeedbacks().then((results) => {
 this.allFeedbacks = results;
 this.processTimes();
       });
     });
+  }
+
+  correctPageNumber(summariesObject) {
+    summariesObject.summaries.forEach( (summary) => {
+        if (summary.furthestPage !== null || summary.furthestPage !== undefined) {
+            // add one to furthest page saved
+            summary.furthestPage += 1;
+        }
+    });
+      this.summaries = summariesObject.summaries;
   }
 
   // put timestamps in nicer format for download
@@ -69,7 +82,7 @@ downloadFeedbackCSV() {
     }
 }
 downloadSummaryCSV() {
-    const fields = ['id', 'furthestPage', 'pages', 'feedbacks'];
+    const fields = ['id', 'pages', 'feedbacks'];
     const opts = { fields };
 
     try {

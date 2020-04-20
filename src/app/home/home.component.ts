@@ -152,6 +152,7 @@ export class HomeComponent implements OnInit {
         this.pencilWidth = this.canvas.freeDrawingBrush.width;
     }
 
+
     changeBgImg() {
         if (this.pageNo === 0) {
             this.bgImage = './assets/image8.png';
