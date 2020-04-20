@@ -12,7 +12,9 @@ export class PageResultComponent implements OnInit {
 ID: string;
 canvas: any;
 page: any;
-svg: any;
+json: any;
+pageNo;
+bgImage;
 
   constructor(
       private dataService: DataService,
@@ -20,32 +22,45 @@ svg: any;
   ) { }
 
   ngOnInit() {
-    this.canvas = new fabric.Canvas('viewCanvas');
-    this.canvas.renderAll.bind(this.canvas);
+    this.canvas = new fabric.Canvas('myCanvas');
     this.getPageResult();
   }
 
 
-  getPageResult() {
+getPageResult() {
     this.route.paramMap.subscribe(params => {
       this.ID = params.get('pageID');
       this.dataService.getPage(this.ID).then((result) => {
         this.page = result;
-        this.svg = result.svg;
-        this.displayCanvas();
+        this.json = result.json;
+        this.pageNo = result.pageNo++;
+        console.log(result);
+        this.displayCanvas(result.json);
       });
   });
   }
 
-  displayCanvas() {
-    fabric.loadSVGFromString(this.svg, (objects, options) => {
-
-      const obj = fabric.util.groupSVGElements(objects, options);
-      this.canvas.add(obj);
-      this.canvas.renderAll.bind(this.canvas);
-      this.canvas.isDrawingMode = true;
-
+  displayCanvas(pageDataToLoad) {
+    this.changeBgImg();
+    console.log(this.pageNo);
+    console.log('in display canvas');
+    console.log(pageDataToLoad);
+    this.canvas.loadFromJSON(pageDataToLoad, this.canvas.renderAll.bind(this.canvas), function (o, object) {
+      fabric.log(o, object);
     });
+  }
+
+  changeBgImg() {
+    console.log('change background image');
+    if (this.pageNo === 0) {
+      this.bgImage = './assets/image8.png';
+    } else if (this.pageNo % 2 === 0) {
+      // page even
+      this.bgImage = './assets/rightpage.jpg';
+    } else {
+      // page odd
+      this.bgImage = './assets/leftpage.jpg';
+    }
   }
 
   transformDate(dateString) {
