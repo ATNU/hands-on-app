@@ -217,7 +217,7 @@ export class HomeComponent implements OnInit {
         let isPage: boolean;
         await this.dataService.resume().then((response) => {
             console.log(response);
-            if (response.page) {
+            if (response.page._id) {
                 isPage = true;
             } else {
                 isPage = false;
