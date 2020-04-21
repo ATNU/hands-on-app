@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from '../data.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import {FeedbackSuccessComponent} from "../feedback-success/feedback-success.component";
-
+import {FeedbackSuccessComponent} from '../feedback-success/feedback-success.component';
+import { AuthService } from '../auth.service';
 
 @Component({
     selector: 'app-feedback',
@@ -45,7 +45,8 @@ export class FeedbackComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private dataService: DataService,
-        private dialog: MatDialog) {
+        private dialog: MatDialog,
+        private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -53,31 +54,36 @@ this.complete = true;
     }
 
     async saveFeedback() {
-        this.submitted = true;
-        console.log('submitted');
-        this.checkComplete();
+        if (this.authService.isLoggedIn) {
+            this.submitted = true;
+            console.log('submitted');
+            this.checkComplete();
 
-        if (this.complete) {
-            console.log('form complete so send');
-            const feedbackObject = {
-                q1Check: this.q1Check,
-                q1Text: this.q1Text,
-                q2Check: this.q2Check,
-                q2Text: this.q2Text,
-                q3Check: this.q3Check,
-                q3Text: this.q3Text,
-                job: this.job,
-                jobText: this.jobText,
-                device: this.device,
-                deviceText: this.deviceText,
-                createdAt: this.date,
-            };
-            console.log(feedbackObject);
+            if (this.complete) {
+                console.log('form complete so send');
+                const feedbackObject = {
+                    q1Check: this.q1Check,
+                    q1Text: this.q1Text,
+                    q2Check: this.q2Check,
+                    q2Text: this.q2Text,
+                    q3Check: this.q3Check,
+                    q3Text: this.q3Text,
+                    job: this.job,
+                    jobText: this.jobText,
+                    device: this.device,
+                    deviceText: this.deviceText,
+                    createdAt: this.date,
+                };
+                console.log(feedbackObject);
 
-            this.dataService.saveFeedback(feedbackObject).then(() => {
-                this.confirmSent();
-            });
+                this.dataService.saveFeedback(feedbackObject).then(() => {
+                    this.confirmSent();
+                });
+            }
+        } else {
+            this.router.navigate(['/login']);
         }
+
     }
 
     confirmSent() {
