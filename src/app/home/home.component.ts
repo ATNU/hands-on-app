@@ -313,7 +313,7 @@ export class HomeComponent implements OnInit {
                 console.log(response);
             });
         } else {
-            // send to login page and resume
+            this.router.navigate(['/login']);
         }
     }
 
@@ -361,7 +361,7 @@ export class HomeComponent implements OnInit {
                     console.log(response);
                 });
             } else {
-                // send to login page and resume
+                this.router.navigate(['/login']);
             }
 
         }
