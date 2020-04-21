@@ -16,7 +16,6 @@ export class AuthService {
     }
 
     signUp(user) {
-        console.log('register');
         return this.http.post(environment.apiBaseURL + '/auth/signup', {
             email: user.email,
             password : user.password

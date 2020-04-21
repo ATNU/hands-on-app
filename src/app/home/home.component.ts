@@ -42,8 +42,6 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
         this.pageNo = 0;
-
-        console.log('base URL: ' + environment.apiBaseURL);
         this.canvas = new fabric.Canvas('myCanvas');
         this.openDialog();
         this.pencilTest = 'Pencil';
@@ -51,22 +49,19 @@ export class HomeComponent implements OnInit {
         // generate the text
         this.dataService.getText().then((response) => {
             this.text = response.contents;
-            console.log(this.text);
             this.allLines = this.text.split('\\n');
             this.countPages(this.allLines);
-            console.log('line count = ' + this.lineCount);
-            console.log('page count = ' + this.pageCount);
         });
 
 
 
         this.resumePageAvailable().then((response) => {
-            console.log(response);
+            // console.log(response);
             if (response === true) {
-                console.log('resuming furthest page');
+                // console.log('resuming furthest page');
                 this.resume();
             } else {
-                console.log('no save found, starting book');
+                // console.log('no save found, starting book');
                 this.startFresh();
             }
         });
@@ -179,12 +174,12 @@ export class HomeComponent implements OnInit {
 
         if (this.pageNo <= this.pageCount) {
             this.savedPageAvailable().then((response) => {
-                console.log(response);
+                // console.log(response);
                 if (response === true) {
-                    console.log('resuming saved page');
+                    // console.log('resuming saved page');
                     this.getRequestedPage();
                 } else {
-                    console.log('no save found, page generated');
+                    // console.log('no save found, page generated');
                     this.changeBgImg();
                     this.getPage();
                 }
@@ -195,22 +190,22 @@ export class HomeComponent implements OnInit {
     }
 
     prevPage() {
-         // don't navigate if not logged in
-         if (!this.authService.isLoggedIn()) {
+        // don't navigate if not logged in
+        if (!this.authService.isLoggedIn()) {
             this.router.navigate(['/login']);
         }
 
-         this.savePage();
+        this.savePage();
 
-         if (this.pageNo > 0) {
+        if (this.pageNo > 0) {
             this.pageNo--;
             this.savedPageAvailable().then((response) => {
-                console.log(response);
+                // console.log(response);
                 if (response === true) {
-                    console.log('resuming saved page');
+                    // console.log('resuming saved page');
                     this.getRequestedPage();
                 } else {
-                    console.log('no save found, page generated');
+                    // console.log('no save found, page generated');
                     this.changeBgImg();
                     this.getPage();
                 }
@@ -226,7 +221,7 @@ export class HomeComponent implements OnInit {
     async resumePageAvailable() {
         let isPage: boolean;
         await this.dataService.resume().then((response) => {
-            console.log(response);
+            // console.log(response);
             if (response.page._id) {
                 isPage = true;
             } else {
@@ -239,7 +234,7 @@ export class HomeComponent implements OnInit {
 
     resume() {
         this.dataService.resume().then((response) => {
-            console.log(response);
+            // console.log(response);
             if (response.page) {
                 this.pageNo = response.page.pageNo;
                 const resumedJSON = response.page.json;
@@ -251,7 +246,7 @@ export class HomeComponent implements OnInit {
     async savedPageAvailable() {
         let isPage: boolean;
         await this.dataService.getPageForUser(this.pageNo).then((response) => {
-            console.log(response);
+            // console.log(response);
             if (response.page) {
                 isPage = true;
             } else {
@@ -265,25 +260,22 @@ export class HomeComponent implements OnInit {
         this.dataService.getPageForUser(this.pageNo).then((response) => {
             const reqPageJSON = response.page.json;
             this.displayCanvas(reqPageJSON);
-      });
+        });
     }
 
     displayCanvas(pageDataToLoad) {
         this.changeBgImg();
-        console.log(this.pageNo);
-        console.log('in display canvas');
-        console.log(pageDataToLoad);
-        this.canvas.loadFromJSON(pageDataToLoad, this.canvas.renderAll.bind(this.canvas), function(o, object) {
+        this.canvas.loadFromJSON(pageDataToLoad, this.canvas.renderAll.bind(this.canvas), function (o, object) {
             fabric.log(o, object);
         });
 
 
     }
 
-
     feedbackClicked() {
         this.router.navigate(['feedback']);
     }
+
     // set the brush to eraser
     erase() {
         this.canvas.isDrawingMode = true;
@@ -310,7 +302,6 @@ export class HomeComponent implements OnInit {
 
         if (this.authService.isLoggedIn) {
             this.dataService.savePage(pageArray).then((response) => {
-                console.log(response);
             });
         } else {
             this.router.navigate(['/login']);
@@ -372,14 +363,14 @@ export class HomeComponent implements OnInit {
     checkSaveError(e) {
         console.log('in check save error');
         if (e.message.includes('quota')) {
-            console.log('quota uihruihuihihuihuhuhuihuihui');
+            console.log('quota');
 
         } else {
             // FGNOTE what to do here
         }
     }
-UNUSED CODE END
-*/
+    UNUSED CODE END
+    */
     downLoadJpg() {
         const canvasDataUrl = this.canvas.toDataURL()
             .replace(/^data:image\/[^;]*/, 'data:application/octet-stream'),
@@ -400,77 +391,76 @@ UNUSED CODE END
         }
 
     }
-        // This assumes that page 1 is the manuscript page so the first page actually generated using this method should be page 2.
+    // This assumes that page 1 is the manuscript page so the first page actually generated using this method should be page 2.
     // It returns a list of lines (e.g. lines[0] is the first line to display on the page.
     getPage() {
-        console.log('get page page no');
-        console.log(this.pageNo);
         if (this.pageNo !== 0) {
-                    // use page number to work out what lines are needed, then, if they are less than total number of lines, add them to a list of lines for the requested page
-        // after removing '/r'
+            // use page number to work out what lines are needed,
+            // if they are less than total number of lines, add them to a list of lines for the requested page
+            // after removing '/r'
 
-        const linesList = [];
+            const linesList = [];
 
-        const line1 = (this.pageNo - 1) * 5;
+            const line1 = (this.pageNo - 1) * 5;
 
-        // if line1 is OK, add and move on to get line 2
-        if (line1 <= (this.lineCount - 1)) {
+            // if line1 is OK, add and move on to get line 2
+            if (line1 <= (this.lineCount - 1)) {
 
-            linesList.push(this.allLines[line1].replace('\\r', ''));
+                linesList.push(this.allLines[line1].replace('\\r', ''));
 
-            const line2 = line1 + 1;
+                const line2 = line1 + 1;
 
-            // if line 2 is OK, add and move on to get line 3
-            if (line2 <= (this.lineCount - 1)) {
-                linesList.push(this.allLines[line2].replace('\\r', ''));
+                // if line 2 is OK, add and move on to get line 3
+                if (line2 <= (this.lineCount - 1)) {
+                    linesList.push(this.allLines[line2].replace('\\r', ''));
 
-                const line3 = line1 + 2;
+                    const line3 = line1 + 2;
 
-                // if line 3 is OK, add and move on to get line 4
-                if (line3 <= (this.lineCount - 1)) {
-                    linesList.push(this.allLines[line3].replace('\\r', ''));
+                    // if line 3 is OK, add and move on to get line 4
+                    if (line3 <= (this.lineCount - 1)) {
+                        linesList.push(this.allLines[line3].replace('\\r', ''));
 
-                    const line4 = line1 + 3;
+                        const line4 = line1 + 3;
 
-                    // if line 4 is OK, add and move on to get line 5
-                    if (line4 <= (this.lineCount - 1)) {
-                        linesList.push(this.allLines[line4].replace('\\r', ''));
+                        // if line 4 is OK, add and move on to get line 5
+                        if (line4 <= (this.lineCount - 1)) {
+                            linesList.push(this.allLines[line4].replace('\\r', ''));
 
-                        const line5 = line1 + 4;
+                            const line5 = line1 + 4;
 
-                        // if line 5 is OK, add
-                        if (line5 <= (this.lineCount - 1)) {
-                            linesList.push(this.allLines[line5].replace('\\r', ''));
+                            // if line 5 is OK, add
+                            if (line5 <= (this.lineCount - 1)) {
+                                linesList.push(this.allLines[line5].replace('\\r', ''));
+                            }
                         }
                     }
                 }
             }
-        }
 
-        this.pageText = linesList.join('\n\n\n');
+            this.pageText = linesList.join('\n\n\n');
 
-        // Generate a fabric text object
-        // adjustments for left and right page margins
-        // if a line of text is too long, reduce the font size until it fits
-        const maxWidth = 500;
-        const textLines = new fabric.Text(this.pageText, {
-            left: this.bgImage === './assets/rightpage.jpg' ? 50 : 100,
-            top: 250,
-            fontSize: 22,
-            textAlign: 'left'
-        });
+            // Generate a fabric text object
+            // adjustments for left and right page margins
+            // if a line of text is too long, reduce the font size until it fits
+            const maxWidth = 500;
+            const textLines = new fabric.Text(this.pageText, {
+                left: this.bgImage === './assets/rightpage.jpg' ? 50 : 100,
+                top: 250,
+                fontSize: 22,
+                textAlign: 'left'
+            });
 
-        if (textLines.width > maxWidth) {
-            textLines.fontSize *= maxWidth / (textLines.width + 1);
-            textLines.width = maxWidth;
-        }
-        this.canvas.add(textLines);
+            if (textLines.width > maxWidth) {
+                textLines.fontSize *= maxWidth / (textLines.width + 1);
+                textLines.width = maxWidth;
+            }
+            this.canvas.add(textLines);
         }
 
 
     }
     // start counting at page 2 because manuscript is page 1
-countPages(listOfLines) {
+    countPages(listOfLines) {
         let lines = 0;
         listOfLines.forEach(() => {
             lines++;

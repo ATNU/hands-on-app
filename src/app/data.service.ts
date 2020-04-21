@@ -85,7 +85,7 @@ export class DataService {
           })
           .catch(this.handleError);
       }
-    
+
   async getAllFeedbackAndCanvas() {
     return await this.http.get(environment.apiBaseURL + '/feedback/all', {
       headers: new HttpHeaders()

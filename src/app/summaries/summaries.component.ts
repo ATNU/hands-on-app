@@ -25,10 +25,10 @@ feedbacksWithProcessedTime: any;
         // correct page number so not zero indexed in admin data
         this.correctPageNumber(summariesObject);
 
-      console.log(this.summaries);
-      this.dataService.getAllFeedbacks().then((results) => {
-this.allFeedbacks = results;
-this.processTimes();
+        //console.log(this.summaries);
+        this.dataService.getAllFeedbacks().then((results) => {
+          this.allFeedbacks = results;
+          this.processTimes();
       });
     });
   }
@@ -40,7 +40,7 @@ this.processTimes();
             summary.furthestPage += 1;
         }
     });
-      this.summaries = summariesObject.summaries;
+    this.summaries = summariesObject.summaries;
   }
 
   // put timestamps in nicer format for download

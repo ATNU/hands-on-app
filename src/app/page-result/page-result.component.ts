@@ -42,16 +42,12 @@ getPageResult() {
 
   displayCanvas(pageDataToLoad) {
     this.changeBgImg();
-    console.log(this.pageNo);
-    console.log('in display canvas');
-    console.log(pageDataToLoad);
     this.canvas.loadFromJSON(pageDataToLoad, this.canvas.renderAll.bind(this.canvas), function (o, object) {
       fabric.log(o, object);
     });
   }
 
   changeBgImg() {
-    console.log('change background image');
     if (this.pageNo === 0) {
       this.bgImage = './assets/image8.png';
     } else if (this.pageNo % 2 === 0) {

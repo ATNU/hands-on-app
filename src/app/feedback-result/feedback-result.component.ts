@@ -19,7 +19,7 @@ feedback: any;
   ngOnInit() {
     this.getFeedbackResult().then(() => {
       this.dataService.getFeedback(this.ID).then((result) => {
-        console.log('call feedback' + this.feedback);
+        // console.log('call feedback' + this.feedback);
         this.feedback = result;
       });
 

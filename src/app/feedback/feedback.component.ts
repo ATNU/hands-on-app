@@ -56,11 +56,9 @@ this.complete = true;
 
     async saveFeedback() {
         this.submitted = true;
-        console.log('submitted');
         this.checkComplete();
 
         if (this.complete) {
-            console.log('form complete so send');
             const feedbackObject = {
                 q1Check: this.q1Check,
                 q1Text: this.q1Text,
@@ -74,7 +72,6 @@ this.complete = true;
                 deviceText: this.deviceText,
                 createdAt: this.date,
             };
-            console.log(feedbackObject);
 
             if (this.authService.isLoggedIn()) {
                 this.dataService.saveFeedback(feedbackObject).then(() => {
