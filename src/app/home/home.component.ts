@@ -317,9 +317,11 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    /* UNUSED - Version that uses local storage to collate pages together, then only push to server if save is clicked,
+    /* UNUSED CODE - Version that uses local storage to collate pages together, then only push to server if save is clicked,
     provides offline use, but doesn't work in the browser due to localstorage having a limit
-    if true is passed as a parameter it will call dataservice to send to server*/
+    if true is passed as a parameter it will call dataservice to send to server, function checksaveerror needs improving
+
+
     addToListSavePage(toServer: boolean) {
 
         const svg = this.canvas.toSVG();
@@ -376,8 +378,8 @@ export class HomeComponent implements OnInit {
             // FGNOTE what to do here
         }
     }
-
-
+UNUSED CODE END
+*/
     downLoadJpg() {
         const canvasDataUrl = this.canvas.toDataURL()
             .replace(/^data:image\/[^;]*/, 'data:application/octet-stream'),
