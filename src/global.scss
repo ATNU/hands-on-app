@@ -7,3 +7,10 @@ $secondary: #465251;
 @import "~bootswatch/dist/darkly/variables";
 @import "~bootstrap/scss/bootstrap";
 @import "~bootswatch/dist/darkly/bootswatch";
+
+.password-toggle {
+  position: absolute;
+  top: 25px;
+  padding: 10px;
+  right: 0;
+}

@@ -26,6 +26,7 @@ import { FeedbackResultComponent } from './feedback-result/feedback-result.compo
 import { PageResultComponent } from './page-result/page-result.component';
 import { AlertComponent } from './alert/alert.component';
 import {ErrorInterceptor} from "./error.interceptor";
+import { PasswordDirective } from './password.directive';
 
 
 // @ts-ignore
@@ -44,7 +45,8 @@ import {ErrorInterceptor} from "./error.interceptor";
     UserResultComponent,
     FeedbackResultComponent,
     PageResultComponent,
-    AlertComponent
+    AlertComponent,
+    PasswordDirective
   ],
   entryComponents: [DialogComponent, FeedbackSuccessComponent],
   imports: [
