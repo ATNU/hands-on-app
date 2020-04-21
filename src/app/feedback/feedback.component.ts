@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from '../data.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import {FeedbackSuccessComponent} from "../feedback-success/feedback-success.component";
+import {AuthService} from "../auth.service";
 
 
 @Component({
@@ -45,7 +46,8 @@ export class FeedbackComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private dataService: DataService,
-        private dialog: MatDialog) {
+        private dialog: MatDialog,
+        private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -74,9 +76,13 @@ this.complete = true;
             };
             console.log(feedbackObject);
 
-            this.dataService.saveFeedback(feedbackObject).then(() => {
-                this.confirmSent();
-            });
+            if (this.authService.isLoggedIn()) {
+                this.dataService.saveFeedback(feedbackObject).then(() => {
+                    this.confirmSent();
+                });
+            } else {
+                this.router.navigate(['login']);
+            }
         }
     }
 
