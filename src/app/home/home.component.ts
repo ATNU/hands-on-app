@@ -131,6 +131,7 @@ export class HomeComponent implements OnInit {
 
 
     changeColour(colour: string) {
+        this.enableDraw();
         this.colour = colour;
         this.canvas.freeDrawingBrush.color = colour;
     }
