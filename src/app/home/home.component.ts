@@ -274,6 +274,7 @@ export class HomeComponent implements OnInit {
     }
 
     feedbackClicked() {
+        this.savePage();
         this.router.navigate(['feedback']);
     }
 
