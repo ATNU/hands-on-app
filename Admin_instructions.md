@@ -1,8 +1,7 @@
 # Hands-On Reading Admin Instructions
 
-TODO: Check this is the correct URL once deployed
 
-To view the submitted pages and feedback forms, go to this URL: [https://hands-on-reading.ncldata.dev/admin](https://hands-on-reading.ncldata.dev/home). You do not need to be logged in. 
+To view the submitted pages and feedback forms, go to this URL: [https://hands-on-reading.atnu.ncl.ac.uk/admin](https://hands-on-reading.atnu.ncl.ac.uk/admin). You do not need to be logged in. 
 Admin pages are best viewed on a PC rather than tablet.
 
 ## Summary data
