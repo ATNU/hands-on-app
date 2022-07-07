@@ -29,7 +29,7 @@
     "bootswatch": "^4.4.1",
     "core-js": "^2.5.4",
     "fabric": "^3.4.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "file-saver": "^2.0.2",
     "json2csv": "^4.5.4",
     "ngx-color-picker": "^8.2.0",
